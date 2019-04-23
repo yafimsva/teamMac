@@ -19,11 +19,19 @@ $f3 = Base::instance();
 //Turn of Fat-Free error reporting
 $f3->set('DEBUG', 3);
 
-$f3->route('GET|POST /', function() {
+$f3->route('GET|POST /home', function() {
 
     $template = new Template();
     echo $template->render('views/index.html');
 });
+
+$f3->route('GET|POST /', function() {
+
+    $template = new Template();
+    echo $template->render('views/login.html');
+});
+
+
 
 //Run fat free
 $f3->run();
