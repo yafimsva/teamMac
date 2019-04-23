@@ -1,0 +1,12 @@
+{
+  "name": "yafimsva/355/teamMac",
+  "authors": [
+    {
+      "name": "Yafim Vainilovich",
+      "email": "yafimsva@gmail.com"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
