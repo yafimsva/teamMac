@@ -15,7 +15,7 @@ class Database
         }
 
         else if($_SERVER['HTTP_HOST'] == "bskar.greenriverdev.com") {
-            require_once('/home/bskargre/final-config.php');
+            require_once('/home/bskargre/final-config2.php');
         }
 
         else if($_SERVER['HTTP_HOST'] == "http://yvainilovich.greenriverdev.com") {
