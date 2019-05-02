@@ -1926,6 +1926,12 @@ input, select, textarea {
 
 /* Main */
 
+
+	.date-style {
+		width: 60% !important;
+		padding-left: 40% !important;
+	}
+
 	#main {
 		position: relative;
 		overflow: hidden;
