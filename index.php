@@ -11,8 +11,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 //Require autoload
-require_once ('vendor/autoload.php');
-require_once ('model/database.php');
+require_once('vendor/autoload.php');
+require_once('model/database.php');
 session_start();
 
 //Create an instance of the Base class
@@ -21,7 +21,7 @@ $f3 = Base::instance();
 //Turn of Fat-Free error reporting
 $f3->set('DEBUG', 3);
 
-$f3->route('GET|POST /home', function($f3) {
+$f3->route('GET|POST /home', function ($f3) {
     $db = new Database();
     $db->connect();
 
@@ -35,13 +35,11 @@ $f3->route('GET|POST /home', function($f3) {
     $f3->set('students', $students);
 
 
-    if(isset($_POST['students']))
-    {
+    if (isset($_POST['students'])) {
         $_SESSION['students'] = $_POST['students'];
         $array = $_POST['students'];
 
-        foreach($array as $sid)
-        {
+        foreach ($array as $sid) {
             $db->takeAttendance($_POST['date'], $sid, true);
         }
     }
@@ -49,13 +47,12 @@ $f3->route('GET|POST /home', function($f3) {
     $dates = $db->getDates();
 
 
-    foreach($dates as $date)
-    {
+    foreach ($dates as $date) {
         array_push($finalDates, $date['date']);
         array_push($finalStudents, $db->viewAttendanceByDate($date['date']));
     }
 
-//    print_r($finalStudents);
+    //    print_r($finalStudents);
 
 
     $attendance = $db->viewAttendance();
@@ -70,7 +67,7 @@ $f3->route('GET|POST /home', function($f3) {
     echo $template->render('views/index.html');
 });
 
-$f3->route('GET|POST /', function() {
+$f3->route('GET|POST /', function () {
     $template = new Template();
     echo $template->render('views/login.html');
 });

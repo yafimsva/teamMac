@@ -1,14 +1,22 @@
 <?php
 
+
+if ($_SERVER['USER'] == 'yvainilo') {
+    require_once('/home/yvainilo/config.php');
+} else if ($_SERVER['USER'] == 'kcarlson') {
+    require_once '/home/kcarlson/config.php';
+}
+
 /**
  * Class Database database class to insert and get information
  */
 class Database
 {
+
+
+
     public function connect()
     {
-        require_once('/home/derminat/attendance-config.php');
-
         try {
             //instantiate a database object
             $GLOBALS['dbh'] = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
@@ -33,7 +41,7 @@ class Database
 
         $statement->execute();
         $arr = $statement->errorInfo();
-        if(isset($arr[2])) {
+        if (isset($arr[2])) {
             print_r($arr[2]);
         }
     }
@@ -48,19 +56,19 @@ class Database
 
         $statement->execute();
         $arr = $statement->errorInfo();
-        if(isset($arr[2])) {
+        if (isset($arr[2])) {
             print_r($arr[2]);
         }
 
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-//
-//        $posts = array();
-//
-//        foreach($results as $result) {
-//            $sid = $result['sid'];
-//            $first = $result['first'];
-//            $last = $result['last'];
-//        }
+        //
+        //        $posts = array();
+        //
+        //        foreach($results as $result) {
+        //            $sid = $result['sid'];
+        //            $first = $result['first'];
+        //            $last = $result['last'];
+        //        }
 
         return $results;
     }
@@ -77,12 +85,12 @@ class Database
         $statement->bindValue(':date', $date, PDO::PARAM_STR);
         $statement->bindValue(':sid', $sid, PDO::PARAM_STR);
         $statement->bindValue(':present', $present, PDO::PARAM_STR);
-//        $statement->bindValue(':first', $first, PDO::PARAM_STR);
-//        $statement->bindValue(':last', $last, PDO::PARAM_STR);
+        //        $statement->bindValue(':first', $first, PDO::PARAM_STR);
+        //        $statement->bindValue(':last', $last, PDO::PARAM_STR);
 
         $statement->execute();
         $arr = $statement->errorInfo();
-        if(isset($arr[2])) {
+        if (isset($arr[2])) {
             print_r($arr[2]);
         }
     }
@@ -97,7 +105,7 @@ class Database
 
         $statement->execute();
         $arr = $statement->errorInfo();
-        if(isset($arr[2])) {
+        if (isset($arr[2])) {
             print_r($arr[2]);
         }
 
@@ -116,7 +124,7 @@ class Database
                 INNER JOIN attendance
                 ON students.sid = attendance.sid
                 WHERE date = :date";
-//        $sql = "SELECT * FROM attendance WHERE date = :date";
+        //        $sql = "SELECT * FROM attendance WHERE date = :date";
 
         $statement = $dbh->prepare($sql);
         $statement->bindValue(':date', $date, PDO::PARAM_STR);
@@ -136,7 +144,7 @@ class Database
 
         $statement->execute();
         $arr = $statement->errorInfo();
-        if(isset($arr[2])) {
+        if (isset($arr[2])) {
             print_r($arr[2]);
         }
 
