@@ -3,3 +3,5 @@ tmp/
 vendor/
 .idea/
 assets/css/bootstrap/
+.vscode/sftp.json
+

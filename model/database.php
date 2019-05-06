@@ -3,8 +3,12 @@
 
 if ($_SERVER['USER'] == 'yvainilo') {
     require_once('/home/yvainilo/config.php');
-} else if ($_SERVER['USER'] == 'kcarlson') {
-    require_once '/home/kcarlson/config.php';
+} else if ($_SERVER['USER'] == 'brandon') {
+    require_once '/home/brandon/config.php';
+} else if ($_SERVER['USER'] == 'nic') {
+    require_once '/home/nic/config.php';
+} else if ($_SERVER['USER'] == 'david') {
+    require_once '/home/david/config.php';
 }
 
 /**
@@ -12,8 +16,6 @@ if ($_SERVER['USER'] == 'yvainilo') {
  */
 class Database
 {
-
-
 
     public function connect()
     {
