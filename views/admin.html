@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin</title>
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+        rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.7/css/mdb.min.css" rel="stylesheet" />
+
+</head>
+
+<body class="is-preload">
+    <!-- Wrapper-->
+    <div id="wrapper">
+        <!-- Nav -->
+        <nav id="nav">
+            <a href="#" class="icon fa-home"><span>Home</span></a>
+            <a href="#work" class="icon fa-folder"><span>Work</span></a>
+            <!--<a href="#contact" class="icon fa-envelope"><span>Contact</span></a>-->
+            <!--<a href="https://twitter.com/ajlkn" class="icon fa-twitter"><span>Twitter</span></a>-->
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <!-- Me -->
+            <article id="home" class="panel intro centered">
+                <header>
+                    <h1>Admin</h1>
+                    <p>Sunday School Admin</p>
+                    <br />
+
+                    <!--Modal: Logout-->
+                    <div class="modal fade" id="modalLogOut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                            <!--Content-->
+                            <div class="modal-content">
+
+
+                                <!--Body-->
+                                <div class="modal-body text-center mb-1">
+
+                                    <h5 class="mt-1 mb-2">Confirmation</h5>
+
+                                    <div class="text-center mt-4">
+                                        <button class="btn btn-cyan mt-1">Logout </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--/.Content-->
+                        </div>
+                    </div>
+                    <!--Modal: Logout-->
+
+                    <div class="text-center">
+                        <a href="" class="btn btn-default mt-4" data-toggle="modal" data-target="#modalLogOut">Log
+                            Out</a>
+                    </div>
+                </header>
+            </article>
+
+            <!-- Work -->
+            <article id="work" class="panel">
+                <header class="d-flex justify-content-center">
+                    <h2>Attendance</h2>
+                </header>
+
+                <repeat group="{{ @dates }}" value="{{ @date }}" counter="{{ @i }}">
+                    <div class="d-flex justify-content-center">
+                        <button id="{{ @date }}" class="btn btn-default w-100 view-attendance" data-toggle="modal"
+                            data-target="#modalViewAttendance{{ @i }}" name="date" value="{{ @date }}" type="submit">
+                            {{ @date }}
+                        </button>
+                    </div>
+
+                    <br />
+
+                    <div class="modal fade" id="modalViewAttendance{{ @i }}" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">
+                                        Attendance
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">x</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body mx-3">
+                                    <article id="work" class="panel">
+                                        <repeat group="{{ @allStudents }}" value="{{ @oneDate }}" counter="{{ @i }}">
+                                            <repeat group="{{ @oneDate }}" value="{{ @eachDate }}" counter="{{ @i }}">
+                                                <check if="{{ @date }} == {{ @eachDate['date'] }}">
+                                                    <true>
+                                                        <div class=" d-flex justify-content-center">
+                                                            <button id="{{ @eachDate['sid'] }}"
+                                                                class="btn btn-default w-100 view-attendance"
+                                                                name="date" value="{{ @eachDate['sid'] }}"
+                                                                type="submit">
+                                                                {{ @eachDate['first'] }}
+                                                                {{ @eachDate['last'] }}
+                                                            </button>
+                                                        </div>
+                                                    </true>
+                                                </check>
+                                            </repeat>
+                                        </repeat>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </repeat>
+            </article>
+
+            <!-- Contact -->
+            <article id="contact" class="panel">
+                <header>
+                    <h2>Contact Me</h2>
+                </header>
+                <form action="#" method="post">
+                    <div>
+                        <div class="row">
+                            <div class="col-6 col-12-medium">
+                                <input type="text" name="name" placeholder="Name" />
+                            </div>
+                            <div class="col-6 col-12-medium">
+                                <input type="text" name="email" placeholder="Email" />
+                            </div>
+                            <div class="col-12">
+                                <input type="text" name="subject" placeholder="Subject" />
+                            </div>
+                            <div class="col-12">
+                                <textarea name="message" placeholder="Message" rows="6"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <input type="submit" value="Send Message" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.7/js/mdb.min.js"></script>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#materialIndeterminate2').prop('indeterminate', true);
+        });
+    </script>
+</body>
+
+</html>
