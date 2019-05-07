@@ -82,7 +82,7 @@
 		<!-- Nav -->
 		<nav id="nav">
 			<a href="#" class="icon fa-home"><span>Home</span></a>
-			<a href="#work" class="icon fa-folder"><span>Work</span></a>
+			<a href="#calendar" class="icon fa-folder"><span>Calendar</span></a>
 			<!--<a href="#contact" class="icon fa-envelope"><span>Contact</span></a>-->
 			<!--<a href="https://twitter.com/ajlkn" class="icon fa-twitter"><span>Twitter</span></a>-->
 		</nav>
@@ -166,7 +166,7 @@
 			</article>
 
 			<!-- Calendar -->
-			<article id="work" class="panel">
+			<article id="calendar" class="panel">
 				<header class="d-flex justify-content-center">
 					<h2>Attendance</h2>
 				</header>
@@ -194,7 +194,7 @@
 									</button>
 								</div>
 								<div class="modal-body mx-3">
-									<article id="work" class="panel">
+									<article id="calendar" class="panel">
 										<repeat group="{{ @allStudents }}" value="{{ @oneDate }}" counter="{{ @i }}">
 											<repeat group="{{ @oneDate }}" value="{{ @eachDate }}" counter="{{ @i }}">
 												<check if="{{ @date }} == {{ @eachDate['date'] }}">

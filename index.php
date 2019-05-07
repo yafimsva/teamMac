@@ -15,6 +15,9 @@ require_once('vendor/autoload.php');
 require_once('model/database.php');
 session_start();
 
+
+
+
 //Create an instance of the Base class
 $f3 = Base::instance();
 
@@ -22,6 +25,7 @@ $f3 = Base::instance();
 $f3->set('DEBUG', 3);
 
 $f3->route('GET|POST /home', function ($f3) {
+
     $db = new Database();
     $db->connect();
 
@@ -78,7 +82,27 @@ $f3->route('GET|POST /', function () {
     echo $template->render('views/login.html');
 });
 
-$f3->route('GET|POST /admin', function () {
+$f3->route('GET|POST /admin', function ($f3) {
+    $db = new Database();
+    $db->connect();
+
+    $students = $db->getStudents();
+    $f3->set('students', $students);
+
+    if (isset($_POST['firstName'])) {
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
+        $email = $_POST['email'];
+        $dob = $_POST['dob'];
+
+        echo "here";
+
+        $db->insertStudent($firstName, $lastName, $dob, $email);
+    }
+
+
+
+
     $template = new Template();
     echo $template->render('views/admin.html');
 });

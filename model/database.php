@@ -146,7 +146,6 @@ class Database
                 INNER JOIN attendance
                 ON students.sid = attendance.sid
                 WHERE date = :date";
-        //        $sql = "SELECT * FROM attendance WHERE date = :date";
 
         $statement = $dbh->prepare($sql);
         $statement->bindValue(':date', $date, PDO::PARAM_STR);
