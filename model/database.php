@@ -97,6 +97,26 @@ class Database
         }
     }
 
+    function updateAttendance($sid, $present, $date)
+    {
+        global $dbh;
+
+        $sql = "UPDATE attendance SET present = :present WHERE sid = :sid AND date = :date;";
+
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->bindValue(':sid', $sid, PDO::PARAM_STR);
+        $statement->bindValue(':present', $present, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
     public function viewAttendance()
     {
         global $dbh;

@@ -136,9 +136,7 @@
 															<label class="fs-19 m-0 p-3 text-left">
 																<input type="checkbox" name="students[]"
 																	value="{{ @student['sid'] }}" />
-																{{ @student['last']
-																	}},
-																{{ @student['first'] }}
+																{{ @student['last'] }}, {{ @student['first'] }}
 																<i class="fa-lg mt-1 mr-2 far fa-check-circle"></i>
 																<i class="fa-lg mt-1 mr-2 fas fa-check-circle"></i>
 															</label>
@@ -167,7 +165,7 @@
 				</header>
 			</article>
 
-			<!-- Work -->
+			<!-- Calendar -->
 			<article id="work" class="panel">
 				<header class="d-flex justify-content-center">
 					<h2>Attendance</h2>
@@ -201,15 +199,30 @@
 											<repeat group="{{ @oneDate }}" value="{{ @eachDate }}" counter="{{ @i }}">
 												<check if="{{ @date }} == {{ @eachDate['date'] }}">
 													<true>
-														<div class=" d-flex justify-content-center">
-															<button id="{{ @eachDate['sid'] }}"
-																class="btn btn-default w-100 view-attendance"
-																name="date" value="{{ @eachDate['sid'] }}"
-																type="submit">
-																{{ @eachDate['first'] }}
-																{{ @eachDate['last'] }}
-															</button>
-														</div>
+														<check if="{{ @eachDate['present'] }} == 1">
+															<true>
+																<div class=" d-flex justify-content-center">
+																	<button id="{{ @eachDate['sid'] }}"
+																		class="btn btn-default w-100 view-attendance"
+																		name="date" value="{{ @eachDate['sid'] }}"
+																		type="submit">
+																		{{ @eachDate['first'] }}
+																		{{ @eachDate['last'] }}
+																	</button>
+																</div>
+															</true>
+															<false>
+																<div class=" d-flex justify-content-center">
+																	<button id="{{ @eachDate['sid'] }}"
+																		class="btn btn-red w-100 view-attendance"
+																		name="date" value="{{ @eachDate['sid'] }}"
+																		type="submit">
+																		{{ @eachDate['first'] }}
+																		{{ @eachDate['last'] }}
+																	</button>
+																</div>
+															</false>
+														</check>
 													</true>
 												</check>
 											</repeat>

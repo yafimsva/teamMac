@@ -32,6 +32,8 @@ $f3->route('GET|POST /home', function ($f3) {
 
     $students = $db->getStudents();
 
+
+
     $f3->set('students', $students);
 
 
@@ -39,8 +41,12 @@ $f3->route('GET|POST /home', function ($f3) {
         $_SESSION['students'] = $_POST['students'];
         $array = $_POST['students'];
 
+
+        foreach ($students as $student) {
+            $db->takeAttendance($_POST['date'], $student['sid'], false);
+        }
         foreach ($array as $sid) {
-            $db->takeAttendance($_POST['date'], $sid, true);
+            $db->updateAttendance($sid, true, ($_POST['date']));
         }
     }
 
