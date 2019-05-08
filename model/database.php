@@ -27,12 +27,12 @@ class Database
         }
     }
 
-    function insertStudent($first, $last, $dob, $parents_email)
+    function insertStudent($first, $last, $dob, $parents_email, $studentClass)
     {
         global $dbh;
 
-        $sql = "INSERT INTO students (first, last, dob, parents_email)
-            VALUES(:fname, :lname, :dob, :parents_email);";
+        $sql = "INSERT INTO students (first, last, dob, parents_email, classid)
+            VALUES(:fname, :lname, :dob, :parents_email, :classid);";
 
         $statement = $dbh->prepare($sql);
 
@@ -40,6 +40,8 @@ class Database
         $statement->bindValue(':lname', $last, PDO::PARAM_STR);
         $statement->bindValue(':dob', $dob, PDO::PARAM_STR);
         $statement->bindValue(':parents_email', $parents_email, PDO::PARAM_STR);
+        $statement->bindValue(':classid', $studentClass, PDO::PARAM_INT);
+
 
         $statement->execute();
         $arr = $statement->errorInfo();
@@ -174,6 +176,65 @@ class Database
         global $dbh;
 
         $sql = "SELECT DISTINCT date FROM attendance ORDER BY date DESC";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    }
+
+    function insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass)
+    {
+        global $dbh;
+
+        $sql = "INSERT INTO teachers (name, username, password, classid)
+            VALUES(:name, :username, :password, :classid);";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':name', $teacherName, PDO::PARAM_STR);
+        $statement->bindValue(':username', $teacherUsername, PDO::PARAM_STR);
+        $statement->bindValue(':password', $teacherPassword, PDO::PARAM_STR);
+        $statement->bindValue(':classid', $teacherClass, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    public function getTeachers()
+    {
+        global $dbh;
+
+        $sql = "SELECT * FROM teachers";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    }
+
+    public function getClasses()
+    {
+        global $dbh;
+
+        $sql = "SELECT * FROM classes";
 
         $statement = $dbh->prepare($sql);
 
