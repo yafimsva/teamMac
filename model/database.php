@@ -87,8 +87,6 @@ class Database
         $statement->bindValue(':date', $date, PDO::PARAM_STR);
         $statement->bindValue(':sid', $sid, PDO::PARAM_STR);
         $statement->bindValue(':present', $present, PDO::PARAM_STR);
-        //        $statement->bindValue(':first', $first, PDO::PARAM_STR);
-        //        $statement->bindValue(':last', $last, PDO::PARAM_STR);
 
         $statement->execute();
         $arr = $statement->errorInfo();
@@ -151,6 +149,22 @@ class Database
         $statement->bindValue(':date', $date, PDO::PARAM_STR);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    }
+
+    public function getAttendanceCount($date, $sid)
+    {
+        global $dbh;
+
+        $sql = "SELECT date, sid FROM attendance WHERE date = :date AND sid = :sid";
+
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->bindValue(':sid', $sid, PDO::PARAM_STR);
+        // $statement->bindValue(':present', $present, PDO::PARAM_STR);
+        $statement->execute();
+        $results = $statement->rowCount();
 
         return $results;
     }

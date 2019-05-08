@@ -15,9 +15,6 @@ require_once('vendor/autoload.php');
 require_once('model/database.php');
 session_start();
 
-
-
-
 //Create an instance of the Base class
 $f3 = Base::instance();
 
@@ -45,13 +42,18 @@ $f3->route('GET|POST /home', function ($f3) {
         $_SESSION['students'] = $_POST['students'];
         $array = $_POST['students'];
 
-
         foreach ($students as $student) {
-            $db->takeAttendance($_POST['date'], $student['sid'], false);
+            if ($db->getAttendanceCount($_POST['date'], $student['sid']) == 0) {
+                $db->takeAttendance($_POST['date'], $student['sid'], false);
+            }
         }
         foreach ($array as $sid) {
-            $db->updateAttendance($sid, true, ($_POST['date']));
+            // if ($db->getAttendance($_POST['date'], $sid, true) == 0) {
+            $db->updateAttendance($sid, true, $_POST['date']);
+            // }
         }
+
+        $f3->reroute('home#');
     }
 
     $dates = $db->getDates();
@@ -95,9 +97,8 @@ $f3->route('GET|POST /admin', function ($f3) {
         $email = $_POST['email'];
         $dob = $_POST['dob'];
 
-        echo "here";
-
         $db->insertStudent($firstName, $lastName, $dob, $email);
+        $f3->reroute('admin#students');
     }
 
 
