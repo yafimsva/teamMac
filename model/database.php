@@ -5,8 +5,8 @@ if ($_SERVER['USER'] == 'yvainilo') {
     require_once('/home/yvainilo/config.php');
 } else if ($_SERVER['USER'] == 'brandon') {
     require_once '/home/brandon/config.php';
-} else if ($_SERVER['USER'] == 'nic') {
-    require_once '/home/nic/config.php';
+} else if ($_SERVER['USER'] == 'nalexand') {
+    require_once '/home/nalexand/config.php';
 } else if ($_SERVER['USER'] == 'dkovalev') {
     require_once '/home/dkovalev/config.php';
 }
@@ -233,6 +233,50 @@ class Database
         }
     }
 
+    function insertHelper($helperName, $classid)
+    {
+        global $dbh;
+
+        $sql = "INSERT INTO helpers(name, classid) 
+                VALUES (:helperName, :classid)";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':helperName', $helperName, PDO::PARAM_STR);
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    public function getHelpers()
+    {
+        global $dbh;
+
+        $sql = "SELECT helpers.*, classes.className
+        FROM helpers
+        INNER JOIN classes
+        ON helpers.classid = classes.classid 
+        ORDER BY name ASC;";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    }
+
+
     public function getTeachers()
     {
         global $dbh;
@@ -339,6 +383,46 @@ class Database
 
         $statement->bindValue(':className', $className, PDO::PARAM_STR);
         $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    function updateHelper($name, $classid, $helperid)
+    {
+        global $dbh;
+
+        $sql = "UPDATE helpers 
+                SET name = :name, classid = :classid
+                WHERE helperid = :helperid";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':name', $name, PDO::PARAM_STR);
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+        $statement->bindValue(':helperid', $helperid, PDO::PARAM_STR);
+
+
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    function deleteHelper($helperid)
+    {
+        global $dbh;
+
+        $sql = "DELETE FROM helpers WHERE helperid = :helperid";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':helperid', $helperid, PDO::PARAM_STR);
 
         $statement->execute();
         $arr = $statement->errorInfo();
