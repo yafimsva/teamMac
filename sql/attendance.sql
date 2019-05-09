@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 05, 2019 at 08:40 PM
--- Server version: 10.1.39-MariaDB
+-- Generation Time: May 09, 2019 at 01:29 PM
+-- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -39,7 +39,26 @@ CREATE TABLE `attendance` (
 --
 
 INSERT INTO `attendance` (`date`, `sid`, `present`) VALUES
-('2019-05-06', 1, 1);
+('2019-05-08', 1, 1),
+('2019-05-08', 2, 1),
+('2019-05-08', 3, 1),
+('2019-05-08', 4, 1),
+('2019-05-08', 5, 1),
+('2019-05-08', 6, 0),
+('2019-05-08', 7, 0),
+('2019-05-08', 10, 1),
+('2019-05-09', 1, 1),
+('2019-05-09', 2, 1),
+('2019-05-09', 3, 1),
+('2019-05-09', 4, 1),
+('2019-05-09', 5, 0),
+('2019-05-09', 6, 0),
+('2019-05-09', 7, 0),
+('2019-05-09', 10, 0),
+('2019-05-09', 11, 0),
+('2019-05-09', 12, 0),
+('2019-05-08', 11, 1),
+('2019-05-08', 12, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

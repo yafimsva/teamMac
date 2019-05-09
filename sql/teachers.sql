@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 08, 2019 at 03:47 PM
--- Server version: 10.1.39-MariaDB
+-- Generation Time: May 09, 2019 at 01:28 PM
+-- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,15 +33,18 @@ CREATE TABLE `teachers` (
   `name` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(80) NOT NULL,
-  `class` int(11) NOT NULL
+  `classid` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`teacherid`, `name`, `username`, `password`, `class`) VALUES
-(1, 'Yafim Vainilovich', 'yafimsva', '8cb2237d0679ca88db6464eac60da96345513964', 0);
+INSERT INTO `teachers` (`teacherid`, `name`, `username`, `password`, `classid`) VALUES
+(1, 'Yafim Vainilovich', 'yafimsva', '8cb2237d0679ca88db6464eac60da96345513964', 0),
+(5, 'David Teacher', 'davidt', '123', 10),
+(3, 'Yafim Vainilovich', 'yvainilovich', '12345', 4),
+(6, 'check`', 'yafim', '123', 2);
 
 --
 -- Indexes for dumped tables
@@ -61,7 +64,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacherid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `teacherid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

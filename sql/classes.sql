@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 08, 2019 at 03:50 PM
--- Server version: 10.1.39-MariaDB
+-- Generation Time: May 09, 2019 at 01:28 PM
+-- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -34,6 +34,18 @@ CREATE TABLE `classes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `classes`
+--
+
+INSERT INTO `classes` (`classid`, `className`) VALUES
+(1, 'BEST 1'),
+(2, 'Class 7'),
+(3, 'Class 3'),
+(4, 'Class 4'),
+(5, 'Class 5'),
+(10, 'Class 6');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -51,7 +63,7 @@ ALTER TABLE `classes`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `classid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `classid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
