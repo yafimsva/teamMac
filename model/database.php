@@ -54,7 +54,7 @@ class Database
     {
         global $dbh;
 
-        $sql = "SELECT * FROM students";
+        $sql = "SELECT * FROM students ORDER BY classid ASC, last ASC";
 
         $statement = $dbh->prepare($sql);
 
@@ -203,6 +203,24 @@ class Database
         $statement->bindValue(':username', $teacherUsername, PDO::PARAM_STR);
         $statement->bindValue(':password', $teacherPassword, PDO::PARAM_STR);
         $statement->bindValue(':classid', $teacherClass, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    function insertClass($className)
+    {
+        global $dbh;
+
+        $sql = "INSERT INTO classes (className)
+            VALUES(:className);";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':className', $className, PDO::PARAM_STR);
 
         $statement->execute();
         $arr = $statement->errorInfo();

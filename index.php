@@ -132,6 +132,12 @@ $f3->route('GET|POST /admin', function ($f3) {
 		}
 	}
 
+	//post classes into database
+	if ($_POST['className']) {
+		$db->insertClass($_POST['className']);
+		$f3->reroute('admin#classes');
+	}
+
 	$template = new Template();
 	echo $template->render('views/admin.html');
 });

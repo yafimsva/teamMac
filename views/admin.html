@@ -31,6 +31,8 @@
             <a href="#" class="icon fa-home"><span>Home</span></a>
             <a href="#students" class="icon fa-folder"><span>Students</span></a>
             <a href="#teachers" class="icon fa-envelope"><span>Teachers</span></a>
+            <a href="#classes" class="icon fa-envelope"><span>Classes</span></a>
+
             <!--<a href="https://twitter.com/ajlkn" class="icon fa-twitter"><span>Twitter</span></a>-->
         </nav>
 
@@ -151,14 +153,34 @@
                 </div>
                 <br>
 
-                <repeat group="{{ @students }}" value="{{ @student }}">
-                    <div class="d-flex justify-content-center">
-                        <button class="btn btn-default w-100 view-attendance" name="student"
-                            value="{{ @student['sid'] }}" type="submit">
-                            {{ @student['last'] }}, {{ @student['first'] }}
-                        </button>
+                <repeat group="{{ @classes }}" value="{{ @class }}">
+                    <div class="mt-5">
+                        <h3 style="text-align: center;">{{ @class['className'] }}</h3>
+
+                        <repeat group="{{ @teachers }}" value="{{ @teacher }}">
+                            <check if="{{ @class['classid'] == @teacher['classid'] }}">
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary w-100 view-attendance" name="teacher"
+                                        value="{{ @teacher['teacherid'] }}" type="submit">
+                                        {{ @teacher['name'] }}
+                                    </button>
+                                </div>
+                            </check>
+                        </repeat>
+
+                        <repeat group="{{ @students }}" value="{{ @student }}">
+                            <check if="{{ @class['classid'] == @student['classid'] }}">
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-default w-100 view-attendance" name="student"
+                                        value="{{ @student['sid'] }}" type="submit">
+                                        {{ @student['last'] }}, {{ @student['first'] }}
+                                    </button>
+                                </div>
+                            </check>
+                        </repeat>
                     </div>
                 </repeat>
+
             </article>
 
 
@@ -223,7 +245,6 @@
             <!--/ Modal to add a teacher -->
 
             <!-- Teacher tab -->
-
             <article id="teachers" class="panel">
                 <header class="d-flex justify-content-center">
                     <h2>All Teachers</h2>
@@ -251,20 +272,70 @@
 
                 <repeat group="{{ @teachers }}" value="{{ @teacher }}">
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-default w-100 view-attendance" name="student"
+                        <button class="btn btn-primary w-100 view-attendance" name="student"
                             value="{{ @teacher['teacherid'] }}" type="submit">
                             {{ @teacher['name'] }}
                         </button>
                     </div>
                 </repeat>
-
-                <!-- /Teacher tab -->
-
-
-
-
-
             </article>
+            <!-- /Teacher tab -->
+
+
+            <!-- Modal to add a class -->
+            <form action="" method="POST">
+                <div class="modal fade" id="modalAddClass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Add a Class</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-3">
+                                <div class="md-form mb-5">
+                                    <i class="fas fa-user prefix grey-text"></i>
+                                    <input type="text" id="className" name="className" class="form-control" required>
+                                    <label for="className">Class Title</label>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button class="btn btn-amber" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--/ Modal to add a class -->
+
+            <!-- Classes tab -->
+            <article id="classes" class="panel">
+                <header class="d-flex justify-content-center">
+                    <h2>All Classes</h2>
+                </header>
+
+                <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                        <a href="" class="btn btn-amber mt-2" data-toggle="modal" data-target="#modalAddClass">+Add a
+                            Class</a>
+                    </div>
+                </div>
+                <br>
+
+                <repeat group="{{ @classes }}" value="{{ @class }}">
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-secondary w-100 view-attendance" name="student"
+                            value="{{ @class['classid'] }}" type="submit">
+                            {{ @class['className'] }}
+                        </button>
+                    </div>
+                </repeat>
+            </article>
+            <!-- /Teacher tab -->
+
         </div>
     </div>
 
