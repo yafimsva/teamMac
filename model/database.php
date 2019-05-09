@@ -262,7 +262,7 @@ class Database
     {
         global $dbh;
 
-        $sql = "SELECT * FROM classes";
+        $sql = "SELECT * FROM classes SORT ORDER BY className ASC";
 
         $statement = $dbh->prepare($sql);
 
