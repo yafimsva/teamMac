@@ -7,8 +7,8 @@ if ($_SERVER['USER'] == 'yvainilo') {
     require_once '/home/brandon/config.php';
 } else if ($_SERVER['USER'] == 'nic') {
     require_once '/home/nic/config.php';
-} else if ($_SERVER['USER'] == 'david') {
-    require_once '/home/david/config.php';
+} else if ($_SERVER['USER'] == 'dkovalev') {
+    require_once '/home/dkovalev/config.php';
 }
 
 /**
