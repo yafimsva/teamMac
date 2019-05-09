@@ -54,7 +54,11 @@ class Database
     {
         global $dbh;
 
-        $sql = "SELECT * FROM students ORDER BY classid ASC, last ASC";
+        $sql = "SELECT students.*, classes.className
+        FROM students
+        INNER JOIN classes
+        ON students.classid = classes.classid 
+        ORDER BY classid ASC, last ASC";
 
         $statement = $dbh->prepare($sql);
 
@@ -233,7 +237,11 @@ class Database
     {
         global $dbh;
 
-        $sql = "SELECT * FROM teachers";
+        $sql = "SELECT teachers.*, classes.className
+        FROM teachers
+        INNER JOIN classes
+        ON teachers.classid = classes.classid 
+        ORDER BY name ASC";
 
         $statement = $dbh->prepare($sql);
 
@@ -247,6 +255,8 @@ class Database
 
         return $results;
     }
+
+
 
     public function getClasses()
     {
@@ -265,5 +275,107 @@ class Database
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $results;
+    }
+
+    function updateStudent($sid, $first, $last, $dob, $parents_email, $studentClass)
+    {
+        global $dbh;
+
+        $sql = "UPDATE students 
+        SET first = :fname, last = :lname, dob = :dob, parents_email = :parents_email, classid = :classid 
+        WHERE sid = :sid";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':fname', $first, PDO::PARAM_STR);
+        $statement->bindValue(':lname', $last, PDO::PARAM_STR);
+        $statement->bindValue(':dob', $dob, PDO::PARAM_STR);
+        $statement->bindValue(':parents_email', $parents_email, PDO::PARAM_STR);
+        $statement->bindValue(':classid', $studentClass, PDO::PARAM_INT);
+        $statement->bindValue(':sid', $sid, PDO::PARAM_INT);
+
+
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    function updateTeacher($teacherid, $name, $username, $password, $classid)
+    {
+        global $dbh;
+
+        $sql = "UPDATE teachers 
+        SET name = :name, username = :username, password = :password, classid = :classid 
+        WHERE teacherid = :teacherid";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':teacherid', $teacherid, PDO::PARAM_STR);
+        $statement->bindValue(':name', $name, PDO::PARAM_STR);
+        $statement->bindValue(':username', $username, PDO::PARAM_STR);
+        $statement->bindValue(':password', $password, PDO::PARAM_STR);
+        $statement->bindValue(':classid', $classid, PDO::PARAM_INT);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+
+    function updateClass($className, $classid)
+    {
+        global $dbh;
+
+        $sql = "UPDATE classes 
+        SET className = :className
+        WHERE classid = :classid";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':className', $className, PDO::PARAM_STR);
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    function deleteStudent($sid)
+    {
+        global $dbh;
+
+        $sql = "DELETE FROM students WHERE sid = :sid";
+
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':sid', $sid, PDO::PARAM_INT);
+        $statement->execute();
+
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    function deleteTeacher($teacherid)
+    {
+        global $dbh;
+
+        $sql = "DELETE FROM teachers WHERE teacherid = :teacherid";
+
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':teacherid', $teacherid, PDO::PARAM_INT);
+        $statement->execute();
+
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
     }
 }

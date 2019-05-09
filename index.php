@@ -120,7 +120,7 @@ $f3->route('GET|POST /admin', function ($f3) {
 			if ($_POST['teacherClass'] != 0) {
 				$teacherName = $_POST['teacherName'];
 				$teacherUsername = $_POST['teacherUsername'];
-				$teacherPassword = sha1($_POST['password']);
+				$teacherPassword = ($_POST['password']);
 				$teacherClass = $_POST['teacherClass'];
 				$db->insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass);
 				$f3->reroute('admin#teachers');
@@ -137,6 +137,65 @@ $f3->route('GET|POST /admin', function ($f3) {
 		$db->insertClass($_POST['className']);
 		$f3->reroute('admin#classes');
 	}
+
+	// post student into database 
+	if (isset($_POST['updateFirstName'], $_POST['updateLastName'], $_POST['updateEmail'], $_POST['updateDob'], $_POST['updateStudentClass'])) {
+		$updateFirstName = $_POST['updateFirstName'];
+		$updateLastName = $_POST['updateLastName'];
+		$updateEmail = $_POST['updateEmail'];
+		$updateDob = $_POST['updateDob'];
+		$updateStudentClass = $_POST['updateStudentClass'];
+		$sid = $_POST['sid'];
+
+		$db->updateStudent($sid, $updateFirstName, $updateLastName, $updateDob, $updateEmail, $updateStudentClass);
+		$f3->reroute('admin#students');
+	}
+
+	//deletes a student
+	if (isset($_POST['deleteStudent'])) {
+		$db->deleteStudent($_POST['deleteStudent']);
+		$f3->reroute('admin#students');
+	}
+
+	//updates a class name
+	if (isset($_POST['updateClassName'], $_POST['updateClassNameID'])) {
+		$newClassName = $_POST['updateClassName'];
+		$updateClassNameID = $_POST['updateClassNameID'];
+		$db->updateClass($newClassName, $updateClassNameID);
+		$f3->reroute('admin#students');
+	}
+
+	//updates a teacher 
+	if (isset($_POST['updateTeacherName'], $_POST['updateTeacherUsername'])) {
+		if ($_POST['updatePassword'] == $_POST['updateConfirmPassword']) {
+			$updateTeacherName = $_POST['updateTeacherName'];
+			$updateTeacherUsername = $_POST['updateTeacherUsername'];
+			$updatePassword = $_POST['updatePassword'];
+			$updateTeacherClass = $_POST['updateTeacherClass'];
+			$updateTeacherId = $_POST['teacherid'];
+			$db->updateTeacher($updateTeacherId, $updateTeacherName, $updateTeacherUsername, $updatePassword, $updateTeacherClass);
+
+			if (isset($_POST['onStudentsPage'])) {
+				$f3->reroute('admin#students');
+			} else {
+				$f3->reroute('admin#teachers');
+			}
+		} else {
+			$f3->set("errors['updateNoMatch']", "Passwords did not match, teacher was not updated");
+		}
+	}
+
+	//deletes a student
+	if (isset($_POST['deleteTeacher'])) {
+		$db->deleteTeacher($_POST['deleteTeacher']);
+
+		if (isset($_POST['onStudentsPage'])) {
+			$f3->reroute('admin#students');
+		} else {
+			$f3->reroute('admin#teachers');
+		}
+	}
+
 
 	$template = new Template();
 	echo $template->render('views/admin.html');

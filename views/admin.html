@@ -133,6 +133,15 @@
             <!--/ Modal to add a student -->
 
 
+
+
+
+
+
+
+
+
+
             <!-- Students tab -->
             <article id="students" class="panel">
                 <header class="d-flex justify-content-center">
@@ -140,8 +149,14 @@
                 </header>
 
                 <check if="{{ isset(@errors['studentClass']) }}">
-                    <div style="text-align: center;">
+                    <div class="text-center">
                         <p style="color: red;">{{ @errors['studentClass'] }}</p>
+                    </div>
+                </check>
+
+                <check if="{{ isset(@errors['updateNoMatch']) }}">
+                    <div class="text-center">
+                        <p style="color: red;">{{ @errors['updateNoMatch'] }}</p>
                     </div>
                 </check>
 
@@ -155,24 +170,335 @@
 
                 <repeat group="{{ @classes }}" value="{{ @class }}">
                     <div class="mt-5">
-                        <h3 style="text-align: center;">{{ @class['className'] }}</h3>
+                        <h3 class="text-center">{{ @class['className'] }}</h3>
 
-                        <repeat group="{{ @teachers }}" value="{{ @teacher }}">
-                            <check if="{{ @class['classid'] == @teacher['classid'] }}">
+                        <repeat group="{{ @teachers }}" value="{{ @teacher1 }}">
+
+
+
+
+
+
+
+
+                            <!-- Modal to view a teacher -->
+                            <div class="modal fade" id="modalViewTeacherOnStudentsPage{{ @teacher1['teacherid'] }}"
+                                tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h4 class="modal-title w-100 font-weight-bold">{{ @teacher1['name'] }}
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- pills -->
+                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link active" id="pills-teacher-students-tab"
+                                                    data-toggle="pill"
+                                                    href="#pills-teacher-students{{ @teacher1['teacherid'] }}"
+                                                    role="tab" aria-controls="pills-teacher-students"
+                                                    aria-selected="true">Teacher</a>
+                                            </li>
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link" id="pills-edit-teachers-tab" data-toggle="pill"
+                                                    href="#pills-edit-teachers{{ @teacher1['teacherid'] }}" role="tab"
+                                                    aria-controls="pills-edit-teachers" aria-selected="false">Edit</a>
+                                            </li>
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link" id="pills-delete-teachers-tab" data-toggle="pill"
+                                                    href="#pills-delete-teachers{{ @teacher1['teacherid'] }}" role="tab"
+                                                    aria-controls="pills-delete-teachers"
+                                                    aria-selected="false">Delete</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content pt-2 pl-1" id="pills-tabContent">
+                                            <div class="tab-pane fade show active"
+                                                id="pills-teacher-students{{ @teacher1['teacherid'] }}" role="tabpanel"
+                                                aria-labelledby="pills-teacher-students-tab">
+
+
+
+
+                                                <div class="modal-body mx-3 mb-4">
+
+
+                                                    <div class="text-center">
+                                                        <h3>Username: {{ @teacher1['username'] }}</h3>
+                                                        <h3>Password: {{ @teacher1['password'] }}</h3>
+                                                        <h3>Class: {{ @teacher1['className'] }}</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- edit pill -->
+                                            <div class="tab-pane fade"
+                                                id="pills-edit-teachers{{ @teacher1['teacherid'] }}" role="tabpanel"
+                                                aria-labelledby="pills-edit-teachers-tab">
+                                                <form action="" method="POST">
+                                                    <div class="modal-body mx-3">
+
+                                                        <input type="hidden" name="onStudentsPage" value="1">
+
+                                                        <input type="hidden" name="teacherid"
+                                                            value="{{ @teacher1['teacherid'] }}" />
+
+                                                        <div class="md-form mb-5">
+                                                            <i class="fas fa-user prefix grey-text"></i>
+                                                            <input type="text" id="updateTeacherName"
+                                                                name="updateTeacherName" class="form-control"
+                                                                value="{{ @teacher1['name'] }}" required>
+                                                            <label for="updateTeacherName">Name</label>
+                                                        </div>
+
+                                                        <div class="md-form mb-5">
+                                                            <i class="fas fa-envelope prefix grey-text"></i>
+                                                            <input type="text" id="updateTeacherUsername"
+                                                                name="updateTeacherUsername" class="form-control"
+                                                                value="{{ @teacher1['username'] }}" required>
+                                                            <label for="updateTeacherUsername">Username</label>
+                                                        </div>
+
+                                                        <div class="md-form mb-5">
+                                                            <i class="fas fa-lock prefix grey-text"></i>
+                                                            <input type="password" id="updatePassword"
+                                                                name="updatePassword" class="form-control"
+                                                                value="{{ @teacher1['password'] }}" required>
+                                                            <label for="updatePassword">
+                                                                Password</label>
+                                                        </div>
+
+                                                        <div class="md-form mb-5">
+                                                            <i class="fas fa-lock prefix grey-text"></i>
+                                                            <input type="password" id="updateConfirmPassword"
+                                                                name="updateConfirmPassword" class="form-control"
+                                                                value="{{ @teacher1['password'] }}" required>
+                                                            <label for="updateConfirmPassword">
+                                                                Confirm Password</label>
+                                                        </div>
+
+                                                        <div class="md-form mb-4">
+                                                            <select class="browser-default custom-select"
+                                                                name="updateTeacherClass">
+                                                                <option value="{{ @teacher1['classid'] }}" selected>
+                                                                    {{ @teacher1['className'] }}
+                                                                </option>
+                                                                <repeat group="{{ @classes }}" value="{{ @class2 }}">
+                                                                    <check
+                                                                        if="{{ @teacher1['className'] != @class2['className']  }}">
+                                                                        <option value="{{ @class2['classid'] }}">
+                                                                            {{ @class2['className'] }}
+                                                                        </option>
+                                                                    </check>
+                                                                </repeat>
+                                                            </select>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center">
+                                                        <button class="btn btn-amber" type="submit">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!--/ edit pill -->
+
+
+                                            <!--/ delete pill -->
+                                            <div class="tab-pane fade"
+                                                id="pills-delete-teachers{{ @teacher1['teacherid'] }}" role="tabpanel"
+                                                aria-labelledby="pills-delete-teachers-tab">
+
+                                                <div class="modal-body mx-3">
+                                                    <form action="" method="POST">
+                                                        <div class="text-center">
+                                                            <input type="hidden" name="deleteTeacher"
+                                                                value="{{ @teacher1['teacherid'] }}" />
+                                                            <input type="hidden" name="onStudentsPage" value="1">
+
+                                                            <h5>Are you sure you want to delete
+                                                                {{ @teacher1['name'] }}
+                                                                ?</h5>
+                                                            <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+
+                                            </div>
+                                            <!--/ delete pill -->
+                                        </div>
+                                        <!-- pills -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Modal to view a teacher -->
+
+
+                            <check if="{{ @class['classid'] == @teacher1['classid'] }}">
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-primary w-100 view-attendance" name="teacher"
-                                        value="{{ @teacher['teacherid'] }}" type="submit">
-                                        {{ @teacher['name'] }}
+                                        data-toggle="modal"
+                                        data-target="#modalViewTeacherOnStudentsPage{{ @teacher1['teacherid'] }}">
+                                        {{ @teacher1['name'] }}
                                     </button>
                                 </div>
                             </check>
                         </repeat>
 
                         <repeat group="{{ @students }}" value="{{ @student }}">
+
+                            <!-- Modal to view a student -->
+                            <div class="modal fade" id="modalViewStudent{{ @student['sid'] }}" tabindex="-1"
+                                role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h4 class="modal-title w-100 font-weight-bold">{{ @student['first'] }}
+                                                {{ @student['last'] }}</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- pills -->
+                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill"
+                                                    href="#pills-home{{ @student['sid'] }}" role="tab"
+                                                    aria-controls="pills-home" aria-selected="true">Student</a>
+                                            </li>
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill"
+                                                    href="#pills-profile{{ @student['sid'] }}" role="tab"
+                                                    aria-controls="pills-profile" aria-selected="false">Edit</a>
+                                            </li>
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link" id="pills-contact-tab" data-toggle="pill"
+                                                    href="#pills-contact{{ @student['sid'] }}" role="tab"
+                                                    aria-controls="pills-contact" aria-selected="false">Delete</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content pt-2 pl-1" id="pills-tabContent">
+                                            <div class="tab-pane fade show active" id="pills-home{{ @student['sid'] }}"
+                                                role="tabpanel" aria-labelledby="pills-home-tab">
+
+
+
+
+                                                <div class="modal-body mx-3 mb-4">
+
+
+                                                    <div class="text-center">
+                                                        <h3>Class: {{ @student['className'] }}</h3>
+                                                        <h3>Date of Birth: {{ @student['dob'] }}</h3>
+                                                        <h3>Parents Email: {{ @student['parents_email'] }}</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- edit pill -->
+                                            <div class="tab-pane fade" id="pills-profile{{ @student['sid'] }}"
+                                                role="tabpanel" aria-labelledby="pills-profile-tab">
+                                                <form action="" method="POST">
+                                                    <div class="modal-body mx-3">
+
+                                                        <input type="hidden" name="sid" value="{{ @student['sid'] }}" />
+
+                                                        <div class="md-form mb-5">
+                                                            <i class="fas fa-user prefix grey-text"></i>
+                                                            <input type="text" id="updateFirstName"
+                                                                name="updateFirstName" class="form-control"
+                                                                value="{{ @student['first'] }}" required>
+                                                            <label for="updateFirstName">First name</label>
+                                                        </div>
+                                                        <div class="md-form mb-5">
+                                                            <i class="fas fa-user prefix grey-text"></i>
+                                                            <input type="text" id="updateLastName" name="updateLastName"
+                                                                class="form-control" value="{{ @student['last'] }}"
+                                                                required>
+                                                            <label for="updateLastName">Last name</label>
+                                                        </div>
+                                                        <div class="md-form mb-5">
+                                                            <i class="fas fa-envelope prefix grey-text"></i>
+                                                            <input type="text" id="updateEmail" name="updateEmail"
+                                                                class="form-control"
+                                                                value="{{ @student['parents_email'] }}" required>
+                                                            <label for="updateEmail">Parents email</label>
+                                                        </div>
+
+                                                        <div class="md-form mb-4">
+                                                            <i class="fas fa-lock prefix grey-text"></i>
+                                                            <input type="date" id="updateDob" name="updateDob"
+                                                                class="form-control" value="{{ @student['dob'] }}"
+                                                                required>
+                                                            <label for="updateDob">
+                                                                Date of Birth</label>
+                                                        </div>
+
+                                                        <div class="md-form mb-4">
+                                                            <select class="browser-default custom-select"
+                                                                name="updateStudentClass">
+                                                                <option value="{{ @student['classid'] }}" selected>
+                                                                    {{ @student['className'] }}
+                                                                </option>
+                                                                <repeat group="{{ @classes }}" value="{{ @class1 }}">
+                                                                    <check
+                                                                        if="{{ @student['className'] != @class1['className']  }}">
+                                                                        <option value="{{ @class1['classid'] }}">
+                                                                            {{ @class1['className'] }}
+                                                                        </option>
+                                                                    </check>
+                                                                </repeat>
+                                                            </select>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center">
+                                                        <button class="btn btn-amber" type="submit">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!--/ edit pill -->
+
+
+
+                                            <div class="tab-pane fade" id="pills-contact{{ @student['sid'] }}"
+                                                role="tabpanel" aria-labelledby="pills-contact-tab">
+
+                                                <div class="modal-body mx-3">
+                                                    <form action="" method="POST">
+                                                        <div class="text-center">
+                                                            <input type="hidden" name="deleteStudent"
+                                                                value="{{ @student['sid'] }}" />
+                                                            <h5>Are you sure you want to delete {{ @student['first'] }}
+                                                                {{ @student['last'] }}?</h5>
+                                                            <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <!-- pills -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Modal to view a student -->
+
                             <check if="{{ @class['classid'] == @student['classid'] }}">
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-default w-100 view-attendance" name="student"
-                                        value="{{ @student['sid'] }}" type="submit">
+                                        value="{{ @student['sid'] }}" type="submit" data-toggle="modal"
+                                        data-target="#modalViewStudent{{ @student['sid'] }}">
                                         {{ @student['last'] }}, {{ @student['first'] }}
                                     </button>
                                 </div>
@@ -251,14 +577,20 @@
                 </header>
 
                 <check if="{{ isset(@errors['teacherClass']) }}">
-                    <div style="text-align: center;">
+                    <div class="text-center">
                         <p style="color: red;">{{ @errors['teacherClass'] }}</p>
                     </div>
                 </check>
 
                 <check if="{{ isset(@errors['error']) }}">
-                    <div style="text-align: center;">
+                    <div class="text-center">
                         <p style="color: red;">{{ @errors['nomatch'] }}</p>
+                    </div>
+                </check>
+
+                <check if="{{ isset(@errors['updateNoMatch']) }}">
+                    <div class="text-center">
+                        <p style="color: red;">{{ @errors['updateNoMatch'] }}</p>
                     </div>
                 </check>
 
@@ -271,9 +603,154 @@
                 <br>
 
                 <repeat group="{{ @teachers }}" value="{{ @teacher }}">
+                    <!-- Modal to view a teacher -->
+                    <div class="modal fade" id="modalViewTeacher{{ @teacher['teacherid'] }}" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">{{ @teacher['name'] }}</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- pills -->
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item mr-auto ml-auto mt-2">
+                                        <a class="nav-link active" id="pills-teacher-tab" data-toggle="pill"
+                                            href="#pills-teacher{{ @teacher['teacherid'] }}" role="tab"
+                                            aria-controls="pills-teacher" aria-selected="true">Teacher</a>
+                                    </li>
+                                    <li class="nav-item mr-auto ml-auto mt-2">
+                                        <a class="nav-link" id="pills-edit-tab" data-toggle="pill"
+                                            href="#pills-edit{{ @teacher['teacherid'] }}" role="tab"
+                                            aria-controls="pills-edit" aria-selected="false">Edit</a>
+                                    </li>
+                                    <li class="nav-item mr-auto ml-auto mt-2">
+                                        <a class="nav-link" id="pills-delete-tab" data-toggle="pill"
+                                            href="#pills-delete{{ @teacher['teacherid'] }}" role="tab"
+                                            aria-controls="pills-delete" aria-selected="false">Delete</a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content pt-2 pl-1" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-teacher{{ @teacher['teacherid'] }}"
+                                        role="tabpanel" aria-labelledby="pills-teacher-tab">
+
+
+
+
+                                        <div class="modal-body mx-3 mb-4">
+
+
+                                            <div class="text-center">
+                                                <h3>Username: {{ @teacher['username'] }}</h3>
+                                                <h3>Password: {{ @teacher['password'] }}</h3>
+                                                <h3>Class: {{ @teacher['className'] }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- edit pill -->
+                                    <div class="tab-pane fade" id="pills-edit{{ @teacher['teacherid'] }}"
+                                        role="tabpanel" aria-labelledby="pills-edit-tab">
+                                        <form action="" method="POST">
+                                            <div class="modal-body mx-3">
+
+                                                <input type="hidden" name="teacherid"
+                                                    value="{{ @teacher['teacherid'] }}" />
+
+                                                <div class="md-form mb-5">
+                                                    <i class="fas fa-user prefix grey-text"></i>
+                                                    <input type="text" id="updateTeacherName" name="updateTeacherName"
+                                                        class="form-control" value="{{ @teacher['name'] }}" required>
+                                                    <label for="updateTeacherName">Name</label>
+                                                </div>
+
+                                                <div class="md-form mb-5">
+                                                    <i class="fas fa-envelope prefix grey-text"></i>
+                                                    <input type="text" id="updateTeacherUsername"
+                                                        name="updateTeacherUsername" class="form-control"
+                                                        value="{{ @teacher['username'] }}" required>
+                                                    <label for="updateTeacherUsername">Username</label>
+                                                </div>
+
+                                                <div class="md-form mb-5">
+                                                    <i class="fas fa-lock prefix grey-text"></i>
+                                                    <input type="password" id="updatePassword" name="updatePassword"
+                                                        class="form-control" value="{{ @teacher['password'] }}"
+                                                        required>
+                                                    <label for="updatePassword">
+                                                        Password</label>
+                                                </div>
+
+                                                <div class="md-form mb-5">
+                                                    <i class="fas fa-lock prefix grey-text"></i>
+                                                    <input type="password" id="updateConfirmPassword"
+                                                        name="updateConfirmPassword" class="form-control"
+                                                        value="{{ @teacher['password'] }}" required>
+                                                    <label for="updateConfirmPassword">
+                                                        Confirm Password</label>
+                                                </div>
+
+                                                <div class="md-form mb-4">
+                                                    <select class="browser-default custom-select"
+                                                        name="updateTeacherClass">
+                                                        <option value="{{ @teacher['classid'] }}" selected>
+                                                            {{ @teacher['className'] }}
+                                                        </option>
+                                                        <repeat group="{{ @classes }}" value="{{ @class2 }}">
+                                                            <check
+                                                                if="{{ @teacher['className'] != @class2['className']  }}">
+                                                                <option value="{{ @class2['classid'] }}">
+                                                                    {{ @class2['className'] }}
+                                                                </option>
+                                                            </check>
+                                                        </repeat>
+                                                    </select>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center">
+                                                <button class="btn btn-amber" type="submit">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--/ edit pill -->
+
+
+
+                                    <div class="tab-pane fade" id="pills-delete{{ @teacher['teacherid'] }}"
+                                        role="tabpanel" aria-labelledby="pills-delete-tab">
+
+                                        <div class="modal-body mx-3">
+                                            <form action="" method="POST">
+                                                <div class="text-center">
+                                                    <input type="hidden" name="deleteTeacher"
+                                                        value="{{ @teacher['teacherid'] }}" />
+                                                    <h5>Are you sure you want to delete {{ @teacher['name'] }}
+                                                        ?</h5>
+                                                    <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!-- pills -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Modal to view a teacher -->
+
+
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary w-100 view-attendance" name="student"
-                            value="{{ @teacher['teacherid'] }}" type="submit">
+                        <button class="btn btn-primary w-100 view-attendance" name="student" data-toggle="modal"
+                            data-target="#modalViewTeacher{{ @teacher['teacherid'] }}" type="submit">
                             {{ @teacher['name'] }}
                         </button>
                     </div>
@@ -311,6 +788,8 @@
             </form>
             <!--/ Modal to add a class -->
 
+
+
             <!-- Classes tab -->
             <article id="classes" class="panel">
                 <header class="d-flex justify-content-center">
@@ -326,9 +805,50 @@
                 <br>
 
                 <repeat group="{{ @classes }}" value="{{ @class }}">
+                    <!-- Modal to change name of a class -->
+                    <div class="modal fade" id="modalRenameClass{{ @class['classid'] }}" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <form action="" method="POST">
+
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold">Rename {{ @class['className'] }}
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form mb-5">
+                                            <input type="hidden" name="updateClassNameID"
+                                                value="{{ @class[classid ]}}" />
+
+                                            <i class="fas fa-user prefix grey-text"></i>
+                                            <input type="text" id="updateClassName" name="updateClassName"
+                                                class="form-control" required>
+                                            <label for="updateClassName">New Class Title</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <button class="btn btn-amber" type="submit">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!--/ Modal to change name of a class -->
+
+
+
+
+
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-secondary w-100 view-attendance" name="student"
-                            value="{{ @class['classid'] }}" type="submit">
+                            value="{{ @class['classid'] }}" data-toggle="modal"
+                            data-target="#modalRenameClass{{ @class['classid'] }}" type="submit">
                             {{ @class['className'] }}
                         </button>
                     </div>
