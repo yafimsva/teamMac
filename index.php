@@ -162,7 +162,7 @@ $f3->route('GET|POST /admin', function ($f3) {
 		$newClassName = $_POST['updateClassName'];
 		$updateClassNameID = $_POST['updateClassNameID'];
 		$db->updateClass($newClassName, $updateClassNameID);
-		$f3->reroute('admin#students');
+		$f3->reroute('admin#classes');
 	}
 
 	//updates a teacher 
