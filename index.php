@@ -23,6 +23,10 @@ $f3->set('DEBUG', 3);
 
 $f3->route('GET|POST /home', function ($f3) {
 
+	if (!isset($_SESSION['teacherLogin'])) {
+		$f3->reroute('/');
+	}
+
 	$db = new Database();
 	$db->connect();
 
@@ -31,7 +35,7 @@ $f3->route('GET|POST /home', function ($f3) {
 
 	$f3->set("currentDate", date("Y-m-d"));
 
-	$students = $db->getStudents();
+	$students = $db->getStudentsByID($_SESSION['classid']);
 
 
 
@@ -79,12 +83,49 @@ $f3->route('GET|POST /home', function ($f3) {
 	echo $template->render('views/index.html');
 });
 
-$f3->route('GET|POST /', function () {
+$f3->route('GET|POST /', function ($f3) {
+	$db = new Database();
+	$db->connect();
+
+	if (isset($_SESSION['teacherLogin'])) {
+		$f3->reroute('home');
+	} else if (isset($_SESSION['adminLogin'])) {
+		$f3->reroute('admin');
+	}
+
+	if (isset($_POST['username'], $_POST['password'])) {
+
+		if (strtolower($_POST['username']) == "admin" && $_POST['password'] == "admin") {
+			$_SESSION['adminLogin'] = true;
+
+			$f3->reroute('admin');
+		}
+
+		$results = $db->checkLogin($_POST['username'], $_POST['password']);
+		if (isset($results['teacherid'])) {
+			$_SESSION['teacherLogin'] = true;
+			$_SESSION['teacherid'] = $results['teacherid'];
+			$_SESSION['name'] = $results['name'];
+			$_SESSION['username'] = $results['username'];
+			$_SESSION['classid'] = $results['classid'];
+			$_SESSION['class'] = $results['className'];
+
+			$f3->reroute('home');
+		} else {
+			$f3->reroute('/');
+		}
+		print_r($_SESSION);
+	}
+
+
 	$template = new Template();
 	echo $template->render('views/login.html');
 });
 
 $f3->route('GET|POST /admin', function ($f3) {
+	if (!isset($_SESSION['adminLogin'])) {
+		$f3->reroute('/');
+	}
 	$db = new Database();
 	$db->connect();
 
@@ -199,6 +240,14 @@ $f3->route('GET|POST /admin', function ($f3) {
 
 	$template = new Template();
 	echo $template->render('views/admin.html');
+});
+
+$f3->route('GET|POST /logout', function ($f3) {
+	session_destroy();
+	$f3->reroute('/');
+
+	$template = new Template();
+	echo $template->render('views/login.html');
 });
 
 

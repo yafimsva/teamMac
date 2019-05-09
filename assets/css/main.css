@@ -1667,6 +1667,12 @@ header>p {
 	color: #aaa;
 }
 
+header>small>p {
+	margin: 0.5em 0 0 0;
+	color: #aaa;
+	font-weight: 300;
+}
+
 @media screen and (max-width: 736px) {
 
 	header {

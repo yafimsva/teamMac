@@ -81,6 +81,27 @@ class Database
         return $results;
     }
 
+    public function getStudentsByID($classid)
+    {
+        global $dbh;
+
+        $sql = "SELECT * FROM `students` WHERE classid = :classid ORDER BY last ASC;";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    }
+
     function takeAttendance($date, $sid, $present)
     {
         global $dbh;
@@ -378,4 +399,33 @@ class Database
             print_r($arr[2]);
         }
     }
+
+    public function checkLogin($username, $password)
+    {
+        global $dbh;
+
+
+
+
+        $sql = "SELECT teachers.*, classes.className FROM teachers INNER JOIN classes
+        ON teachers.classid = classes.classid WHERE username = :username AND password = :password;";
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':username', $username, PDO::PARAM_STR);
+        $statement->bindValue(':password', $password, PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $results = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+        return $results;
+    }
+
+    // Information for teachers home page
+    public function getTeacherInfo($username)
+    { }
 }

@@ -29,9 +29,10 @@
         <!-- Nav -->
         <nav id="nav">
             <a href="#" class="icon fa-home"><span>Home</span></a>
-            <a href="#students" class="icon fa-folder"><span>Students</span></a>
-            <a href="#teachers" class="icon fa-envelope"><span>Teachers</span></a>
-            <a href="#classes" class="icon fa-envelope"><span>Classes</span></a>
+            <a href="#students" class="fas fa-users"><span>Students</span></a>
+            <a href="#teachers" class="far fa-address-book"><span>Teachers</span></a>
+            <a href="#classes" class="fas fa-layer-group"><span>Classes</span></a>
+            <a href="logout" class="icon fa-power-off"><span>Logout</span></a>
 
             <!--<a href="https://twitter.com/ajlkn" class="icon fa-twitter"><span>Twitter</span></a>-->
         </nav>
@@ -44,35 +45,6 @@
                     <h1>Admin</h1>
                     <p>Sunday School Admin</p>
                     <br />
-
-                    <!--Modal: Logout-->
-                    <div class="modal fade" id="modalLogOut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-                            <!--Content-->
-                            <div class="modal-content">
-
-
-                                <!--Body-->
-                                <div class="modal-body text-center mb-1">
-
-                                    <h5 class="mt-1 mb-2">Confirmation</h5>
-
-                                    <div class="text-center mt-4">
-                                        <button class="btn btn-cyan mt-1">Logout </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!--/.Content-->
-                        </div>
-                    </div>
-                    <!--Modal: Logout-->
-
-                    <div class="text-center">
-                        <a href="" class="btn btn-default mt-4" data-toggle="modal" data-target="#modalLogOut">Log
-                            Out</a>
-                    </div>
                 </header>
             </article>
 
@@ -173,13 +145,6 @@
                         <h3 class="text-center">{{ @class['className'] }}</h3>
 
                         <repeat group="{{ @teachers }}" value="{{ @teacher1 }}">
-
-
-
-
-
-
-
 
                             <!-- Modal to view a teacher -->
                             <div class="modal fade" id="modalViewTeacherOnStudentsPage{{ @teacher1['teacherid'] }}"
@@ -609,7 +574,8 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold">{{ @teacher['name'] }}</h4>
+                                    <h4 class="modal-title w-100 font-weight-bold">{{ @teacher['name'] }}
+                                    </h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -731,7 +697,8 @@
                                                 <div class="text-center">
                                                     <input type="hidden" name="deleteTeacher"
                                                         value="{{ @teacher['teacherid'] }}" />
-                                                    <h5>Are you sure you want to delete {{ @teacher['name'] }}
+                                                    <h5>Are you sure you want to delete
+                                                        {{ @teacher['name'] }}
                                                         ?</h5>
                                                     <button class="btn btn-red mt-5" type="submit">Yes!</button>
                                                 </div>
@@ -813,7 +780,8 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold">Rename {{ @class['className'] }}
+                                        <h4 class="modal-title w-100 font-weight-bold">Rename
+                                            {{ @class['className'] }}
                                         </h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
