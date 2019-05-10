@@ -130,10 +130,15 @@ $f3->route('GET|POST /admin', function ($f3) {
 	$students = $db->getStudents();
 	$teachers = $db->getTeachers();
 	$classes = $db->getClasses();
+	$helpers = $db->getHelpers();
+
 
 	$f3->set('students', $students);
 	$f3->set('teachers', $teachers);
 	$f3->set('classes', $classes);
+	$f3->set('helpers', $helpers);
+
+
 
 
 
@@ -164,7 +169,7 @@ $f3->route('GET|POST /admin', function ($f3) {
 				$db->insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass);
 				$f3->reroute('admin#teachers');
 			} else {
-				$f3->set("errors['teacherClass']", "You did not pick a class for your teacher, student was not added");
+				$f3->set("errors['teacherClass']", "You did not pick a class for your teacher, teacher was not added");
 			}
 		} else {
 			$f3->set("errors['nomatch']", "Passwords did not match, teacher was not added");
@@ -227,6 +232,49 @@ $f3->route('GET|POST /admin', function ($f3) {
 	//deletes a student
 	if (isset($_POST['deleteTeacher'])) {
 		$db->deleteTeacher($_POST['deleteTeacher']);
+
+		if (isset($_POST['onStudentsPage'])) {
+			$f3->reroute('admin#students');
+		} else {
+			$f3->reroute('admin#teachers');
+		}
+	}
+
+	//insert a helper
+	if (isset($_POST['helperName'], $_POST['helperClass'])) {
+
+		if ($_POST['helperClass'] != 0) {
+			$db->insertHelper($_POST['helperName'], $_POST['helperClass']);
+
+			if (isset($_POST['onStudentsPage'])) {
+				$f3->reroute('admin#students');
+			} else {
+				$f3->reroute('admin#teachers');
+			}
+		} else {
+			$f3->set("errors['noClassHelper']", "You did not pick a class for your helper, helper was not added");
+		}
+	}
+
+	//updates a helper 
+	if (isset($_POST['updateHelperName'], $_POST['updateHelperClass'])) {
+
+		$updateHelperName = $_POST['updateHelperName'];
+		$updateHelperClass = $_POST['updateHelperClass'];
+		$helperid = $_POST['helperid'];
+
+		$db->updateHelper($updateHelperName, $updateHelperClass, $helperid);
+
+		if (isset($_POST['onStudentsPage'])) {
+			$f3->reroute('admin#students');
+		} else {
+			$f3->reroute('admin#teachers');
+		}
+	}
+
+	//deletes a helper
+	if (isset($_POST['deleteHelper'])) {
+		$db->deleteHelper($_POST['deleteHelper']);
 
 		if (isset($_POST['onStudentsPage'])) {
 			$f3->reroute('admin#students');

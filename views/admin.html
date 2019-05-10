@@ -87,7 +87,7 @@
 
                                 <div class="md-form mb-4">
                                     <select class="browser-default custom-select" name="studentClass">
-                                        <option selected>--Select a class--</option>
+                                        <option value="0" selected>--Select a class--</option>
                                         <repeat group="{{ @classes }}" value="{{ @class }}">
                                             <option value="{{ @class['classid'] }}">{{ @class['className'] }}</option>
                                         </repeat>
@@ -316,6 +316,150 @@
                             </check>
                         </repeat>
 
+
+                        <repeat group="{{ @helpers }}" value="{{ @helper }}">
+
+                            <!-- Modal to view a helper -->
+                            <div class="modal fade" id="modalViewHelperOnStudentsPage{{ @helper['helperid'] }}"
+                                tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h4 class="modal-title w-100 font-weight-bold">{{ @helper['name'] }}
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- pills -->
+                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link active" id="pills-helper-students-tab"
+                                                    data-toggle="pill"
+                                                    href="#pills-helper-students{{ @helper['helperid'] }}" role="tab"
+                                                    aria-controls="pills-helper-students"
+                                                    aria-selected="true">Teacher</a>
+                                            </li>
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link" id="pills-edit-helpers-tab" data-toggle="pill"
+                                                    href="#pills-edit-helpers{{ @helper['helperid'] }}" role="tab"
+                                                    aria-controls="pills-edit-helper" aria-selected="false">Edit</a>
+                                            </li>
+                                            <li class="nav-item mr-auto ml-auto mt-2">
+                                                <a class="nav-link" id="pills-delete-helper-tab" data-toggle="pill"
+                                                    href="#pills-delete-helpers{{ @helper['helperid'] }}" role="tab"
+                                                    aria-controls="pills-delete-helpers"
+                                                    aria-selected="false">Delete</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content pt-2 pl-1" id="pills-tabContent">
+                                            <div class="tab-pane fade show active"
+                                                id="pills-helper-students{{ @helper['helperid'] }}" role="tabpanel"
+                                                aria-labelledby="pills-helper-students-tab">
+
+
+
+
+                                                <div class="modal-body mx-3 mb-4">
+
+
+                                                    <div class="text-center">
+                                                        <h3>Class: {{ @helper['className'] }}</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- edit pill -->
+                                            <div class="tab-pane fade" id="pills-edit-helpers{{ @helper['helperid'] }}"
+                                                role="tabpanel" aria-labelledby="pills-edit-helpers-tab">
+                                                <form action="" method="POST">
+                                                    <div class="modal-body mx-3">
+
+                                                        <input type="hidden" name="onStudentsPage" value="1">
+
+                                                        <input type="hidden" name="helperid"
+                                                            value="{{ @helper['helperid'] }}" />
+
+                                                        <div class="md-form mb-5">
+                                                            <i class="fas fa-user prefix grey-text"></i>
+                                                            <input type="text" id="updateHelperName"
+                                                                name="updateHelperName" class="form-control"
+                                                                value="{{ @helper['name'] }}" required>
+                                                            <label for="updateHelperName">Name</label>
+                                                        </div>
+
+
+
+                                                        <div class="md-form mb-4">
+                                                            <select class="browser-default custom-select"
+                                                                name="updateHelperClass">
+                                                                <option value="{{ @helper['classid'] }}" selected>
+                                                                    {{ @helper['className'] }}
+                                                                </option>
+                                                                <repeat group="{{ @classes }}" value="{{ @class10 }}">
+                                                                    <check
+                                                                        if="{{ @helper['className'] != @class10['className']  }}">
+                                                                        <option value="{{ @class10['classid'] }}">
+                                                                            {{ @class10['className'] }}
+                                                                        </option>
+                                                                    </check>
+                                                                </repeat>
+                                                            </select>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center">
+                                                        <button class="btn btn-amber" type="submit">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!--/ edit pill -->
+
+
+                                            <!--/ delete pill -->
+                                            <div class="tab-pane fade"
+                                                id="pills-delete-helpers{{ @helper['helperid'] }}" role="tabpanel"
+                                                aria-labelledby="pills-delete-helpers-tab">
+
+                                                <div class="modal-body mx-3">
+                                                    <form action="" method="POST">
+                                                        <div class="text-center">
+                                                            <input type="hidden" name="deleteHelper"
+                                                                value="{{ @helper['helperid'] }}" />
+                                                            <input type="hidden" name="onStudentsPage" value="1">
+
+                                                            <h5>Are you sure you want to delete
+                                                                {{ @helper['name'] }}
+                                                                ?</h5>
+                                                            <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+
+                                            </div>
+                                            <!--/ delete pill -->
+                                        </div>
+                                        <!-- pills -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Modal to view a helper -->
+
+                            <check if="{{ @helper['classid'] == @class['classid'] }}">
+                                <div class="d-flex justify-content-center">
+
+                                    <button class="btn btn-secondary w-100 view-attendance"
+                                        value="{{ @helper['helperid'] }}" data-toggle="modal"
+                                        data-target="#modalViewHelperOnStudentsPage{{ @helper['helperid'] }}">{{ @helper['name'] }}</button>
+                                </div>
+                            </check>
+                        </repeat>
+
                         <repeat group="{{ @students }}" value="{{ @student }}">
 
                             <!-- Modal to view a student -->
@@ -518,7 +662,7 @@
 
                                 <div class="md-form mb-4">
                                     <select class="browser-default custom-select" name="teacherClass">
-                                        <option selected>--Select a class--</option>
+                                        <option value="0" selected>--Select a class--</option>
                                         <repeat group="{{ @classes }}" value="{{ @class }}">
                                             <option value="{{ @class['classid'] }}">{{ @class['className'] }}</option>
                                         </repeat>
@@ -561,8 +705,8 @@
 
 
                                 <div class="md-form mb-4">
-                                    <select class="browser-default custom-select" name="teacherClass">
-                                        <option selected>--Select a class--</option>
+                                    <select class="browser-default custom-select" name="helperClass">
+                                        <option value="0" selected>--Select a class--</option>
                                         <repeat group="{{ @classes }}" value="{{ @class4 }}">
                                             <option value="{{ @class4['classid'] }}">{{ @class4['className'] }}</option>
                                         </repeat>
@@ -592,7 +736,7 @@
                     </div>
                 </check>
 
-                <check if="{{ isset(@errors['error']) }}">
+                <check if="{{ isset(@errors['nomatch']) }}">
                     <div class="text-center">
                         <p style="color: red;">{{ @errors['nomatch'] }}</p>
                     </div>
@@ -601,6 +745,12 @@
                 <check if="{{ isset(@errors['updateNoMatch']) }}">
                     <div class="text-center">
                         <p style="color: red;">{{ @errors['updateNoMatch'] }}</p>
+                    </div>
+                </check>
+
+                <check if="{{ isset(@errors['noClassHelper']) }}">
+                    <div class="text-center">
+                        <p style="color: red;">{{ @errors['noClassHelper'] }}</p>
                     </div>
                 </check>
 
@@ -772,6 +922,139 @@
                         </button>
                     </div>
                 </repeat>
+
+                <repeat group="{{ @helpers }}" value="{{ @helper1 }}">
+
+                    <!-- Modal to view a helper -->
+                    <div class="modal fade" id="modalViewHelper{{ @helper1['helperid'] }}" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">{{ @helper1['name'] }}
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- pills -->
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item mr-auto ml-auto mt-2">
+                                        <a class="nav-link active" id="pills-helper-tab" data-toggle="pill"
+                                            href="#pills-helper{{ @helper1['helperid'] }}" role="tab"
+                                            aria-controls="pills-helper" aria-selected="true">Helper</a>
+                                    </li>
+                                    <li class="nav-item mr-auto ml-auto mt-2">
+                                        <a class="nav-link" id="pills-edit-helpers1-tab" data-toggle="pill"
+                                            href="#pills-edit-helpers1{{ @helper1['helperid'] }}" role="tab"
+                                            aria-controls="pills-edit-helper1" aria-selected="false">Edit</a>
+                                    </li>
+                                    <li class="nav-item mr-auto ml-auto mt-2">
+                                        <a class="nav-link" id="pills-delete-helper1-tab" data-toggle="pill"
+                                            href="#pills-delete-helpers1{{ @helper1['helperid'] }}" role="tab"
+                                            aria-controls="pills-delete-helpers1" aria-selected="false">Delete</a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content pt-2 pl-1" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-helper{{ @helper1['helperid'] }}"
+                                        role="tabpanel" aria-labelledby="pills-helper-tab">
+
+
+
+
+                                        <div class="modal-body mx-3 mb-4">
+
+
+                                            <div class="text-center">
+                                                <h3>Class: {{ @helper1['className'] }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- edit pill -->
+                                    <div class="tab-pane fade" id="pills-edit-helpers1{{ @helper1['helperid'] }}"
+                                        role="tabpanel" aria-labelledby="pills-edit-helpers1-tab">
+                                        <form action="" method="POST">
+                                            <div class="modal-body mx-3">
+
+                                                <input type="hidden" name="helperid"
+                                                    value="{{ @helper1['helperid'] }}" />
+
+                                                <div class="md-form mb-5">
+                                                    <i class="fas fa-user prefix grey-text"></i>
+                                                    <input type="text" id="updateHelperName" name="updateHelperName"
+                                                        class="form-control" value="{{ @helper1['name'] }}" required>
+                                                    <label for="updateHelperName">Name</label>
+                                                </div>
+
+
+
+                                                <div class="md-form mb-4">
+                                                    <select class="browser-default custom-select"
+                                                        name="updateHelperClass">
+                                                        <option value="{{ @helper1['classid'] }}" selected>
+                                                            {{ @helper1['className'] }}
+                                                        </option>
+                                                        <repeat group="{{ @classes }}" value="{{ @class11 }}">
+                                                            <check
+                                                                if="{{ @helper1['className'] != @class11['className']  }}">
+                                                                <option value="{{ @class11['classid'] }}">
+                                                                    {{ @class11['className'] }}
+                                                                </option>
+                                                            </check>
+                                                        </repeat>
+                                                    </select>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center">
+                                                <button class="btn btn-amber" type="submit">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--/ edit pill -->
+
+
+                                    <!--/ delete pill -->
+                                    <div class="tab-pane fade" id="pills-delete-helpers1{{ @helper1['helperid'] }}"
+                                        role="tabpanel" aria-labelledby="pills-delete-helpers1-tab">
+
+                                        <div class="modal-body mx-3">
+                                            <form action="" method="POST">
+                                                <div class="text-center">
+                                                    <input type="hidden" name="deleteHelper"
+                                                        value="{{ @helper1['helperid'] }}" />
+
+                                                    <h5>Are you sure you want to delete
+                                                        {{ @helper1['name'] }}
+                                                        ?</h5>
+                                                    <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+                                    <!--/ delete pill -->
+                                </div>
+                                <!-- pills -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Modal to view a helper -->
+
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-secondary w-100 view-attendance" value="{{ @helper1['helperid'] }}"
+                            data-toggle="modal"
+                            data-target="#modalViewHelper{{ @helper1['helperid'] }}">{{ @helper1['name'] }}
+                        </button>
+                    </div>
+                </repeat>
+
             </article>
             <!-- /Teacher tab -->
 
