@@ -142,38 +142,24 @@ class Database
         }
     }
 
-    public function viewAttendance()
-    {
-        global $dbh;
-
-        $sql = "SELECT * FROM attendance";
-
-        $statement = $dbh->prepare($sql);
-
-        $statement->execute();
-        $arr = $statement->errorInfo();
-        if (isset($arr[2])) {
-            print_r($arr[2]);
-        }
-
-        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        return $results;
-    }
-
-    public function viewAttendanceByDate($date)
+    public function viewAttendanceByDateAndClassID($date, $classid)
     {
         global $dbh;
 
         $sql = "SELECT students.first, students.last,
-                attendance.date, attendance.sid, attendance.present
-                FROM students
-                INNER JOIN attendance
-                ON students.sid = attendance.sid
-                WHERE date = :date";
+        attendance.date, attendance.sid, attendance.present, classes.classid
+        FROM students
+        INNER JOIN attendance
+        ON students.sid = attendance.sid
+        INNER JOIN classes 
+        ON students.classid = classes.classid
+        WHERE date = :date
+        AND students.classid = :classid;";
 
         $statement = $dbh->prepare($sql);
         $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -508,8 +494,4 @@ class Database
         }
         return $results;
     }
-
-    // Information for teachers home page
-    public function getTeacherInfo($username)
-    { }
 }

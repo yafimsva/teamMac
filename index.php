@@ -65,17 +65,15 @@ $f3->route('GET|POST /home', function ($f3) {
 
 	foreach ($dates as $date) {
 		array_push($finalDates, $date['date']);
-		array_push($finalStudents, $db->viewAttendanceByDate($date['date']));
+		array_push($finalStudents, $db->viewAttendanceByDateAndClassID($date['date'], $_SESSION['classid']));
 	}
 
 	//    print_r($finalStudents);
 
 
-	$attendance = $db->viewAttendance();
 	$f3->set('dates', $finalDates);
 	$f3->set('allStudents', $finalStudents);
 
-	$f3->set('attendances', $attendance);
 
 
 
