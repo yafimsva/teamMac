@@ -1673,6 +1673,15 @@ header>small>p {
 	font-weight: 300;
 }
 
+@media screen and (min-width: 800px) {
+
+	.comp-padding {
+		width: 88% !important;
+		padding-left: 12% !important;
+	}
+
+}
+
 @media screen and (max-width: 736px) {
 
 	header {
@@ -2064,10 +2073,7 @@ body.is-preload #wrapper {
 /* Main */
 
 
-.date-style {
-	width: 60% !important;
-	padding-left: 40% !important;
-}
+
 
 #main {
 	position: relative;
