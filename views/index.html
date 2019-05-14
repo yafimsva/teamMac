@@ -82,6 +82,7 @@
 		<!-- Nav -->
 		<nav id="nav">
 			<a href="#" class="fas fa-user-circle"><span>Home</span></a>
+			<a href="#students" class="fas fa-users"><span>All Students</span></a>
 			<!-- <a href="#attendance" class="fas fa-clipboard-list"><span>Attendance</span></a> -->
 			<a href="#calendar" class="icon fa-calendar-alt"><span>Calendar</span></a>
 			<a href="logout" class="icon fa-power-off"><span>Logout</span></a>
@@ -137,7 +138,33 @@
 													</true>
 
 													<false>
-														<repeat group="{{ @students }}" value="{{ @student }}"
+
+														<form method="POST" action="">
+															<repeat group="{{ @students }}" value="{{ @student }}"
+																counter="{{ @i }}">
+																<div class="d-flex justify-content-center">
+																	<div class="text-center">
+																		<label
+																			class="btn btn-success mt-2 attendance-student">
+																			<input type="checkbox" name="students[]"
+																				value="{{ @student['sid'] }}" checked />
+																			{{ @student['last'] }},
+																			{{ @student['first'] }}
+
+																		</label>
+																	</div>
+																</div>
+
+																<br />
+															</repeat>
+
+															<div class="modal-footer d-flex justify-content-center">
+																<button class="btn btn-default" type="submit">
+																	Submit
+																</button>
+															</div>
+														</form>
+														<!-- <repeat group="{{ @students }}" value="{{ @student }}"
 															counter="{{ @i }}">
 															<label class="fs-19 m-0 p-3 text-left">
 																<input type="checkbox" name="students[]"
@@ -148,16 +175,11 @@
 															</label>
 
 															<br />
-														</repeat>
+														</repeat> -->
 													</false>
 												</check>
 											</div>
 										</div>
-									</div>
-									<div class="modal-footer d-flex justify-content-center">
-										<button class="btn btn-default" type="submit">
-											Submit
-										</button>
 									</div>
 								</div>
 							</div>
@@ -170,6 +192,70 @@
 					</div>
 				</header>
 			</article>
+
+
+			<!-- All students -->
+			<article id="students" class="panel intro centered">
+				<header class="d-flex justify-content-center m-0 p-1">
+					<h2>All Students</h2>
+				</header>
+
+				<br>
+
+
+				<repeat group="{{ @students }}" value="{{ @student }}">
+					<div class="">
+						<div class="d-flex justify-content-center">
+							<div class="text-center w-100">
+								<a class="btn btn-amber mt-2 w-50" data-toggle="modal"
+									data-target="#modalViewStudent{{ @student['sid'] }}">{{ @student['first'] }},
+									{{ @student['last'] }}</a>
+							</div>
+						</div>
+
+
+						<!-- Modal to view a teacher -->
+						<div class="modal fade" id="modalViewStudent{{ @student['sid'] }}" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header text-center">
+										<h4 class="modal-title w-100 font-weight-bold">{{ @student['first'] }},
+											{{ @student['last'] }}
+										</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+
+									<div class="tab-content pt-2 pl-1" id="pills-tabContent">
+										<div class="tab-pane fade show active"
+											id="pills-teacher-students{{ @student['sid'] }}" role="tabpanel"
+											aria-labelledby="pills-teacher-students-tab">
+
+											<div class="modal-body mx-3 mb-4">
+
+
+												<div class="text-center">
+													<h3>SID: {{ @student['sid'] }}</h3>
+													<h3>First Name: {{ @student['first'] }}</h3>
+													<h3>Last Name: {{ @student['last'] }}</h3>
+													<h3>DOB: {{ @student['dob'] }}</h3>
+													<h3>Parents Email: {{ @student['parents_email'] }}</h3>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- pills -->
+								</div>
+							</div>
+						</div>
+						<!--/ Modal to view a teacher -->
+					</div>
+				</repeat>
+			</article>
+
+
 
 			<!-- Calendar -->
 			<article id="calendar" class="panel">
@@ -303,6 +389,18 @@
 
 	<script>
 		$(document).ready(function () {
+			$(".attendance-student").click(function () {
+				if ($(this).hasClass('btn-success')) {
+					$(this).removeClass('btn-success');
+					$(this).addClass('btn-danger');
+					$(this).removeAttr('checked');
+				}
+				else if ($(this).hasClass('btn-danger')) {
+					$(this).removeClass('btn-danger');
+					$(this).addClass('btn-success');
+					$(this).attr('checked', 'checked');
+				}
+			});
 			$('#materialIndeterminate2').prop('indeterminate', true);
 		});
 	</script>
