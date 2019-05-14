@@ -191,6 +191,67 @@
 							data-target="#modalTakeAttendance">Take Attendance</a>
 					</div>
 				</header>
+			</article> -->
+
+			<!-- Me -->
+			<article id="students" class="panel intro centered">
+				<header class="d-flex justify-content-center">
+					<h2>All Students</h2>
+				</header>
+
+				<br>
+
+
+				<repeat group="{{ @students }}" value="{{ @student }}">
+					<div class="">
+						<div class="d-flex justify-content-center">
+							<div class="text-center">
+								<a class="btn btn-amber mt-2" data-toggle="modal"
+									data-target="#modalViewStudent{{ @student['sid'] }}">{{ @student['first'] }},
+									{{ @student['last'] }}</a>
+							</div>
+						</div>
+
+
+						<!-- Modal to view a teacher -->
+						<div class="modal fade" id="modalViewStudent{{ @student['sid'] }}" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header text-center">
+										<h4 class="modal-title w-100 font-weight-bold">{{ @student['first'] }},
+											{{ @student['last'] }}
+										</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+
+									<div class="tab-content pt-2 pl-1" id="pills-tabContent">
+										<div class="tab-pane fade show active"
+											id="pills-teacher-students{{ @student['sid'] }}" role="tabpanel"
+											aria-labelledby="pills-teacher-students-tab">
+
+											<div class="modal-body mx-3 mb-4">
+
+
+												<div class="text-center">
+													<h3>SID: {{ @student['sid'] }}</h3>
+													<h3>First Name: {{ @student['first'] }}</h3>
+													<h3>Last Name: {{ @student['last'] }}</h3>
+													<h3>DOB: {{ @student['dob'] }}</h3>
+													<h3>Parents Email: {{ @student['parents_email'] }}</h3>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- pills -->
+								</div>
+							</div>
+						</div>
+						<!--/ Modal to view a teacher -->
+					</div>
+				</repeat>
 			</article>
 
 
