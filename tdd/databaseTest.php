@@ -15,6 +15,7 @@ class DatabaseTest extends TestCase
     public function setUp()
     {
         $this->database = new Database();
+        $this->database->connect();
     }
 
     public function tearDown()
@@ -22,8 +23,10 @@ class DatabaseTest extends TestCase
         unset($this->database);
     }
 
-    public function testDatabaseConnect()
+    public function testDatabaseGetStudents()
     {
-
+        $entries = $this->database->getStudents();
+        $this->assertInternalType('array', $entries);
+        $this->assertTrue(count($entries) > 0);
     }
 }
