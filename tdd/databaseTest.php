@@ -10,5 +10,20 @@ use PHPUnit\Framework\TestCase as TestCase;
 
 class DatabaseTest extends TestCase
 {
+    private $database;
 
+    public function setUp()
+    {
+        $this->database = new Database();
+    }
+
+    public function tearDown()
+    {
+        unset($this->database);
+    }
+
+    public function testDatabaseConnect()
+    {
+
+    }
 }
