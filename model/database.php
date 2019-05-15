@@ -3,8 +3,8 @@
 
 if ($_SERVER['USER'] == 'yvainilo') {
     require_once('/home/yvainilo/config.php');
-} else if ($_SERVER['USER'] == 'brandon') {
-    require_once '/home/brandon/config.php';
+} else if ($_SERVER['USER'] == 'bskargre') {
+    require_once '/home/bskargre/config.php';
 } else if ($_SERVER['USER'] == 'nalexand') {
     require_once '/home/nalexand/config.php';
 } else if ($_SERVER['USER'] == 'dkovalev') {
