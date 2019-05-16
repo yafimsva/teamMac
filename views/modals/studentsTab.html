@@ -1,0 +1,85 @@
+<article id="students" class="panel">
+    <header class="d-flex justify-content-center">
+        <h2>All Students</h2>
+    </header>
+
+    <check if="{{ isset(@errors['studentClass']) }}">
+        <div class="text-center">
+            <p style="color: red;">{{ @errors['studentClass'] }}</p>
+        </div>
+    </check>
+
+    <check if="{{ isset(@errors['updateNoMatch']) }}">
+        <div class="text-center">
+            <p style="color: red;">{{ @errors['updateNoMatch'] }}</p>
+        </div>
+    </check>
+
+    <div class="d-flex justify-content-center">
+        <div class="text-center">
+            <a href="" class="btn btn-amber mt-2" data-toggle="modal" data-target="#modalAddStudent">+ Add a
+                Student</a>
+        </div>
+    </div>
+    <br>
+
+    <repeat group="{{ @classes }}" value="{{ @class }}">
+        <div class="mt-5">
+            <h3 class="text-center">{{ @class['className'] }}</h3>
+
+            <repeat group="{{ @teachers }}" value="{{ @teacher1 }}">
+
+                <!--======================== VIEW TEACHER MODAL ON STUDENTS TAB ==========================-->
+                <include href="views/modals/viewTeacher-student.html"></include>
+                <!--======================= END VIEW TEACHER MODAL ON STUDENTS TAB =======================-->
+
+
+
+                <check if="{{ @class['classid'] == @teacher1['classid'] }}">
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-primary w-100 view-attendance" name="teacher" data-toggle="modal"
+                            data-target="#modalViewTeacherOnStudentsPage{{ @teacher1['teacherid'] }}">
+                            {{ @teacher1['name'] }}
+                        </button>
+                    </div>
+                </check>
+            </repeat>
+
+
+            <repeat group="{{ @helpers }}" value="{{ @helper }}">
+
+                <!--========================  VIEW HELPER MODAL ON STUDENTS TAB =======================-->
+                <include href="views/modals/viewHelper-student.html"></include>
+                <!--====================== END VIEW HELPER MODAL ON STUDENTS TAB ======================-->
+
+
+                <check if="{{ @helper['classid'] == @class['classid'] }}">
+                    <div class="d-flex justify-content-center">
+
+                        <button class="btn btn-secondary w-100 view-attendance" value="{{ @helper['helperid'] }}"
+                            data-toggle="modal"
+                            data-target="#modalViewHelperOnStudentsPage{{ @helper['helperid'] }}">{{ @helper['name'] }}</button>
+                    </div>
+                </check>
+            </repeat>
+
+            <repeat group="{{ @students }}" value="{{ @student }}">
+
+                <!--==============================  VIEW STUDENT MODAL ==============================-->
+                <include href="views/modals/viewStudent.html"></include>
+                <!--============================  END VIEW STUDENT MODAL ============================-->
+
+                <check if="{{ @class['classid'] == @student['classid'] }}">
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-default w-100 view-attendance" name="student"
+                            value="{{ @student['sid'] }}" type="submit" data-toggle="modal"
+                            data-target="#modalViewStudent{{ @student['sid'] }}">
+                            {{ @student['last'] }}, {{ @student['first'] }}
+                        </button>
+                    </div>
+                </check>
+            </repeat>
+        </div>
+    </repeat>
+
+</article>

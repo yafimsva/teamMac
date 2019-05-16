@@ -1,0 +1,133 @@
+<!-- Modal to view a student -->
+<div class="modal fade" id="modalViewStudent{{ @student['sid'] }}" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">{{ @student['first'] }}
+                    {{ @student['last'] }}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- pills -->
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item mr-auto ml-auto mt-2">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill"
+                        href="#pills-home{{ @student['sid'] }}" role="tab" aria-controls="pills-home"
+                        aria-selected="true">Student</a>
+                </li>
+                <li class="nav-item mr-auto ml-auto mt-2">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill"
+                        href="#pills-profile{{ @student['sid'] }}" role="tab" aria-controls="pills-profile"
+                        aria-selected="false">Edit</a>
+                </li>
+                <li class="nav-item mr-auto ml-auto mt-2">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill"
+                        href="#pills-contact{{ @student['sid'] }}" role="tab" aria-controls="pills-contact"
+                        aria-selected="false">Delete</a>
+                </li>
+            </ul>
+            <div class="tab-content pt-2 pl-1" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home{{ @student['sid'] }}" role="tabpanel"
+                    aria-labelledby="pills-home-tab">
+
+
+
+
+                    <div class="modal-body mx-3 mb-4">
+
+
+                        <div class="text-center">
+                            <h3>Class: {{ @student['className'] }}</h3>
+                            <h3>Date of Birth: {{ @student['dob'] }}</h3>
+                            <h3>Parents Email: {{ @student['parents_email'] }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- edit pill -->
+                <div class="tab-pane fade" id="pills-profile{{ @student['sid'] }}" role="tabpanel"
+                    aria-labelledby="pills-profile-tab">
+                    <form action="" method="POST">
+                        <div class="modal-body mx-3">
+
+                            <input type="hidden" name="sid" value="{{ @student['sid'] }}" />
+
+                            <div class="md-form mb-5">
+                                <i class="fas fa-user prefix grey-text"></i>
+                                <input type="text" id="updateFirstName" name="updateFirstName" class="form-control"
+                                    value="{{ @student['first'] }}" required>
+                                <label for="updateFirstName">First name</label>
+                            </div>
+                            <div class="md-form mb-5">
+                                <i class="fas fa-user prefix grey-text"></i>
+                                <input type="text" id="updateLastName" name="updateLastName" class="form-control"
+                                    value="{{ @student['last'] }}" required>
+                                <label for="updateLastName">Last name</label>
+                            </div>
+                            <div class="md-form mb-5">
+                                <i class="fas fa-envelope prefix grey-text"></i>
+                                <input type="text" id="updateEmail" name="updateEmail" class="form-control"
+                                    value="{{ @student['parents_email'] }}" required>
+                                <label for="updateEmail">Parents email</label>
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <i class="fas fa-lock prefix grey-text"></i>
+                                <input type="date" id="updateDob" name="updateDob" class="form-control"
+                                    value="{{ @student['dob'] }}" required>
+                                <label for="updateDob">
+                                    Date of Birth</label>
+                            </div>
+
+                            <div class="md-form mb-4">
+                                <select class="browser-default custom-select" name="updateStudentClass">
+                                    <option value="{{ @student['classid'] }}" selected>
+                                        {{ @student['className'] }}
+                                    </option>
+                                    <repeat group="{{ @classes }}" value="{{ @class1 }}">
+                                        <check if="{{ @student['className'] != @class1['className']  }}">
+                                            <option value="{{ @class1['classid'] }}">
+                                                {{ @class1['className'] }}
+                                            </option>
+                                        </check>
+                                    </repeat>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn btn-amber" type="submit">Update</button>
+                        </div>
+                    </form>
+                </div>
+                <!--/ edit pill -->
+
+
+
+                <div class="tab-pane fade" id="pills-contact{{ @student['sid'] }}" role="tabpanel"
+                    aria-labelledby="pills-contact-tab">
+
+                    <div class="modal-body mx-3">
+                        <form action="" method="POST">
+                            <div class="text-center">
+                                <input type="hidden" name="deleteStudent" value="{{ @student['sid'] }}" />
+                                <h5>Are you sure you want to delete {{ @student['first'] }}
+                                    {{ @student['last'] }}?</h5>
+                                <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- pills -->
+        </div>
+    </div>
+</div>
+<!--/ Modal to view a student -->

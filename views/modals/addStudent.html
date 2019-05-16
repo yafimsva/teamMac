@@ -1,0 +1,54 @@
+<!-- Modal to add a student -->
+<form action="" method="POST">
+    <div class="modal fade" id="modalAddStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add a Student</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-user prefix grey-text"></i>
+                        <input type="text" id="firstName" name="firstName" class="form-control" required>
+                        <label for="firstName">First name</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-user prefix grey-text"></i>
+                        <input type="text" id="lastName" name="lastName" class="form-control" required>
+                        <label for="lastName">Last name</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="text" id="email" name="email" class="form-control" required>
+                        <label for="email">Parents email</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="date" id="dob" name="dob" class="form-control" required>
+                        <label for="dob">
+                            Date of Birth</label>
+                    </div>
+
+                    <div class="md-form mb-4">
+                        <select class="browser-default custom-select" name="studentClass">
+                            <option value="0" selected>--Select a class--</option>
+                            <repeat group="{{ @classes }}" value="{{ @class }}">
+                                <option value="{{ @class['classid'] }}">{{ @class['className'] }}</option>
+                            </repeat>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-amber" type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!--/ Modal to add a student -->
