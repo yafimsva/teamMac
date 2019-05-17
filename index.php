@@ -288,6 +288,12 @@ $f3->route('GET|POST /admin', function ($f3) {
 	echo $template->render('views/admin.html');
 });
 
+$f3->route('GET|POST /file', function ($f3) {
+
+	$template = new Template();
+	echo $template->render('files.html');
+});
+
 $f3->route('GET|POST /logout', function ($f3) {
 	session_destroy();
 	$f3->reroute('/');
