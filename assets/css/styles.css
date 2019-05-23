@@ -257,6 +257,10 @@ body {
 	top: 2em;
 }
 
+.folderName {
+	color: #373743;
+}
+
 @media all and (max-width:965px) {
 
 	.filemanager .data li {

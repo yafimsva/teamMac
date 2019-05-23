@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
 
+    <link href="assets/css/styles.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
@@ -32,6 +34,7 @@
             <a href="#students" class="fas fa-users"><span>Students</span></a>
             <a href="#teachers" class="far fa-address-book"><span>Teachers</span></a>
             <a href="#classes" class="fas fa-layer-group"><span>Classes</span></a>
+            <a href="#files" class="fas fa-layer-group"><span>Files</span></a>
             <a href="logout" class="icon fa-power-off"><span>Logout</span></a>
 
             <!--<a href="https://twitter.com/ajlkn" class="icon fa-twitter"><span>Twitter</span></a>-->
@@ -1155,7 +1158,38 @@
                     </div>
                 </repeat>
             </article>
-            <!-- /Teacher tab -->
+            <!-- /Classes tab -->
+
+            <!-- Files tab -->
+            <article id="files" class="panel">
+                <header class="d-flex justify-content-center">
+                    <h2>All Files</h2>
+                </header>
+
+                <div class="d-flex justify-content-center">
+
+                    <div class="filemanager">
+
+                        <div class="search">
+                            <input type="search" placeholder="Find a file.." />
+                        </div>
+
+                        <div class="breadcrumbs"></div>
+
+                        <ul class="data"></ul>
+
+                        <div class="nothingfound">
+                            <div class="nofiles"></div>
+                            <span>No files here.</span>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br>
+
+            </article>
+            <!-- /Files tab -->
 
         </div>
     </div>
@@ -1174,11 +1208,16 @@
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.7/js/mdb.min.js"></script>
 
+
+
+
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -1195,6 +1234,10 @@
             $('#materialIndeterminate2').prop('indeterminate', true);
         });
     </script>
+
+    <!-- Include our script files -->
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
