@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 09, 2019 at 01:28 PM
+-- Generation Time: May 25, 2019 at 06:21 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.2.7
 
@@ -33,18 +33,23 @@ CREATE TABLE `teachers` (
   `name` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(80) NOT NULL,
-  `classid` int(11) NOT NULL
+  `classid` int(11) NOT NULL,
+  `endDate` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`teacherid`, `name`, `username`, `password`, `classid`) VALUES
-(1, 'Yafim Vainilovich', 'yafimsva', '8cb2237d0679ca88db6464eac60da96345513964', 0),
-(5, 'David Teacher', 'davidt', '123', 10),
-(3, 'Yafim Vainilovich', 'yvainilovich', '12345', 4),
-(6, 'check`', 'yafim', '123', 2);
+INSERT INTO `teachers` (`teacherid`, `name`, `username`, `password`, `classid`, `endDate`) VALUES
+(3, 'Yafim Vainilovich', 'yafimsva', '123', 1, '2019-08-08'),
+(6, 'Sasha Ankuda', 'sasha', '123', 2, '0000-00-00'),
+(7, 'Angela', 'agie', '123', 4, NULL),
+(8, 'Alina Kirilko', 'alina', '123', 3, '0000-00-00'),
+(31, 'Koval', 'koval1', '123', 3, '2019-05-28'),
+(32, 'KOVAL2', 'koval2', '123', 4, NULL),
+(29, 'koval30', 'koval30', '123', 3, NULL),
+(33, 'Koval4', 'koval4', '123', 2, '2019-05-17');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +69,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacherid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `teacherid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
