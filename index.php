@@ -22,7 +22,7 @@ $f3 = Base::instance();
 $f3->set('DEBUG', 3);
 
 $f3->route('GET|POST /home', function ($f3) {
-
+	print_r($_POST);
 	if (!isset($_SESSION['teacherLogin'])) {
 		$f3->reroute('/');
 	}
@@ -37,28 +37,26 @@ $f3->route('GET|POST /home', function ($f3) {
 
 	$students = $db->getStudentsByID($_SESSION['classid']);
 
-
-
 	$f3->set('students', $students);
 
 
-	if (isset($_POST['students'])) {
-		$_SESSION['students'] = $_POST['students'];
-		$array = $_POST['students'];
+	// if (isset($_POST['students'])) {
+	// 	$_SESSION['students'] = $_POST['students'];
+	// 	$array = $_POST['students'];
 
-		foreach ($students as $student) {
-			if ($db->getAttendanceCount($_POST['date'], $student['sid']) == 0) {
-				$db->takeAttendance($_POST['date'], $student['sid'], false);
-			}
-		}
-		foreach ($array as $sid) {
-			// if ($db->getAttendance($_POST['date'], $sid, true) == 0) {
-			$db->updateAttendance($sid, true, $_POST['date']);
-			// }
-		}
+	// 	foreach ($students as $student) {
+	// 		if ($db->getAttendanceCount($_POST['date'], $student['sid']) == 0) {
+	// 			$db->takeAttendance($_POST['date'], $student['sid'], false);
+	// 		}
+	// 	}
+	// 	foreach ($array as $sid) {
+	// 		// if ($db->getAttendance($_POST['date'], $sid, true) == 0) {
+	// 		$db->updateAttendance($sid, true, $_POST['date']);
+	// 		// }
+	// 	}
 
-		$f3->reroute('home#');
-	}
+	// 	$f3->reroute('home#');
+	// }
 
 	$dates = $db->getDates();
 
@@ -68,13 +66,57 @@ $f3->route('GET|POST /home', function ($f3) {
 		array_push($finalStudents, $db->viewAttendanceByDateAndClassID($date['date'], $_SESSION['classid']));
 	}
 
-	//    print_r($finalStudents);
-
-
 	$f3->set('dates', $finalDates);
 	$f3->set('allStudents', $finalStudents);
 
 
+	// print_r($_POST);
+	if(isset($_POST['attendance']))
+	{
+		$duplicate = false;
+
+		foreach ($_POST['attendance'] as $sid) {
+			$check = $db->checkIfAttedanceTaken($_POST['date'], $sid);
+
+			if(sizeof($check) == 0)
+			{
+				$duplicate = false;
+			}
+			else
+			{
+				$duplicate = true;
+			}
+		}
+
+
+		if(!$duplicate)
+		{
+			foreach ($students as $student)
+			{
+				$db->takeAttendance($_POST['date'], $student['sid'], 0);
+			}
+	
+			foreach ($_POST['attendance'] as $sid) {
+				$db->updateAttendance($sid, 1, $_POST['date']);
+	
+				// $taken = $db->checkIfAttedanceTaken($_POST['date'], $sid);
+				// if(sizeof($taken) == 0)
+				// {
+				// 	$db->takeAttendance($_POST['date'], $sid);
+				// }
+				// else
+				// {
+				// 	echo("<script>alert('ERROR: Duplicate attendance entires')</script>");
+				// }
+			}
+
+			$f3->reroute('home');
+		}
+		else
+		{
+			$f3->reroute('home#calendar');
+		}
+	}
 
 
 	$template = new Template();
