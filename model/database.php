@@ -497,4 +497,26 @@ class Database
         }
         return $results;
     }
+
+    public function checkIfAttedanceTaken($date, $sid)
+    {
+        global $dbh;
+
+        $sql = "SELECT * FROM attendance WHERE date = :date AND sid = :sid";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->bindValue(':sid', $sid, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        print_r($results);
+        return $results;
+    }
 }

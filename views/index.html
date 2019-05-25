@@ -73,6 +73,10 @@
 		.fs-19:hover {
 			cursor: pointer !important;
 		}
+
+		.attendance-student:hover {
+			cursor: pointer;
+		}
 	</style>
 </head>
 
@@ -145,9 +149,9 @@
 																<div class="d-flex justify-content-center">
 																	<div class="text-center">
 																		<label
-																			class="btn btn-success mt-2 attendance-student">
-																			<input type="checkbox" name="students[]"
-																				value="{{ @student['sid'] }}" checked />
+																			class="btn btn-success text-white mt-2 attendance-student">
+																			<input checked="checked" type="checkbox" name="attendance[]"
+																				value="{{ @student['sid'] }}">
 																			{{ @student['last'] }},
 																			{{ @student['first'] }}
 
@@ -266,8 +270,8 @@
 				</header>
 
 				<repeat group="{{ @dates }}" value="{{ @date }}" counter="{{ @i }}">
-					<div class="d-flex justify-content-center">
-						<button id="{{ @date }}" class="btn btn-default w-100 view-attendance" data-toggle="modal"
+					<div class="d-flex justify-content-center w-100">
+						<button id="{{ @date }}" class="btn btn-brown w-50 view-attendance" data-toggle="modal"
 							data-target="#modalViewAttendance{{ @i }}" name="date" value="{{ @date }}" type="submit">
 							{{ @date }}
 						</button>
@@ -297,7 +301,7 @@
 															<true>
 																<div class=" d-flex justify-content-center">
 																	<button id="{{ @eachDate['sid'] }}"
-																		class="btn btn-default w-100 view-attendance"
+																		class="btn btn-success w-100 view-attendance"
 																		name="date" value="{{ @eachDate['sid'] }}"
 																		type="submit">
 																		{{ @eachDate['first'] }}
@@ -391,16 +395,20 @@
 
 	<script>
 		$(document).ready(function () {
-			$(".attendance-student").click(function () {
+			
+			$(".attendance-student").click(function (evt) {
+				evt.stopPropagation();
+				evt.preventDefault();
+
 				if ($(this).hasClass('btn-success')) {
 					$(this).removeClass('btn-success');
 					$(this).addClass('btn-danger');
-					$(this).removeAttr('checked');
+					$(this).children('input[type=checkbox]').attr('checked', false);
 				}
 				else if ($(this).hasClass('btn-danger')) {
 					$(this).removeClass('btn-danger');
 					$(this).addClass('btn-success');
-					$(this).attr('checked', 'checked');
+					$(this).children('input[type=checkbox]').attr('checked', true);
 				}
 			});
 			$('#materialIndeterminate2').prop('indeterminate', true);
