@@ -142,6 +142,8 @@ $f3->route('GET|POST /admin', function ($f3) {
 
 
 
+
+
 	// post student into database 
 	if (isset($_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['dob'])) {
 		if ($_POST['studentClass'] != 0) {
@@ -162,11 +164,16 @@ $f3->route('GET|POST /admin', function ($f3) {
 	if (isset($_POST['teacherName'], $_POST['teacherUsername'], $_POST['password'], $_POST['confirmPassword'], $_POST['teacherClass'])) {
 		if ($_POST['password'] == $_POST['confirmPassword']) {
 			if ($_POST['teacherClass'] != 0) {
+				if ($_POST['endDate'] != '') {
+					$teacherEndDate = $_POST['endDate'];
+				} else {
+					$teacherEndDate = NULL;
+				}
 				$teacherName = $_POST['teacherName'];
 				$teacherUsername = $_POST['teacherUsername'];
 				$teacherPassword = ($_POST['password']);
 				$teacherClass = $_POST['teacherClass'];
-				$db->insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass);
+				$db->insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass, $teacherEndDate);
 				$f3->reroute('admin#teachers');
 			} else {
 				$f3->set("errors['teacherClass']", "You did not pick a class for your teacher, teacher was not added");
@@ -175,6 +182,7 @@ $f3->route('GET|POST /admin', function ($f3) {
 			$f3->set("errors['nomatch']", "Passwords did not match, teacher was not added");
 		}
 	}
+
 
 	//post classes into database
 	if ($_POST['className']) {
@@ -212,12 +220,17 @@ $f3->route('GET|POST /admin', function ($f3) {
 	//updates a teacher 
 	if (isset($_POST['updateTeacherName'], $_POST['updateTeacherUsername'])) {
 		if ($_POST['updatePassword'] == $_POST['updateConfirmPassword']) {
+			if ($_POST['endDateUpdate'] != '') {
+				$updateTeacherEndDate = $_POST['endDateUpdate'];
+			} else {
+				$updateTeacherEndDate = NULL;
+			}
 			$updateTeacherName = $_POST['updateTeacherName'];
 			$updateTeacherUsername = $_POST['updateTeacherUsername'];
 			$updatePassword = $_POST['updatePassword'];
 			$updateTeacherClass = $_POST['updateTeacherClass'];
 			$updateTeacherId = $_POST['teacherid'];
-			$db->updateTeacher($updateTeacherId, $updateTeacherName, $updateTeacherUsername, $updatePassword, $updateTeacherClass);
+			$db->updateTeacher($updateTeacherId, $updateTeacherName, $updateTeacherUsername, $updatePassword, $updateTeacherClass, $updateTeacherEndDate);
 
 			if (isset($_POST['onStudentsPage'])) {
 				$f3->reroute('admin#students');
