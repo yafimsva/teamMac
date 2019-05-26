@@ -71,34 +71,28 @@ $f3->route('GET|POST /home', function ($f3) {
 
 
 	// print_r($_POST);
-	if(isset($_POST['attendance']))
-	{
+	if (isset($_POST['attendance'])) {
 		$duplicate = false;
 
 		foreach ($_POST['attendance'] as $sid) {
 			$check = $db->checkIfAttedanceTaken($_POST['date'], $sid);
 
-			if(sizeof($check) == 0)
-			{
+			if (sizeof($check) == 0) {
 				$duplicate = false;
-			}
-			else
-			{
+			} else {
 				$duplicate = true;
 			}
 		}
 
 
-		if(!$duplicate)
-		{
-			foreach ($students as $student)
-			{
+		if (!$duplicate) {
+			foreach ($students as $student) {
 				$db->takeAttendance($_POST['date'], $student['sid'], 0);
 			}
-	
+
 			foreach ($_POST['attendance'] as $sid) {
 				$db->updateAttendance($sid, 1, $_POST['date']);
-	
+
 				// $taken = $db->checkIfAttedanceTaken($_POST['date'], $sid);
 				// if(sizeof($taken) == 0)
 				// {
@@ -111,9 +105,7 @@ $f3->route('GET|POST /home', function ($f3) {
 			}
 
 			$f3->reroute('home');
-		}
-		else
-		{
+		} else {
 			$f3->reroute('home#calendar');
 		}
 	}
@@ -149,6 +141,8 @@ $f3->route('GET|POST /', function ($f3) {
 			$_SESSION['username'] = $results['username'];
 			$_SESSION['classid'] = $results['classid'];
 			$_SESSION['class'] = $results['className'];
+			$_SESSION['daysLeft'] = $results['daysLeft'];
+
 
 			$f3->reroute('home');
 		} else {

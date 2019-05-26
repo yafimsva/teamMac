@@ -477,10 +477,7 @@ class Database
     {
         global $dbh;
 
-
-
-
-        $sql = "SELECT teachers.*, classes.className FROM teachers INNER JOIN classes
+        $sql = "SELECT DATEDIFF(teachers.endDate ,CURRENT_DATE()) daysLeft, teachers.*, classes.className FROM teachers INNER JOIN classes
         ON teachers.classid = classes.classid WHERE username = :username AND password = :password;";
         $statement = $dbh->prepare($sql);
 

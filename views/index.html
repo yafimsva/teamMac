@@ -101,9 +101,11 @@
 				<header>
 					<h1>{{ @SESSION.name }}</h1>
 					<p>Sunday School Teacher</p>
-					<small>
-						<p>Teaching: {{ @SESSION.class }}</p>
-					</small>
+
+
+					<p>License expires in {{ @SESSION.daysLeft }} days</p>
+
+					<p>Teaching: {{ @SESSION.class }}</p>
 					<br />
 
 					<!-- Modal to take attendance -->
@@ -150,7 +152,8 @@
 																	<div class="text-center">
 																		<label
 																			class="btn btn-success text-white mt-2 attendance-student">
-																			<input checked="checked" type="checkbox" name="attendance[]"
+																			<input checked="checked" type="checkbox"
+																				name="attendance[]"
 																				value="{{ @student['sid'] }}">
 																			{{ @student['last'] }},
 																			{{ @student['first'] }}
@@ -395,7 +398,7 @@
 
 	<script>
 		$(document).ready(function () {
-			
+
 			$(".attendance-student").click(function (evt) {
 				evt.stopPropagation();
 				evt.preventDefault();
