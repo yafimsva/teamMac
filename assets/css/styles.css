@@ -29,7 +29,7 @@ body {
 	width: 95%;
 	max-width:1340px;
 	position: relative;
-	margin: 100px auto 50px;
+	margin: 20px auto 50px;
 }
 
 @media all and (max-width: 965px) {
@@ -163,7 +163,7 @@ body {
 .filemanager .data li {
 	border-radius: 3px;
 	background-color: #373743;
-	width: 307px;
+	width: 46%;
 	height: 118px;
 	list-style-type: none;
 	margin: 10px;
@@ -227,6 +227,13 @@ body {
 	animation: showSlowlyElement 700ms; /* Standard syntax */
 }
 
+@media all and (max-width:550px) {
+
+	.filemanager .nothingfound { 
+		width: 90%;
+	}
+}
+
 .filemanager .nothingfound .nofiles {
 	margin: 30px auto;
 	top: 3em;
@@ -261,10 +268,14 @@ body {
 	color: #373743;
 }
 
+.folderName:hover {
+	text-decoration: underline black;
+}
+
 @media all and (max-width:965px) {
 
 	.filemanager .data li {
-		width: 100%;
+		width: 98%;
 		margin: 5px 0;
 	}
 
