@@ -101,10 +101,21 @@
 				<header>
 					<h1>{{ @SESSION.name }}</h1>
 					<p>Sunday School Teacher</p>
-
-
-					<p>License expires in {{ @SESSION.daysLeft }} days</p>
-
+					<check if="{{ @SESSION.daysLeft }} != NULL">
+						<true>
+							<check if="{{ @SESSION.daysLeft }} < 0">
+								<true>
+									<p style="color: red">Your Licence Expired</p>
+								</true>
+								<false>
+									<p>License expires in {{ @SESSION.daysLeft }} days</p>
+								</false>
+							</check>
+						</true>
+						<false>
+							<p>You have no license</p>
+						</false>
+					</check>
 					<p>Teaching: {{ @SESSION.class }}</p>
 					<br />
 
