@@ -102,18 +102,19 @@ class Database
         return $results;
     }
 
-    function takeAttendance($date, $sid, $present)
+    function takeAttendance($date, $sid, $present, $class)
     {
         global $dbh;
 
-        $sql = "INSERT INTO attendance (date, sid, present)
-            VALUES(:date, :sid, :present);";
+        $sql = "INSERT INTO attendance (date, sid, present, class)
+            VALUES(:date, :sid, :present, :class);";
 
         $statement = $dbh->prepare($sql);
 
         $statement->bindValue(':date', $date, PDO::PARAM_STR);
         $statement->bindValue(':sid', $sid, PDO::PARAM_STR);
         $statement->bindValue(':present', $present, PDO::PARAM_STR);
+        $statement->bindValue(':class', $class, PDO::PARAM_STR);
 
         $statement->execute();
         $arr = $statement->errorInfo();
@@ -122,11 +123,11 @@ class Database
         }
     }
 
-    function updateAttendance($sid, $present, $date)
+    function updateAttendance($sid, $present, $date, $class)
     {
         global $dbh;
 
-        $sql = "UPDATE attendance SET present = :present WHERE sid = :sid AND date = :date;";
+        $sql = "UPDATE attendance SET present = :present WHERE sid = :sid AND date = :date AND class = :class;";
 
 
         $statement = $dbh->prepare($sql);
@@ -134,6 +135,7 @@ class Database
         $statement->bindValue(':date', $date, PDO::PARAM_STR);
         $statement->bindValue(':sid', $sid, PDO::PARAM_STR);
         $statement->bindValue(':present', $present, PDO::PARAM_STR);
+        $statement->bindValue(':class', $class, PDO::PARAM_STR);
 
         $statement->execute();
         $arr = $statement->errorInfo();
@@ -141,6 +143,38 @@ class Database
             print_r($arr[2]);
         }
     }
+
+
+
+
+    //////////////// DAVIDS ATTENDANCE CODE ////////////////
+
+    function attendanceByClassID($classid)
+    {
+        global $dbh;
+
+        $sql = "SELECT * FROM `attendance` WHERE class = :classid;";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    }
+
+
+
+    //////////////// END DAVIDS ATTENDANCE CODE END ////////////////
+
+
 
     public function viewAttendanceByDateAndClassID($date, $classid)
     {

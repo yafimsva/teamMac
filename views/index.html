@@ -264,7 +264,7 @@
 
 
 			<!-- Calendar -->
-			<article id="calendar" class="panel">
+			<!-- <article id="calendar" class="panel">
 				<header class="d-flex justify-content-center  mt-4">
 					<h2>Attendance</h2>
 				</header>
@@ -331,7 +331,77 @@
 						</div>
 					</div>
 				</repeat>
-			</article>
+			</article> -->
+
+			<!-- Calendar -->
+			<article id="calendar" class="panel">
+					<header class="d-flex justify-content-center  mt-4">
+						<h2>Attendance</h2>
+					</header>
+	
+					<repeat group="{{ @dates }}" value="{{ @date }}" counter="{{ @i }}">
+						<div class="d-flex justify-content-center w-100">
+							<button id="{{ @date }}" class="btn btn-brown w-50 view-attendance" data-toggle="modal"
+								data-target="#modalViewAttendance{{ @i }}" name="date" value="{{ @date }}" type="submit">
+								{{ @date }}
+							</button>
+						</div>
+	
+						<br />
+	
+						<div class="modal fade" id="modalViewAttendance{{ @i }}" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header text-center">
+										<h4 class="modal-title w-100 font-weight-bold">
+											Attendance
+										</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">x</span>
+										</button>
+									</div>
+									<div class="modal-body mx-3">
+										<article id="calendar" class="panel">
+											<repeat group="{{ @allStudents }}" value="{{ @oneDate }}" counter="{{ @i }}">
+												<repeat group="{{ @oneDate }}" value="{{ @eachDate }}" counter="{{ @i }}">
+													<check if="{{ @date }} == {{ @eachDate['date'] }}">
+														<true>
+															<check if="{{ @eachDate['present'] }} == 1">
+																<true>
+																	<div class=" d-flex justify-content-center">
+																		<button id="{{ @eachDate['sid'] }}"
+																			class="btn btn-success w-100 view-attendance"
+																			name="date" value="{{ @eachDate['sid'] }}"
+																			type="submit">
+																			{{ @eachDate['first'] }}
+																			{{ @eachDate['last'] }}
+																		</button>
+																	</div>
+																</true>
+																<false>
+																	<div class=" d-flex justify-content-center">
+																		<button id="{{ @eachDate['sid'] }}"
+																			class="btn btn-red w-100 view-attendance"
+																			name="date" value="{{ @eachDate['sid'] }}"
+																			type="submit">
+																			{{ @eachDate['first'] }}
+																			{{ @eachDate['last'] }}
+																		</button>
+																	</div>
+																</false>
+															</check>
+														</true>
+													</check>
+												</repeat>
+											</repeat>
+										</article>
+									</div>
+								</div>
+							</div>
+						</div>
+					</repeat>
+				</article>
 
 			<!-- Contact -->
 			<article id="contact" class="panel">

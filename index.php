@@ -40,23 +40,7 @@ $f3->route('GET|POST /home', function ($f3) {
 	$f3->set('students', $students);
 
 
-	// if (isset($_POST['students'])) {
-	// 	$_SESSION['students'] = $_POST['students'];
-	// 	$array = $_POST['students'];
 
-	// 	foreach ($students as $student) {
-	// 		if ($db->getAttendanceCount($_POST['date'], $student['sid']) == 0) {
-	// 			$db->takeAttendance($_POST['date'], $student['sid'], false);
-	// 		}
-	// 	}
-	// 	foreach ($array as $sid) {
-	// 		// if ($db->getAttendance($_POST['date'], $sid, true) == 0) {
-	// 		$db->updateAttendance($sid, true, $_POST['date']);
-	// 		// }
-	// 	}
-
-	// 	$f3->reroute('home#');
-	// }
 
 	$dates = $db->getDates();
 
@@ -69,8 +53,8 @@ $f3->route('GET|POST /home', function ($f3) {
 	$f3->set('dates', $finalDates);
 	$f3->set('allStudents', $finalStudents);
 
-
-	// print_r($_POST);
+	// print_r($finalDates);
+	print_r($finalStudents);
 	if(isset($_POST['attendance']))
 	{
 		$duplicate = false;
@@ -93,11 +77,11 @@ $f3->route('GET|POST /home', function ($f3) {
 		{
 			foreach ($students as $student)
 			{
-				$db->takeAttendance($_POST['date'], $student['sid'], 0);
+				$db->takeAttendance($_POST['date'], $student['sid'], 0, $_SESSION['classid']);
 			}
 	
 			foreach ($_POST['attendance'] as $sid) {
-				$db->updateAttendance($sid, 1, $_POST['date']);
+				$db->updateAttendance($sid, 1, $_POST['date'], $_SESSION['classid']);
 	
 				// $taken = $db->checkIfAttedanceTaken($_POST['date'], $sid);
 				// if(sizeof($taken) == 0)
