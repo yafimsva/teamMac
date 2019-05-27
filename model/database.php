@@ -144,6 +144,7 @@ class Database
         }
     }
 
+<<<<<<< HEAD
 
 
 
@@ -177,6 +178,9 @@ class Database
 
 
     public function viewAttendanceByDateAndClassID($date, $classid)
+=======
+    public function viewAttendance($classid)
+>>>>>>> 03f8812d00a667895383a28126b7da594626bf9d
     {
         global $dbh;
 
@@ -187,11 +191,9 @@ class Database
         ON students.sid = attendance.sid
         INNER JOIN classes 
         ON students.classid = classes.classid
-        WHERE date = :date
-        AND students.classid = :classid;";
+        WHERE students.classid = :classid;";
 
         $statement = $dbh->prepare($sql);
-        $statement->bindValue(':date', $date, PDO::PARAM_STR);
         $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
 
         $statement->execute();
@@ -235,12 +237,12 @@ class Database
         return $results;
     }
 
-    function insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass)
+    function insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass, $endDate)
     {
         global $dbh;
 
-        $sql = "INSERT INTO teachers (name, username, password, classid)
-            VALUES(:name, :username, :password, :classid);";
+        $sql = "INSERT INTO teachers (name, username, password, classid, endDate)
+            VALUES(:name, :username, :password, :classid, :endDate);";
 
         $statement = $dbh->prepare($sql);
 
@@ -248,6 +250,8 @@ class Database
         $statement->bindValue(':username', $teacherUsername, PDO::PARAM_STR);
         $statement->bindValue(':password', $teacherPassword, PDO::PARAM_STR);
         $statement->bindValue(':classid', $teacherClass, PDO::PARAM_STR);
+        $statement->bindValue(':endDate', $endDate, PDO::PARAM_STR);
+
 
         $statement->execute();
         $arr = $statement->errorInfo();
@@ -322,7 +326,7 @@ class Database
     {
         global $dbh;
 
-        $sql = "SELECT teachers.*, classes.className
+        $sql = "SELECT DATEDIFF(teachers.endDate ,CURRENT_DATE()) daysLeft, teachers.*, classes.className
         FROM teachers
         INNER JOIN classes
         ON teachers.classid = classes.classid 
@@ -388,12 +392,12 @@ class Database
         }
     }
 
-    function updateTeacher($teacherid, $name, $username, $password, $classid)
+    function updateTeacher($teacherid, $name, $username, $password, $classid, $endDate)
     {
         global $dbh;
 
         $sql = "UPDATE teachers 
-        SET name = :name, username = :username, password = :password, classid = :classid 
+        SET name = :name, username = :username, password = :password, classid = :classid, endDate = :endDate 
         WHERE teacherid = :teacherid";
 
         $statement = $dbh->prepare($sql);
@@ -402,6 +406,7 @@ class Database
         $statement->bindValue(':name', $name, PDO::PARAM_STR);
         $statement->bindValue(':username', $username, PDO::PARAM_STR);
         $statement->bindValue(':password', $password, PDO::PARAM_STR);
+        $statement->bindValue(':endDate', $endDate, PDO::PARAM_STR);
         $statement->bindValue(':classid', $classid, PDO::PARAM_INT);
 
         $statement->execute();
@@ -508,10 +513,7 @@ class Database
     {
         global $dbh;
 
-
-
-
-        $sql = "SELECT teachers.*, classes.className FROM teachers INNER JOIN classes
+        $sql = "SELECT DATEDIFF(teachers.endDate ,CURRENT_DATE()) daysLeft, teachers.*, classes.className FROM teachers INNER JOIN classes
         ON teachers.classid = classes.classid WHERE username = :username AND password = :password;";
         $statement = $dbh->prepare($sql);
 

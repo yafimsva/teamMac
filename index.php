@@ -30,21 +30,25 @@ $f3->route('GET|POST /home', function ($f3) {
 	$db = new Database();
 	$db->connect();
 
-	$finalDates = array();
-	$finalStudents = array();
-
 	$f3->set("currentDate", date("Y-m-d"));
 
 	$students = $db->getStudentsByID($_SESSION['classid']);
+	$dates = $db->getDates();
+	$attendances = $db->viewAttendance($_SESSION['classid']);
+
 
 	$f3->set('students', $students);
+	$f3->set('datesArray', $dates);
+	$f3->set('attendances', $attendances);
 
 
 
 
-	$dates = $db->getDates();
 
 
+
+
+<<<<<<< HEAD
 	foreach ($dates as $date) {
 		array_push($finalDates, $date['date']);
 		array_push($finalStudents, $db->viewAttendanceByDateAndClassID($date['date'], $_SESSION['classid']));
@@ -57,32 +61,43 @@ $f3->route('GET|POST /home', function ($f3) {
 	print_r($finalStudents);
 	if(isset($_POST['attendance']))
 	{
+=======
+	if (isset($_POST['attendance'])) {
+>>>>>>> 03f8812d00a667895383a28126b7da594626bf9d
 		$duplicate = false;
 
 		foreach ($_POST['attendance'] as $sid) {
 			$check = $db->checkIfAttedanceTaken($_POST['date'], $sid);
 
-			if(sizeof($check) == 0)
-			{
+			if (sizeof($check) == 0) {
 				$duplicate = false;
-			}
-			else
-			{
+			} else {
 				$duplicate = true;
 			}
 		}
 
 
+<<<<<<< HEAD
 		if(!$duplicate)
 		{
 			foreach ($students as $student)
 			{
 				$db->takeAttendance($_POST['date'], $student['sid'], 0, $_SESSION['classid']);
+=======
+		if (!$duplicate) {
+			foreach ($students as $student) {
+				$db->takeAttendance($_POST['date'], $student['sid'], 0);
+>>>>>>> 03f8812d00a667895383a28126b7da594626bf9d
 			}
-	
+
 			foreach ($_POST['attendance'] as $sid) {
+<<<<<<< HEAD
 				$db->updateAttendance($sid, 1, $_POST['date'], $_SESSION['classid']);
 	
+=======
+				$db->updateAttendance($sid, 1, $_POST['date']);
+
+>>>>>>> 03f8812d00a667895383a28126b7da594626bf9d
 				// $taken = $db->checkIfAttedanceTaken($_POST['date'], $sid);
 				// if(sizeof($taken) == 0)
 				// {
@@ -95,9 +110,7 @@ $f3->route('GET|POST /home', function ($f3) {
 			}
 
 			$f3->reroute('home');
-		}
-		else
-		{
+		} else {
 			$f3->reroute('home#calendar');
 		}
 	}
@@ -133,6 +146,8 @@ $f3->route('GET|POST /', function ($f3) {
 			$_SESSION['username'] = $results['username'];
 			$_SESSION['classid'] = $results['classid'];
 			$_SESSION['class'] = $results['className'];
+			$_SESSION['daysLeft'] = $results['daysLeft'];
+
 
 			$f3->reroute('home');
 		} else {
@@ -168,6 +183,8 @@ $f3->route('GET|POST /admin', function ($f3) {
 
 
 
+
+
 	// post student into database 
 	if (isset($_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['dob'])) {
 		if ($_POST['studentClass'] != 0) {
@@ -188,11 +205,16 @@ $f3->route('GET|POST /admin', function ($f3) {
 	if (isset($_POST['teacherName'], $_POST['teacherUsername'], $_POST['password'], $_POST['confirmPassword'], $_POST['teacherClass'])) {
 		if ($_POST['password'] == $_POST['confirmPassword']) {
 			if ($_POST['teacherClass'] != 0) {
+				if ($_POST['endDate'] != '') {
+					$teacherEndDate = $_POST['endDate'];
+				} else {
+					$teacherEndDate = NULL;
+				}
 				$teacherName = $_POST['teacherName'];
 				$teacherUsername = $_POST['teacherUsername'];
 				$teacherPassword = ($_POST['password']);
 				$teacherClass = $_POST['teacherClass'];
-				$db->insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass);
+				$db->insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass, $teacherEndDate);
 				$f3->reroute('admin#teachers');
 			} else {
 				$f3->set("errors['teacherClass']", "You did not pick a class for your teacher, teacher was not added");
@@ -201,6 +223,7 @@ $f3->route('GET|POST /admin', function ($f3) {
 			$f3->set("errors['nomatch']", "Passwords did not match, teacher was not added");
 		}
 	}
+
 
 	//post classes into database
 	if ($_POST['className']) {
@@ -238,12 +261,17 @@ $f3->route('GET|POST /admin', function ($f3) {
 	//updates a teacher 
 	if (isset($_POST['updateTeacherName'], $_POST['updateTeacherUsername'])) {
 		if ($_POST['updatePassword'] == $_POST['updateConfirmPassword']) {
+			if ($_POST['endDateUpdate'] != '') {
+				$updateTeacherEndDate = $_POST['endDateUpdate'];
+			} else {
+				$updateTeacherEndDate = NULL;
+			}
 			$updateTeacherName = $_POST['updateTeacherName'];
 			$updateTeacherUsername = $_POST['updateTeacherUsername'];
 			$updatePassword = $_POST['updatePassword'];
 			$updateTeacherClass = $_POST['updateTeacherClass'];
 			$updateTeacherId = $_POST['teacherid'];
-			$db->updateTeacher($updateTeacherId, $updateTeacherName, $updateTeacherUsername, $updatePassword, $updateTeacherClass);
+			$db->updateTeacher($updateTeacherId, $updateTeacherName, $updateTeacherUsername, $updatePassword, $updateTeacherClass, $updateTeacherEndDate);
 
 			if (isset($_POST['onStudentsPage'])) {
 				$f3->reroute('admin#students');
