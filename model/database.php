@@ -142,7 +142,7 @@ class Database
         }
     }
 
-    public function viewAttendanceByDateAndClassID($date, $classid)
+    public function viewAttendance($classid)
     {
         global $dbh;
 
@@ -153,11 +153,9 @@ class Database
         ON students.sid = attendance.sid
         INNER JOIN classes 
         ON students.classid = classes.classid
-        WHERE date = :date
-        AND students.classid = :classid;";
+        WHERE students.classid = :classid;";
 
         $statement = $dbh->prepare($sql);
-        $statement->bindValue(':date', $date, PDO::PARAM_STR);
         $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
 
         $statement->execute();

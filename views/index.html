@@ -235,7 +235,7 @@
 						</div>
 
 
-						<!-- Modal to view a teacher -->
+						<!-- Modal to view a student -->
 						<div class="modal fade" id="modalViewStudent{{ @student['sid'] }}" tabindex="-1" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
@@ -271,7 +271,7 @@
 								</div>
 							</div>
 						</div>
-						<!--/ Modal to view a teacher -->
+						<!--/ Modal to view a student -->
 					</div>
 				</repeat>
 			</article>
@@ -284,54 +284,56 @@
 					<h2>Attendance</h2>
 				</header>
 
-				<repeat group="{{ @dates }}" value="{{ @date }}" counter="{{ @i }}">
-					<div class="d-flex justify-content-center w-100">
-						<button id="{{ @date }}" class="btn btn-brown w-50 view-attendance" data-toggle="modal"
-							data-target="#modalViewAttendance{{ @i }}" name="date" value="{{ @date }}" type="submit">
-							{{ @date }}
-						</button>
-					</div>
+				<repeat group="{{ @datesArray }}" value="{{ @dates }}">
+					<repeat group="{{ @dates }}" value="{{ @date }}">
+						<div class="d-flex justify-content-center w-100">
+							<button id="{{ @date }}" class="btn btn-brown w-50 view-attendance" data-toggle="modal"
+								data-target="#modalViewAttendance{{ @date }}" name="date" value="{{ @date }}"
+								type="submit">
+								{{ @date }}
+							</button>
+						</div>
 
-					<br />
 
-					<div class="modal fade" id="modalViewAttendance{{ @i }}" tabindex="-1" role="dialog"
-						aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header text-center">
-									<h4 class="modal-title w-100 font-weight-bold">
-										Attendance
-									</h4>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">x</span>
-									</button>
-								</div>
-								<div class="modal-body mx-3">
-									<article id="calendar" class="panel">
-										<repeat group="{{ @allStudents }}" value="{{ @oneDate }}" counter="{{ @i }}">
-											<repeat group="{{ @oneDate }}" value="{{ @eachDate }}" counter="{{ @i }}">
-												<check if="{{ @date }} == {{ @eachDate['date'] }}">
+						<br />
+
+						<div class="modal fade" id="modalViewAttendance{{ @date }}" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header text-center">
+										<h4 class="modal-title w-100 font-weight-bold">
+											Attendance
+										</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">x</span>
+										</button>
+									</div>
+									<div class="modal-body mx-3">
+										<article id="calendar" class="panel">
+											<repeat group="{{ @attendances }}" value="{{ @attendance }}">
+												<check if="{{ @date }} == {{ @attendance['date'] }}">
 													<true>
-														<check if="{{ @eachDate['present'] }} == 1">
+														<check if="{{ @attendance['present'] }} == 1">
 															<true>
 																<div class=" d-flex justify-content-center">
-																	<button id="{{ @eachDate['sid'] }}"
+																	<button id="{{ @attendance['sid'] }}"
 																		class="btn btn-success w-100 view-attendance"
-																		name="date" value="{{ @eachDate['sid'] }}"
+																		name="date" value="{{ @attendance['sid'] }}"
 																		type="submit">
-																		{{ @eachDate['first'] }}
-																		{{ @eachDate['last'] }}
+																		{{ @attendance['first'] }}
+																		{{ @attendance['last'] }}
 																	</button>
 																</div>
 															</true>
 															<false>
 																<div class=" d-flex justify-content-center">
-																	<button id="{{ @eachDate['sid'] }}"
+																	<button id="{{ @attendance['sid'] }}"
 																		class="btn btn-red w-100 view-attendance"
-																		name="date" value="{{ @eachDate['sid'] }}"
+																		name="date" value="{{ @attendance['sid'] }}"
 																		type="submit">
-																		{{ @eachDate['first'] }}
-																		{{ @eachDate['last'] }}
+																		{{ @attendance['first'] }}
+																		{{ @attendance['last'] }}
 																	</button>
 																</div>
 															</false>
@@ -339,13 +341,15 @@
 													</true>
 												</check>
 											</repeat>
-										</repeat>
-									</article>
+										</article>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</repeat>
 				</repeat>
+
+
 			</article>
 
 			<!--End Calendar-->

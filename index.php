@@ -30,14 +30,18 @@ $f3->route('GET|POST /home', function ($f3) {
 	$db = new Database();
 	$db->connect();
 
-	$finalDates = array();
-	$finalStudents = array();
-
 	$f3->set("currentDate", date("Y-m-d"));
 
 	$students = $db->getStudentsByID($_SESSION['classid']);
+	$dates = $db->getDates();
+	$attendances = $db->viewAttendance($_SESSION['classid']);
+
 
 	$f3->set('students', $students);
+	$f3->set('datesArray', $dates);
+	$f3->set('attendances', $attendances);
+
+
 
 
 	// if (isset($_POST['students'])) {
@@ -58,19 +62,8 @@ $f3->route('GET|POST /home', function ($f3) {
 	// 	$f3->reroute('home#');
 	// }
 
-	$dates = $db->getDates();
 
 
-	foreach ($dates as $date) {
-		array_push($finalDates, $date['date']);
-		array_push($finalStudents, $db->viewAttendanceByDateAndClassID($date['date'], $_SESSION['classid']));
-	}
-
-	$f3->set('dates', $finalDates);
-	$f3->set('allStudents', $finalStudents);
-
-
-	// print_r($_POST);
 	if (isset($_POST['attendance'])) {
 		$duplicate = false;
 
