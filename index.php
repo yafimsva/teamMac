@@ -46,12 +46,12 @@ $f3->route('GET|POST /home', function ($f3) {
 	// }
 	if (isset($_POST['attendance'])) {
 		$duplicate = false;
+
 		foreach ($_POST['attendance'] as $sid) {
 			$check = $db->checkIfAttedanceTaken($_POST['date'], $sid);
-			if (sizeof($check) == 0) {
-				$duplicate = false;
-			} else {
+			if (sizeof($check) != 0) {
 				$duplicate = true;
+				break;
 			}
 		}
 		if (!$duplicate) {
