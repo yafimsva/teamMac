@@ -164,9 +164,9 @@
 																	<div class="text-center">
 																		<label
 																			class="btn btn-success text-white mt-2 attendance-student">
-																			<input checked="checked" type="checkbox"
-																				name="attendance[]"
-																				value="{{ @student['sid'] }}">
+																			<input type="checkbox" name="attendance[]"
+																				value="{{ @student['sid'] }}"
+																				checked="checked">
 																			{{ @student['last'] }},
 																			{{ @student['first'] }}
 
@@ -425,12 +425,12 @@
 						if ($(this).hasClass('btn-success')) {
 							$(this).removeClass('btn-success');
 							$(this).addClass('btn-danger');
-							$(this).children('input[type=checkbox]').attr('checked', false);
+							$(this).children('input[type=checkbox]').prop('checked', false);
 						}
 						else if ($(this).hasClass('btn-danger')) {
 							$(this).removeClass('btn-danger');
 							$(this).addClass('btn-success');
-							$(this).children('input[type=checkbox]').attr('checked', true);
+							$(this).children('input[type=checkbox]').prop('checked', true);
 						}
 					});
 					$('#materialIndeterminate2').prop('indeterminate', true);
