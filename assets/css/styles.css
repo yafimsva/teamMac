@@ -269,6 +269,15 @@ body {
 }
 
 
+@media all and (max-width:430px) {
+
+	.filemanager .data li {
+		width: 95% !important;
+		margin: 5px 0;
+	}
+
+}
+
 @media all and (max-width:965px) {
 
 	.filemanager .data li {

@@ -6,6 +6,7 @@
 	<title>Home</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link href="assets/css/styles.css" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
@@ -87,8 +88,8 @@
 		<nav id="nav">
 			<a href="#" class="fas fa-user-circle"><span>Home</span></a>
 			<a href="#students" class="fas fa-users"><span>All Students</span></a>
-			<!-- <a href="#attendance" class="fas fa-clipboard-list"><span>Attendance</span></a> -->
 			<a href="#calendar" class="icon fa-calendar-alt"><span>Calendar</span></a>
+			<a href="#files" class="far fa-copy"><span>Files</span></a>
 			<a href="logout" class="icon fa-power-off"><span>Logout</span></a>
 			<!--<a href="#contact" class="icon fa-envelope"><span>Contact</span></a>-->
 			<!--<a href="https://twitter.com/ajlkn" class="icon fa-twitter"><span>Twitter</span></a>-->
@@ -347,87 +348,96 @@
 				</repeat>
 			</article>
 
-			<!-- Contact -->
-			<article id="contact" class="panel">
-				<header>
-					<h2>Contact Me</h2>
+			<!--End Calendar-->
+
+			<!-- Files tab -->
+			<article id="files" class="panel pl-0  pr-0">
+				<header class="d-flex justify-content-center">
+					<h2>All Files</h2>
 				</header>
-				<form action="#" method="post">
-					<div>
-						<div class="row">
-							<div class="col-6 col-12-medium">
-								<input type="text" name="name" placeholder="Name" />
-							</div>
-							<div class="col-6 col-12-medium">
-								<input type="text" name="email" placeholder="Email" />
-							</div>
-							<div class="col-12">
-								<input type="text" name="subject" placeholder="Subject" />
-							</div>
-							<div class="col-12">
-								<textarea name="message" placeholder="Message" rows="6"></textarea>
-							</div>
-							<div class="col-12">
-								<input type="submit" value="Send Message" />
-							</div>
+
+				<div class="d-flex justify-content-center">
+
+					<div class="filemanager">
+
+						<div class="search">
+							<input type="search" placeholder="Find a file.." />
 						</div>
+
+						<div class="breadcrumbs"></div>
+
+						<ul class="data"></ul>
+
+						<div class="nothingfound text-center">
+							<div class="nofiles"></div>
+							<br>
+							<p class="mt-3" style="color: white">No files here.</p>
+						</div>
+
 					</div>
-				</form>
+
+				</div>
+				<br>
+
 			</article>
-		</div>
-	</div>
+			<!-- /Files tab -->
 
-	<!-- Scripts -->
+			<!-- Scripts -->
 
-	<!-- JQuery -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Bootstrap tooltips -->
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<!-- MDB core JavaScript -->
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.7/js/mdb.min.js"></script>
+			<!-- JQuery -->
+			<script type="text/javascript"
+				src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<!-- Bootstrap tooltips -->
+			<script type="text/javascript"
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+			<!-- Bootstrap core JavaScript -->
+			<script type="text/javascript"
+				src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<!-- MDB core JavaScript -->
+			<script type="text/javascript"
+				src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.7/js/mdb.min.js"></script>
 
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+				integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+				crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+				integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+				crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+				integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+				crossorigin="anonymous"></script>
 
-	<script>
-		$(document).ready(function () {
+			<script>
+				$(document).ready(function () {
 
-			$(".attendance-student").click(function (evt) {
-				evt.stopPropagation();
-				evt.preventDefault();
+					$(".attendance-student").click(function (evt) {
+						evt.stopPropagation();
+						evt.preventDefault();
 
-				if ($(this).hasClass('btn-success')) {
-					$(this).removeClass('btn-success');
-					$(this).addClass('btn-danger');
-					$(this).children('input[type=checkbox]').attr('checked', false);
-				}
-				else if ($(this).hasClass('btn-danger')) {
-					$(this).removeClass('btn-danger');
-					$(this).addClass('btn-success');
-					$(this).children('input[type=checkbox]').attr('checked', true);
-				}
-			});
-			$('#materialIndeterminate2').prop('indeterminate', true);
-		});
-	</script>
+						if ($(this).hasClass('btn-success')) {
+							$(this).removeClass('btn-success');
+							$(this).addClass('btn-danger');
+							$(this).children('input[type=checkbox]').attr('checked', false);
+						}
+						else if ($(this).hasClass('btn-danger')) {
+							$(this).removeClass('btn-danger');
+							$(this).addClass('btn-success');
+							$(this).children('input[type=checkbox]').attr('checked', true);
+						}
+					});
+					$('#materialIndeterminate2').prop('indeterminate', true);
+				});
+			</script>
+
+			<!-- Include our script files -->
+			<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+			<script src="assets/js/script.js"></script>
 </body>
 
 </html>
