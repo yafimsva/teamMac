@@ -266,13 +266,13 @@
 
 				<repeat group="{{ @datesArray }}" value="{{ @dates }}">
 					<div class="d-flex justify-content-center w-100">
-						<button id="{{ @date }}" class="btn btn-brown col-12 col-md-8 view-attendance mb-2"
-							data-toggle="modal" data-target="#modalViewAttendance{{ @date }}" name="date"
-							value="{{ @date }}" type="submit">
+						<button id="{{ @dates[date] }}" class="btn btn-brown col-12 col-md-8 view-attendance mb-2"
+							data-toggle="modal" data-target="#modalViewAttendance{{ @dates['date'] }}" name="date"
+							value="{{ @dates['date'] }}" type="submit">
 							{{ @dates['niceDate'] }}
 						</button>
 					</div>
-					<div class="modal fade" id="modalViewAttendance{{ @date }}" tabindex="-1" role="dialog"
+					<div class="modal fade" id="modalViewAttendance{{ @dates['date'] }}" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
@@ -287,7 +287,7 @@
 								<div class="modal-body mx-3">
 									<article id="calendar" class="panel">
 										<repeat group="{{ @attendances }}" value="{{ @attendance }}">
-											<check if="{{ @date }} == {{ @attendance['date'] }}">
+											<check if="{{ @dates['date'] }} == {{ @attendance['date'] }}">
 												<true>
 													<check if="{{ @attendance['present'] }} == 1">
 														<true>
