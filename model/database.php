@@ -139,7 +139,7 @@ class Database
     public function getDates()
     {
         global $dbh;
-        $sql = "SELECT DISTINCT date FROM attendance ORDER BY date DESC";
+        $sql = "SELECT DISTINCT date, DATE_FORMAT(date,'%b %d, %Y') as niceDate FROM attendance ORDER BY date DESC";
         $statement = $dbh->prepare($sql);
         $statement->execute();
         $arr = $statement->errorInfo();

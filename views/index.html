@@ -134,8 +134,8 @@
 											<span aria-hidden="true">x</span>
 										</button>
 									</div>
-									<div class="modal-body mx-3">
-										<div class="md-form mb-5">
+									<div class="modal-body mx-1">
+										<div class="md-form">
 											<div class="md-form">
 
 												<div class="form-check-label">
@@ -156,45 +156,29 @@
 													</true>
 
 													<false>
-
 														<form method="POST" action="">
 															<repeat group="{{ @students }}" value="{{ @student }}"
 																counter="{{ @i }}">
 																<div class="d-flex justify-content-center">
-																	<div class="text-center">
-																		<label
-																			class="btn btn-success text-white mt-2 attendance-student">
-																			<input type="checkbox" name="attendance[]"
-																				value="{{ @student['sid'] }}"
-																				checked="checked">
-																			{{ @student['last'] }},
-																			{{ @student['first'] }}
+																	<label
+																		class="btn btn-success text-white mt-2 attendance-student w-100">
+																		<input type="checkbox" name="attendance[]"
+																			value="{{ @student['sid'] }}"
+																			checked="checked">
+																		{{ @student['last'] }},
+																		{{ @student['first'] }}
 
-																		</label>
-																	</div>
+																	</label>
 																</div>
-
-																<br />
 															</repeat>
 
-															<div class="modal-footer d-flex justify-content-center">
-																<button class="btn btn-default" type="submit">
+															<div
+																class="modal-footer d-flex justify-content-center mt-4">
+																<button class="btn btn-default w-50" type="submit">
 																	Submit
 																</button>
 															</div>
 														</form>
-														<!-- <repeat group="{{ @students }}" value="{{ @student }}"
-															counter="{{ @i }}">
-															<label class="fs-19 m-0 p-3 text-left">
-																<input type="checkbox" name="students[]"
-																	value="{{ @student['sid'] }}" />
-																{{ @student['last'] }}, {{ @student['first'] }}
-																<i class="fa-lg mt-1 mr-2 far fa-check-circle"></i>
-																<i class="fa-lg mt-1 mr-2 fas fa-check-circle"></i>
-															</label>
-
-															<br />
-														</repeat> -->
 													</false>
 												</check>
 											</div>
@@ -216,8 +200,8 @@
 
 
 			<!-- All students -->
-			<article id="students" class="panel intro centered">
-				<header class="d-flex justify-content-center m-0 p-1">
+			<article id="students" class="panel">
+				<header class="d-flex justify-content-center mt-4">
 					<h2>All Students</h2>
 				</header>
 
@@ -225,54 +209,50 @@
 
 
 				<repeat group="{{ @students }}" value="{{ @student }}">
-					<div class="">
-						<div class="d-flex justify-content-center">
-							<div class="text-center w-100">
-								<a class="btn btn-amber mt-2 w-50" data-toggle="modal"
-									data-target="#modalViewStudent{{ @student['sid'] }}">{{ @student['first'] }},
-									{{ @student['last'] }}</a>
-							</div>
-						</div>
+					<div class="text-center w-100">
+						<a class="btn btn-amber mb-2 col-12 col-md-6" data-toggle="modal"
+							data-target="#modalViewStudent{{ @student['sid'] }}">{{ @student['first'] }},
+							{{ @student['last'] }}</a>
+					</div>
 
 
-						<!-- Modal to view a student -->
-						<div class="modal fade" id="modalViewStudent{{ @student['sid'] }}" tabindex="-1" role="dialog"
-							aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header text-center">
-										<h4 class="modal-title w-100 font-weight-bold">{{ @student['first'] }},
-											{{ @student['last'] }}
-										</h4>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
+					<!-- Modal to view a student -->
+					<div class="modal fade" id="modalViewStudent{{ @student['sid'] }}" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header text-center">
+									<h4 class="modal-title w-100 font-weight-bold">{{ @student['first'] }},
+										{{ @student['last'] }}
+									</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
 
-									<div class="tab-content pt-2 pl-1" id="pills-tabContent">
-										<div class="tab-pane fade show active"
-											id="pills-teacher-students{{ @student['sid'] }}" role="tabpanel"
-											aria-labelledby="pills-teacher-students-tab">
+								<div class="tab-content pt-2 pl-1" id="pills-tabContent">
+									<div class="tab-pane fade show active"
+										id="pills-teacher-students{{ @student['sid'] }}" role="tabpanel"
+										aria-labelledby="pills-teacher-students-tab">
 
-											<div class="modal-body mx-3 mb-4">
+										<div class="modal-body mx-3 mb-4">
 
 
-												<div class="text-center">
-													<h3>SID: {{ @student['sid'] }}</h3>
-													<h3>First Name: {{ @student['first'] }}</h3>
-													<h3>Last Name: {{ @student['last'] }}</h3>
-													<h3>DOB: {{ @student['dob'] }}</h3>
-													<h3>Parents Email: {{ @student['parents_email'] }}</h3>
-												</div>
+											<div class="text-center">
+												<h3>SID: {{ @student['sid'] }}</h3>
+												<h3>First Name: {{ @student['first'] }}</h3>
+												<h3>Last Name: {{ @student['last'] }}</h3>
+												<h3>DOB: {{ @student['dob'] }}</h3>
+												<h3>Parents Email: {{ @student['parents_email'] }}</h3>
 											</div>
 										</div>
 									</div>
-									<!-- pills -->
 								</div>
+								<!-- pills -->
 							</div>
 						</div>
-						<!--/ Modal to view a student -->
 					</div>
+					<!--/ Modal to view a student -->
 				</repeat>
 			</article>
 
@@ -280,73 +260,67 @@
 
 			<!-- Calendar -->
 			<article id="calendar" class="panel">
-				<header class="d-flex justify-content-center  mt-4">
+				<header class="d-flex justify-content-center mt-4">
 					<h2>Attendance</h2>
 				</header>
 
 				<repeat group="{{ @datesArray }}" value="{{ @dates }}">
-					<repeat group="{{ @dates }}" value="{{ @date }}">
-						<div class="d-flex justify-content-center w-100">
-							<button id="{{ @date }}" class="btn btn-brown w-50 view-attendance" data-toggle="modal"
-								data-target="#modalViewAttendance{{ @date }}" name="date" value="{{ @date }}"
-								type="submit">
-								{{ @date }}
-							</button>
-						</div>
-
-
-						<br />
-
-						<div class="modal fade" id="modalViewAttendance{{ @date }}" tabindex="-1" role="dialog"
-							aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header text-center">
-										<h4 class="modal-title w-100 font-weight-bold">
-											Attendance
-										</h4>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">x</span>
-										</button>
-									</div>
-									<div class="modal-body mx-3">
-										<article id="calendar" class="panel">
-											<repeat group="{{ @attendances }}" value="{{ @attendance }}">
-												<check if="{{ @date }} == {{ @attendance['date'] }}">
-													<true>
-														<check if="{{ @attendance['present'] }} == 1">
-															<true>
-																<div class=" d-flex justify-content-center">
-																	<button id="{{ @attendance['sid'] }}"
-																		class="btn btn-success w-100 view-attendance"
-																		name="date" value="{{ @attendance['sid'] }}"
-																		type="submit">
-																		{{ @attendance['first'] }}
-																		{{ @attendance['last'] }}
-																	</button>
-																</div>
-															</true>
-															<false>
-																<div class=" d-flex justify-content-center">
-																	<button id="{{ @attendance['sid'] }}"
-																		class="btn btn-red w-100 view-attendance"
-																		name="date" value="{{ @attendance['sid'] }}"
-																		type="submit">
-																		{{ @attendance['first'] }}
-																		{{ @attendance['last'] }}
-																	</button>
-																</div>
-															</false>
-														</check>
-													</true>
-												</check>
-											</repeat>
-										</article>
-									</div>
+					<div class="d-flex justify-content-center w-100">
+						<button id="{{ @date }}" class="btn btn-brown col-12 col-md-8 view-attendance mb-2"
+							data-toggle="modal" data-target="#modalViewAttendance{{ @date }}" name="date"
+							value="{{ @date }}" type="submit">
+							{{ @dates['niceDate'] }}
+						</button>
+					</div>
+					<div class="modal fade" id="modalViewAttendance{{ @date }}" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header text-center">
+									<h4 class="modal-title w-100 font-weight-bold">
+										Attendance
+									</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">x</span>
+									</button>
+								</div>
+								<div class="modal-body mx-3">
+									<article id="calendar" class="panel">
+										<repeat group="{{ @attendances }}" value="{{ @attendance }}">
+											<check if="{{ @date }} == {{ @attendance['date'] }}">
+												<true>
+													<check if="{{ @attendance['present'] }} == 1">
+														<true>
+															<div class=" d-flex justify-content-center">
+																<button id="{{ @attendance['sid'] }}"
+																	class="btn btn-success w-100 view-attendance"
+																	name="date" value="{{ @attendance['sid'] }}"
+																	type="submit">
+																	{{ @attendance['first'] }}
+																	{{ @attendance['last'] }}
+																</button>
+															</div>
+														</true>
+														<false>
+															<div class=" d-flex justify-content-center">
+																<button id="{{ @attendance['sid'] }}"
+																	class="btn btn-red w-100 view-attendance"
+																	name="date" value="{{ @attendance['sid'] }}"
+																	type="submit">
+																	{{ @attendance['first'] }}
+																	{{ @attendance['last'] }}
+																</button>
+															</div>
+														</false>
+													</check>
+												</true>
+											</check>
+										</repeat>
+									</article>
 								</div>
 							</div>
 						</div>
-					</repeat>
+					</div>
 				</repeat>
 			</article>
 
@@ -354,7 +328,7 @@
 
 			<!-- Files tab -->
 			<article id="files" class="panel pl-0  pr-0">
-				<header class="d-flex justify-content-center">
+				<header class="d-flex justify-content-center mt-4">
 					<h2>All Files</h2>
 				</header>
 
