@@ -312,6 +312,12 @@ $f3->route('GET|POST /upload', function($f3) {
     }
 });
 
+$f3->route('GET|POST /add_directory', function ($f3) {
+    mkdir('files/' . $_POST['folder_name']);
+    $template = new Template();
+    echo $template->render('views/admin.html');
+});
+
 $f3->route('GET|POST /logout', function ($f3) {
 	session_destroy();
 	$f3->reroute('/');
