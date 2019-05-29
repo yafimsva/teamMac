@@ -123,6 +123,7 @@ $f3->route('GET|POST /admin', function ($f3) {
 	$f3->set('teachers', $teachers);
 	$f3->set('classes', $classes);
 	$f3->set('helpers', $helpers);
+
 	// post student into database 
 	if (isset($_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['dob'])) {
 		if ($_POST['studentClass'] != 0) {
@@ -262,9 +263,13 @@ $f3->route('GET|POST /file', function ($f3) {
 });
 
 $f3->route('GET|POST /upload', function($f3) {
-    $target_dir = "files/";
+    $target_dir = $_POST['location'] . '/';
+    $currentLocation = str_replace(' ', '%20', $target_dir);
+    $currentLocation = str_replace('/', '%2F', $currentLocation);
+
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
+
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     if(isset($_POST['submit'])) {
 //        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -302,9 +307,8 @@ $f3->route('GET|POST /upload', function($f3) {
         // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                print_r($_POST);
-                $template = new Template();
-                echo $template->render('views/admin.html');
+                $f3->reroute('admin#files');
+//                $f3->reroute('admin#files' . $currentLocation);
             } else {
                 echo "<h1>SORRY</h1>";
             }
@@ -313,16 +317,21 @@ $f3->route('GET|POST /upload', function($f3) {
 });
 
 $f3->route('GET|POST /add_directory', function ($f3) {
-    mkdir('files/' . $_POST['folder_name']);
-    $template = new Template();
-    echo $template->render('views/admin.html');
+    $target_dir = $_POST['location'] . '/';
+    $currentLocation = str_replace(' ', '%20', $target_dir);
+    $currentLocation = str_replace('/', '%2F', $currentLocation);
+
+    mkdir($target_dir . $_POST['folder_name']);
+    $f3->reroute('admin#files');
+//    $f3->reroute('admin#' . $currentLocation);
 });
 
 $f3->route('GET|POST /logout', function ($f3) {
 	session_destroy();
 	$f3->reroute('/');
 	$template = new Template();
-	echo $template->render('views/login.html');
+	echo $template->reroute('admin#files');
 });
+
 //Run fat free
 $f3->run();

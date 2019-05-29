@@ -2,6 +2,8 @@ $(function () {
 
 	var filemanager = $('.filemanager'),
 		breadcrumbs = $('.breadcrumbs'),
+		breadcrumbs2 = $('.breadcrumbs2'),
+		breadcrumbs3 = $('.breadcrumbs3'),
 		fileList = filemanager.find('.data');
 
 	// Start by fetching the file data from scan.php with an AJAX request
@@ -341,6 +343,8 @@ $(function () {
 			// Generate the breadcrumbs
 
 			var url = '';
+			var url2 = '';
+			var directory = '';
 
 			if (filemanager.hasClass('searching')) {
 
@@ -358,9 +362,12 @@ $(function () {
 
 					if (i !== breadcrumbsUrls.length - 1) {
 						url += '<a href="' + u + '"><span class="folderName">' + name[name.length - 1] + '</span></a> <span class="arrow">→</span> ';
+						directory += name[name.length -1] + '/';
 					}
 					else {
 						url += '<span class="folderName">' + name[name.length - 1] + '</span>';
+						url2 += '<input type="hidden" name="location" value="' + directory + name[name.length - 1] + '">';
+
 					}
 
 				});
@@ -368,7 +375,8 @@ $(function () {
 			}
 
 			breadcrumbs.text('').append(url);
-
+			breadcrumbs2.text('').append(url2);
+			breadcrumbs3.text('').append(url2);
 
 			// Show the generated elements
 
@@ -392,6 +400,8 @@ $(function () {
 			var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
 			return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 		}
+
+
 
 	});
 });
