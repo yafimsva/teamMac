@@ -333,7 +333,7 @@ $(function () {
 
 					icon = '<span class="icon file f-' + fileType + '">.' + fileType + '</span>';
 
-					var file = $('<li class="files"><a href="' + f.path + '" title="' + f.path + '" class="files">' + icon + '<span class="name">' + name + '</span> <span class="details">' + fileSize + '</span></a></li>');
+					var file = $('<li class="files"><a target="_blank" href="' + f.path + '" title="' + f.path + '" class="files">' + icon + '<span class="name">' + name + '</span> <span class="details">' + fileSize + '</span></a></li>');
 					file.appendTo(fileList);
 				});
 
@@ -361,7 +361,7 @@ $(function () {
 					var name = u.split('/');
 
 					if (i !== breadcrumbsUrls.length - 1) {
-						url += '<a href="' + u + '"><span class="folderName">' + name[name.length - 1] + '</span></a> <span class="arrow">→</span> ';
+						url += '<a target="_blank" href="' + u + '"><span class="folderName">' + name[name.length - 1] + '</span></a> <span class="arrow">→</span> ';
 						directory += name[name.length -1] + '/';
 					}
 					else {
