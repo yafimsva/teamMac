@@ -26,9 +26,13 @@ $f3->route('GET|POST /home', function ($f3) {
 	$students = $db->getStudentsByID($_SESSION['classid']);
 	$dates = $db->getDates();
 	$attendances = $db->viewAttendance($_SESSION['classid']);
+	$mySchedule = $db->getMySchedule($_SESSION['teacherid']);
 	$f3->set('students', $students);
 	$f3->set('datesArray', $dates);
 	$f3->set('attendances', $attendances);
+	$f3->set('mySchedule', $mySchedule);
+
+
 	// if (isset($_POST['students'])) {
 	// 	$_SESSION['students'] = $_POST['students'];
 	// 	$array = $_POST['students'];
@@ -75,6 +79,8 @@ $f3->route('GET|POST /home', function ($f3) {
 			$f3->reroute('home#calendar');
 		}
 	}
+
+	
 	$template = new Template();
 	echo $template->render('views/index.html');
 });
@@ -115,14 +121,31 @@ $f3->route('GET|POST /admin', function ($f3) {
 	}
 	$db = new Database();
 	$db->connect();
+	
+	$first_day_this_month = date('Y-m-01');
+	$this_month = date('m');
+	$last_day_next_month  = date('Y-m-t', strtotime(" +1 months"));
+	$next_month = date('m', strtotime(" +1 months"));
+	$this_month_name = date("F", mktime(0, 0, 0, $this_month, 10));
+	$next_month_name = date("F", mktime(0, 0, 0, $next_month, 10));
+
+
+	$datesForTeachers = $db->getDatesForTeachers($first_day_this_month, $last_day_next_month);
 	$students = $db->getStudents();
 	$teachers = $db->getTeachers();
 	$classes = $db->getClasses();
 	$helpers = $db->getHelpers();
+	$scheduleDates = $db->getScheduleDates();
 	$f3->set('students', $students);
 	$f3->set('teachers', $teachers);
 	$f3->set('classes', $classes);
 	$f3->set('helpers', $helpers);
+	$f3->set('scheduleDates', $scheduleDates);
+	$f3->set('datesForTeachers', $datesForTeachers);
+	$f3->set('this_month_name', $this_month_name);
+	$f3->set('next_month_name', $next_month_name);
+
+
 
 	// post student into database 
 	if (isset($_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['dob'])) {
@@ -254,9 +277,38 @@ $f3->route('GET|POST /admin', function ($f3) {
 			$f3->reroute('admin#teachers');
 		}
 	}
+
+	//Set schedule
+	if (isset($_POST['schedule'])) {
+			$duplicate = false;
+
+			foreach ($_POST['schedule'] as $teacherid) {
+				$check = $db->checkIfScheduleSet($_POST['scheduleDate'], $teacherid);
+				if (sizeof($check) != 0) {
+					$duplicate = true;
+					break;
+				}
+			}
+			if (!$duplicate) {
+				foreach ($teachers as $teacher) {
+					$db->setSchedule($_POST['scheduleDate'], $teacher['teacherid'], 0);
+				}
+				foreach ($_POST['schedule'] as $teacherid) {
+					$db->updateSchedule($_POST['scheduleDate'], $teacherid, 1);
+				}
+				$f3->reroute('admin#schedule');
+			} else {
+				$f3->reroute('admin#schedule');
+			}
+
+
+	}
+
 	$template = new Template();
 	echo $template->render('views/admin.html');
 });
+
+
 $f3->route('GET|POST /file', function ($f3) {
 	$template = new Template();
 	echo $template->render('files.html');

@@ -149,6 +149,58 @@ class Database
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
+
+    public function getDatesForTeachers($start, $end)
+    {
+        global $dbh;
+        $sql = "SELECT *, DATE_FORMAT(date,'%b %d, %Y') as niceDate, DATE_FORMAT(date,'%a') as dayName, DATE_FORMAT(date,'%M') as monthName from 
+        (select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) date from
+        (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+        (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+        (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+        (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+        (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
+        where date between :start and :end";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':start', $start, PDO::PARAM_STR);
+        $statement->bindValue(':end', $end, PDO::PARAM_STR);
+
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+    public function setSchedule($date, $teacherid, $scheduled)
+    {
+        global $dbh;
+        $sql = "INSERT INTO schedule (date, teacherid, scheduled) VALUES (:date, :teacherid, :scheduled);";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->bindValue(':teacherid', $teacherid, PDO::PARAM_STR);
+        $statement->bindValue(':scheduled', $scheduled, PDO::PARAM_STR);
+
+        $statement->execute();
+    }
+
+    public function updateSchedule($date, $teacherid, $scheduled)
+    {
+        global $dbh;
+
+        $sql = "UPDATE schedule SET scheduled = :scheduled WHERE teacherid = :teacherid AND date = :date;";
+
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->bindValue(':teacherid', $teacherid, PDO::PARAM_STR);
+        $statement->bindValue(':scheduled', $scheduled, PDO::PARAM_STR);
+
+        $statement->execute();
+    }
+
     function insertTeacher($teacherName, $teacherUsername, $teacherPassword, $teacherClass, $endDate)
     {
         global $dbh;
@@ -361,6 +413,7 @@ class Database
         }
         return $results;
     }
+
     public function checkIfAttedanceTaken($date, $sid)
     {
         global $dbh;
@@ -377,4 +430,53 @@ class Database
         print_r($results);
         return $results;
     }
+
+    public function checkIfScheduleSet($date, $teacherid)
+    {
+        global $dbh;
+        $sql = "SELECT * FROM schedule WHERE date = :date AND teacherid = :teacherid";
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->bindValue(':teacherid', $teacherid, PDO::PARAM_STR);
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+    public function getMySchedule($teacherid)
+    {
+
+        global $dbh;
+        $sql = "SELECT * FROM schedule where teacherid = :teacherid ORDER BY date DESC LIMIT 15";
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':teacherid', $teacherid, PDO::PARAM_STR);
+
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+    public function getScheduleDates()
+    {
+        global $dbh;
+        $sql = "SELECT DISTINCT date FROM schedule ORDER BY date DESC";
+        $statement = $dbh->prepare($sql);
+        $statement->execute();
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+
 }

@@ -100,7 +100,11 @@
 			<!-- Me -->
 			<article id="home" class="panel intro centered">
 				<header>
+
 					<h1>{{ @SESSION.name }}</h1>
+					<button class="btn btn-black p-2 pr-5 pl-5" data-toggle="modal" data-target="#modalMySchedule">My
+						Schedule</button>
+
 					<p>Sunday School Teacher</p>
 					<check if="{{ @SESSION.daysLeft }} != NULL">
 						<true>
@@ -118,6 +122,7 @@
 						</false>
 					</check>
 					<p>Teaching: {{ @SESSION.class }}</p>
+
 					<br />
 
 					<!-- Modal to take attendance -->
@@ -189,11 +194,77 @@
 						</div>
 					</form>
 
+
+
+
+
+
+
+
+
+
+					<!-- Modal to view schedule -->
+					<div class="modal fade" id="modalMySchedule" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header text-center">
+									<h4 class="modal-title w-100 font-weight-bold">
+										My Schedule
+									</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">x</span>
+									</button>
+								</div>
+								<div class="modal-body mx-1">
+									<div class="md-form">
+										<div class="md-form">
+
+
+											<repeat group="{{ @mySchedule }}" value="{{ @schedule }}">
+												<check if="{{ @schedule['scheduled'] }} == 1">
+													<true>
+														<button class="btn btn-success w-100"
+															name="date" type="submit">
+															{{ @schedule['date'] }}															{{ @attendance['last'] }}
+														</button>
+													</true>
+													<false>
+														<button class="btn btn-red w-100"
+															name="date" type="submit">
+															{{ @schedule['date'] }}															{{ @attendance['last'] }}
+														</button>
+													</false>
+												</check>
+											</repeat>
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Modal to view schedule -->
+
+
+
+
+
+
+
+
+
+
+
+
 					<div class="text-center">
-						<a href="" class="btn btn-default mt-4" data-toggle="modal"
-							data-target="#modalTakeAttendance">Take Attendance</a>
+						<a href="" class="btn btn-default mt-4 col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7"
+							data-toggle="modal" data-target="#modalTakeAttendance">Take Attendance</a>
 					</div>
 				</header>
+
+
 			</article>
 
 
