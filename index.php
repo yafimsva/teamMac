@@ -102,6 +102,9 @@ $f3->route('GET|POST /', function ($f3) {
 			$_SESSION['daysLeft'] = $results['daysLeft'];
 			$f3->reroute('home');
 		} else {
+			$_SESSION['loginError'] = true;
+			$_SESSION['username'] = $_POST['username'];
+
 			$f3->reroute('/');
 		}
 		print_r($_SESSION);
