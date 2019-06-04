@@ -467,6 +467,7 @@
                             <check if="{{ @helper['classid'] == @class['classid'] }}">
                                 <div class="d-flex justify-content-center">
 
+                                    
                                     <button class="btn btn-secondary w-100 view-attendance"
                                         value="{{ @helper['helperid'] }}" data-toggle="modal"
                                         data-target="#modalViewHelperOnStudentsPage{{ @helper['helperid'] }}">{{ @helper['name'] }}</button>
@@ -747,21 +748,24 @@
 
             <!-- Teacher tab -->
             <article id="teachers" class="panel">
-                <header class="d-flex justify-content-center">
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                        <li class="nav-item">
+                <header class="justify-content-center">
+                    <h1 class="col-12 text-center">Dashboard</h1>
+
+
+                    <ul class="nav nav-pills col-12" id="pills-tab" role="tablist">
+                        <li class="nav-item m-auto ml-md-auto col-12 col-md-4">
                             <a class="btn btn-primary col-12" id="pills-teachers-tab" data-toggle="pill"
                                 href="#pills-teachers" role="tab" aria-controls="pills-home" aria-selected="true">
                                 Teachers</a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item m-auto col-12 col-md-4">
                             <a class="btn btn-secondary col-12" id="pills-helpers-tab" data-toggle="pill"
                                 href="#pills-helpers" role="tab" aria-controls="pills-home" aria-selected="true">
                                 Helpers</a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item m-auto mr-md-auto col-12 col-md-4">
                             <a class="btn btn-amber col-12" id="pills-classes-tab" data-toggle="pill"
                                 href="#pills-classes" role="tab" aria-controls="pills-home" aria-selected="true">
                                 Classes</a>
@@ -797,9 +801,9 @@
                     <div class="tab-pane fade show active" id="pills-teachers" role="tabpanel"
                         aria-labelledby="pills-teachers-tab">
                         
-                        <div class="d-sm-flex justify-content-center col-12">
-                                <div class="text-center col-12 col-sm-4 p-1">
-                                    <a href="" class="btn btn-primary col-12" data-toggle="modal" data-target="#modalAddTeacher">
+                        <div class="justify-content-center">
+                                <div class="text-center">
+                                    <a href="" class="btn btn-primary col-12 m-0" data-toggle="modal" data-target="#modalAddTeacher">
                                         + Add</a>
                                 </div>
                             </div>
@@ -1007,10 +1011,10 @@
                     </div>
                     <div class="tab-pane fade" id="pills-helpers" role="tabpanel" aria-labelledby="pills-helpers-tab">
 
-                            <div class="d-sm-flex justify-content-center col-12">
+                            <div class="justify-content-center">
                                    
-                                    <div class="text-center col-12 col-sm-4 p-1">
-                                        <a href="" class="btn btn-secondary col-12" data-toggle="modal" data-target="#modalAddHelper">+
+                                    <div class="text-center">
+                                        <a href="" class="btn btn-secondary col-12 m-0" data-toggle="modal" data-target="#modalAddHelper">+
                                             Add</a>
                                     </div>
                                     
@@ -1147,7 +1151,7 @@
 
 
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-secondary w-100 view-attendance"
+                                <button class="btn btn-secondary w-100 view-attendance mr-0 ml-0"
                                     value="{{ @helper1['helperid'] }}" data-toggle="modal"
                                     data-target="#modalViewHelper{{ @helper1['helperid'] }}">{{ @helper1['name'] }}
                                 </button>
@@ -1156,11 +1160,11 @@
                     </div>
                     <div class="tab-pane fade" id="pills-classes" role="tabpanel" aria-labelledby="pills-classes-tab">
 
-                            <div class="d-sm-flex justify-content-center col-12">
+                            <div class="justify-content-center">
                      
-                                    <div class="text-center col-12 col-sm-4 p-1">
+                                    <div class="text-center">
                 
-                                        <a href="" class="btn btn-amber col-12" data-toggle="modal" data-target="#modalAddClass">+ Add</a>
+                                        <a href="" class="btn btn-amber col-12 m-0" data-toggle="modal" data-target="#modalAddClass">+ Add</a>
                                     </div>
                                 </div>
                         <repeat group="{{ @classes }}" value="{{ @class }}">
@@ -1203,7 +1207,7 @@
                             <!--/ Modal to change name of a class -->
 
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-amber w-100 view-attendance" name="student"
+                                <button class="btn btn-amber w-100 view-attendance mr-0 ml-0" name="student"
                                     value="{{ @class['classid'] }}" data-toggle="modal"
                                     data-target="#modalRenameClass{{ @class['classid'] }}" type="submit">
                                     {{ @class['className'] }}
