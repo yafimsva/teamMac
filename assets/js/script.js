@@ -314,8 +314,16 @@ $(function () {
 						itemsLength = 'Empty';
 					}
 
-					var folder = $('<li class="folders"><a href="' + f.path + '" title="' + f.path + '" class="folders">' + icon + '<span class="name">' + name + '</span> <span class="details">' + itemsLength + '</span></a></li>');
+					var folder = $('<li>' +
+						'<a href="' + 'admin#'+ f.path + '" title="' + f.path + '" class="folders">' +
+						'<a id="delete" href="delete" class="btn btn-dark col-1 float-right" onclick="alert(12345);">X</a>' +
+						icon + '<span class="name">' + name + '</span> <span class="details">' + itemsLength + '</span></a></li>');
 					folder.appendTo(fileList);
+
+					// var folder = $('<li class="folders">' +
+					// 	'<a href="' + f.path + '" title="' + f.path + '" class="folders">' +
+					// 	icon + '<span class="name">' + name + '</span> <span class="details">' + itemsLength + '</span></a></li>');
+					// folder.appendTo(fileList);
 				});
 
 			}

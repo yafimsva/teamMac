@@ -188,6 +188,23 @@ textarea {
 .row.aln-right {
 	justify-content: flex-end;
 }
+/*.fa, .fas {*/
+	/*font-weight: 900;*/
+	/*color: red;*/
+	/*width: 100px;*/
+	/*height: 100px;*/
+	/*font-size: 300%;*/
+	/*position: absolute;*/
+	/*z-index: 10;*/
+/*}*/
+
+/*#delete {*/
+	  /*position:absolute;*/
+	  /*right:0;*/
+	  /*top:0;*/
+	  /*margin-top:-10px;*/
+	  /*font-size: 200%;*/
+  /*}*/
 
 .row.aln-top {
 	align-items: flex-start;
