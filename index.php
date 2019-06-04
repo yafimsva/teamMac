@@ -27,10 +27,13 @@ $f3->route('GET|POST /home', function ($f3) {
 	$dates = $db->getDates();
 	$attendances = $db->viewAttendance($_SESSION['classid']);
 	$mySchedule = $db->getMySchedule($_SESSION['teacherid']);
+	$getHelpers = $db->getHelpersForClass(($_SESSION['classid']));
 	$f3->set('students', $students);
 	$f3->set('datesArray', $dates);
 	$f3->set('attendances', $attendances);
 	$f3->set('mySchedule', $mySchedule);
+	$f3->set('helpers', $getHelpers);
+
 
 	if(isset($_POST['updateAttendance']))
 	{

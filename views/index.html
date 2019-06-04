@@ -271,11 +271,23 @@
 			<!-- All students -->
 			<article id="students" class="panel">
 				<header class="d-flex justify-content-center mt-4">
-					<h2>All Students</h2>
+					<h2>All Students / Helpers</h2>
 				</header>
 
 				<br>
 
+
+
+				<check if="{{ empty(@helpers) }}">
+					<false>
+						<repeat group="{{ @helpers }}" value="{{ @helper }}">
+							<div class="text-center w-100">
+								<a class="btn btn-secondary mb-2 col-12 col-md-6">
+									{{ @helper['name'] }} - Helper</a>
+							</div>
+						</repeat>
+					</false>
+				</check>
 
 				<repeat group="{{ @students }}" value="{{ @student }}">
 					<div class="text-center w-100">
@@ -394,9 +406,9 @@
 											</repeat>
 
 
-											<div
-												class="modal-footer d-flex justify-content-center mt-4">
-												<button class="btn btn-default w-50 updateSubmit" style="display: none;" type="submit">
+											<div class="modal-footer d-flex justify-content-center mt-4">
+												<button class="btn btn-default w-50 updateSubmit" style="display: none;"
+													type="submit">
 													Update
 												</button>
 											</div>
@@ -494,7 +506,7 @@
 						var text = $(this).parent().nextAll('.modal-footer').find('button');
 
 						$(text).css("display", "block !important");
-						
+
 					});
 					$('#materialIndeterminate2').prop('indeterminate', true);
 				});

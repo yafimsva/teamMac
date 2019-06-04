@@ -324,6 +324,23 @@ class Database
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
+    public function getHelpersForClass($classid)
+    {
+        global $dbh;
+        $sql = "SELECT helpers.*, classes.className
+        FROM helpers
+        INNER JOIN classes
+        ON helpers.classid = classes.classid
+        WHERE helpers.classid = :classid 
+        ORDER BY name ASC;";
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+
+        $statement->execute();
+        
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
     public function getTeachers()
     {
         global $dbh;
