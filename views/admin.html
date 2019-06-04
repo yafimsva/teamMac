@@ -119,7 +119,7 @@
             <!-- Students tab -->
             <article id="students" class="panel">
                 <header class="d-flex justify-content-center">
-                    <h2>All Students</h2>
+                    <h1>Class Management</h1>
                 </header>
 
                 <check if="{{ isset(@errors['studentClass']) }}">
@@ -800,21 +800,12 @@
                 <div class="tab-content pt-2 pl-1" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-teachers" role="tabpanel"
                         aria-labelledby="pills-teachers-tab">
-<<<<<<< HEAD
                         
                         <div class="justify-content-center">
                                 <div class="text-center">
                                     <a href="" class="btn btn-primary col-12 m-0" data-toggle="modal" data-target="#modalAddTeacher">
                                         + Add</a>
                                 </div>
-=======
-
-                        <div class="d-sm-flex justify-content-center col-12">
-                            <div class="text-center col-12 col-sm-4 p-1">
-                                <a href="" class="btn btn-primary col-12" data-toggle="modal"
-                                    data-target="#modalAddTeacher">
-                                    + Add</a>
->>>>>>> 1d7c9214d39ee11b990fb83ca8025ff0fc986756
                             </div>
                         </div>
 
@@ -1021,7 +1012,6 @@
                     </div>
                     <div class="tab-pane fade" id="pills-helpers" role="tabpanel" aria-labelledby="pills-helpers-tab">
 
-<<<<<<< HEAD
                             <div class="justify-content-center">
                                    
                                     <div class="text-center">
@@ -1030,17 +1020,6 @@
                                     </div>
                                     
                                 </div>
-=======
-                        <div class="d-sm-flex justify-content-center col-12">
-
-                            <div class="text-center col-12 col-sm-4 p-1">
-                                <a href="" class="btn btn-secondary col-12" data-toggle="modal"
-                                    data-target="#modalAddHelper">+
-                                    Add</a>
-                            </div>
-
-                        </div>
->>>>>>> 1d7c9214d39ee11b990fb83ca8025ff0fc986756
                         <repeat group="{{ @helpers }}" value="{{ @helper1 }}">
 
                             <!-- Modal to view a helper -->
@@ -1182,7 +1161,6 @@
                     </div>
                     <div class="tab-pane fade" id="pills-classes" role="tabpanel" aria-labelledby="pills-classes-tab">
 
-<<<<<<< HEAD
                             <div class="justify-content-center">
                      
                                     <div class="text-center">
@@ -1190,16 +1168,6 @@
                                         <a href="" class="btn btn-amber col-12 m-0" data-toggle="modal" data-target="#modalAddClass">+ Add</a>
                                     </div>
                                 </div>
-=======
-                        <div class="d-sm-flex justify-content-center col-12">
-
-                            <div class="text-center col-12 col-sm-4 p-1">
-
-                                <a href="" class="btn btn-amber col-12" data-toggle="modal"
-                                    data-target="#modalAddClass">+ Add</a>
-                            </div>
-                        </div>
->>>>>>> 1d7c9214d39ee11b990fb83ca8025ff0fc986756
                         <repeat group="{{ @classes }}" value="{{ @class }}">
                             <!-- Modal to change name of a class -->
                             <div class="modal fade" id="modalRenameClass{{ @class['classid'] }}" tabindex="-1"
