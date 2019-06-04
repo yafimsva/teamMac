@@ -178,7 +178,8 @@ class Database
         INNER JOIN schedule
         ON teachers.teacherid = schedule.teacherid
         INNER JOIN classes 
-        ON teachers.classid = classes.classid;";
+        ON teachers.classid = classes.classid
+        ORDER by name ASC;";
         $statement = $dbh->prepare($sql);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
