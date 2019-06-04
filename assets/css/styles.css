@@ -81,7 +81,7 @@ body {
 	cursor: pointer;
 	right: 0;
 	font-size: 17px;
-	color: #ffffff;
+	color: black;
 	display: block;
 	width: 40px;
 	height: 40px;
@@ -94,15 +94,16 @@ body {
 	width: 10px;
 	height: 11px;
 	border-radius: 50%;
-	border: 2px solid #ffffff;
+	border: 2px solid black;
 	right: 8px;
+	box-sizing: unset !important;
 }
 
 .filemanager .search:after {
 	content: '';
 	width: 3px;
 	height: 10px;
-	background-color: #ffffff;
+	background-color: black;
 	border-radius: 2px;
 	position: absolute;
 	top: 23px;
@@ -114,7 +115,7 @@ body {
 .filemanager .search input[type=search] {
 	border-radius: 2px;
 	color: #4D535E;
-	background-color: #FFF;
+	background-color: black;
 	width: 250px;
 	height: 44px;
 	margin-left: -215px;

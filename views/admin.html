@@ -23,6 +23,20 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.7/css/mdb.min.css" rel="stylesheet" />
 
+<style>
+    div.search::before {
+        color: black !important;
+    }
+    div.search::after {
+        color: black !important;
+    }
+
+    .filemanager .search {
+        color: black !important;
+    }
+</style>
+
+
 </head>
 
 <body class="is-preload">
@@ -1566,7 +1580,7 @@
                                                 id="uploadFileForm">
                                                 <input type="file" name="fileToUpload" id="fileToUpload">
                                                 <div class="breadcrumbs2"></div>
-                                                <input type="submit" value="Upload" name="submit">
+                                                <input type="submit" value="Upload" name="submit" class="mt-2">
 
                                             </form>
                                         </div>
@@ -1615,12 +1629,12 @@
 
                                 <div>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <form action="add_directory" method="POST" enctype="multipart/form-data">
-                                                <input type="text" name="folder_name" placeholder="Folder Name"
+                                        <div class="input-group-prepend w-100">
+                                            <form class="w-100" action="add_directory" method="POST" enctype="multipart/form-data">
+                                                <input class="w-100" type="text" name="folder_name" placeholder="Folder Name"
                                                     id="folder">
                                                 <div class="breadcrumbs3"></div>
-                                                <input type="submit" value="Create Folder" name="submit">
+                                                <input class="mt-2" type="submit" value="Create Folder" name="submit">
                                                 <!--<a type="submit" href="upload" class="input-group-text" id="inputGroupFileAddon01">Upload</a>-->
 
                                             </form>
@@ -1653,13 +1667,13 @@
 
                 <div class="filemanager">
 
-                    <div class="search">
+                    <div class="search" style="color:black;">
                         <input type="search" placeholder="Find a file.." />
                     </div>
 
                     <div class="breadcrumbs"></div>
 
-                    <div class="text-center mt-3">
+                    <div class="text-center mt-5">
                         <button class="btn btn-black col-12 col-sm-5  col-md-4" data-toggle="modal"
                             data-target="#modalAddFile">Add a File</button>
                         <button class="btn btn-black col-12 col-sm-5 col-md-4" data-toggle="modal"
