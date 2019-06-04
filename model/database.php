@@ -476,6 +476,31 @@ class Database
             print_r($arr[2]);
         }
     }
+
+    public function usernameExists($username)
+    {
+        global $dbh;
+        $sql = "SELECT * FROM `teachers` WHERE username = :username";
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':username', $username, PDO::PARAM_STR);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if(sizeof($results) > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
     public function checkLogin($username, $password)
     {
         global $dbh;

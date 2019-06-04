@@ -97,6 +97,7 @@ $f3->route('GET|POST /home', function ($f3) {
 $f3->route('GET|POST /', function ($f3) {
 	$db = new Database();
 	$db->connect();
+	
 	if (isset($_SESSION['teacherLogin'])) {
 		$f3->reroute('home');
 	} else if (isset($_SESSION['adminLogin'])) {
@@ -107,7 +108,19 @@ $f3->route('GET|POST /', function ($f3) {
 			$_SESSION['adminLogin'] = true;
 			$f3->reroute('admin');
 		}
-		$results = $db->checkLogin($_POST['username'], $_POST['password']);
+
+		$usernameExists = $db->usernameExists($_POST['username']);
+
+		if($usernameExists)
+		{
+			$results = $db->checkLogin($_POST['username'], $_POST['password']);
+		}
+		else
+		{
+			$_SESSION['usernameError'] = true;
+		}
+
+		
 		if (isset($results['teacherid'])) {
 			$_SESSION['teacherLogin'] = true;
 			$_SESSION['teacherid'] = $results['teacherid'];
