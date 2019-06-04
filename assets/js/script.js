@@ -130,7 +130,7 @@ $(function () {
 			e.preventDefault();
 
 			var index = breadcrumbs.find('a').index($(this)),
-				nextDir = breadcrumbsUrls[index];
+				nextDir = breadcrumbsUrls[index]+'/';
 
 			breadcrumbsUrls.length = Number(index);
 
