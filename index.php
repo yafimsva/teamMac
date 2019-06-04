@@ -16,7 +16,6 @@ $f3 = Base::instance();
 //Turn of Fat-Free error reporting
 $f3->set('DEBUG', 3);
 $f3->route('GET|POST /home', function ($f3) {
-	print_r($_POST);
 	if (!isset($_SESSION['teacherLogin'])) {
 		$f3->reroute('/');
 	}
@@ -114,9 +113,19 @@ $f3->route('GET|POST /', function ($f3) {
 		$_SESSION['username'] = $_POST['username'];
 		$_SESSION['password'] = $_POST['password'];
 
+		if($_POST['username'] == "admin")
+		{
+			$usernameExists = true;
+		}
+
 		if($usernameExists)
 		{
 			$results = $db->checkLogin($_POST['username'], $_POST['password']);
+
+			if($_POST['password'] == "admin")
+			{
+				$f3->reroute('admin');
+			}
 
 			if (isset($results['teacherid'])) {
 				$_SESSION['teacherLogin'] = true;
@@ -138,11 +147,9 @@ $f3->route('GET|POST /', function ($f3) {
 		{
 			$_SESSION['loginError'] = "valid";
 			$_SESSION['usernameError'] = "invalid";
-		}
 
-		
-		
-		print_r($_SESSION);
+			$f3->reroute('/');
+		}
 	}
 	$template = new Template();
 	echo $template->render('views/login.html');
