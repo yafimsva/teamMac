@@ -121,7 +121,7 @@
             <!-- Students tab -->
             <article id="students" class="panel">
                 <header class="d-flex justify-content-center">
-                    <h1>Class Management</h1>
+                    <h2>Class Management</h2>
                 </header>
 
                 <check if="{{ isset(@errors['studentClass']) }}">
@@ -752,9 +752,9 @@
 
 
             <!-- Teacher tab -->
-            <article id="teachers" class="panel">
+            <article id="teachers" class="panel pb-0">
                 <header class="justify-content-center">
-                    <h1 class="col-12 text-center mb-5">Dashboard</h1>
+                    <h2 class="col-12 text-center mb-4">Dashboard</h2>
 
 
                     <ul class="nav nav-pills col-12" id="pills-tab" role="tablist">
@@ -807,18 +807,12 @@
                         aria-labelledby="pills-teachers-tab">
 
                         <div class="justify-content-center">
-<<<<<<< HEAD
                             <div class="text-center modal-footer">
                                 <a href="" class="btn blue-gradient text-white w-50 m-0 mb-3 ml-auto mr-auto"  data-toggle="modal"
-=======
-                            <div class="text-center">
-                                <a href="" class="btn btn-primary col-12 m-0" data-toggle="modal"
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
                                     data-target="#modalAddTeacher">
                                     + Add</a>
                             </div>
 
-<<<<<<< HEAD
                             <repeat group="{{ @teachers }}" value="{{ @teacher }}">
                                 <!-- Modal to view a teacher -->
                                 <div class="modal fade" id="modalViewTeacher{{ @teacher['teacherid'] }}" tabindex="-1"
@@ -857,57 +851,13 @@
                                                 <div class="tab-pane fade show active"
                                                     id="pills-teacher{{ @teacher['teacherid'] }}" role="tabpanel"
                                                     aria-labelledby="pills-teacher-tab">
-=======
-
-                    <repeat group="{{ @teachers }}" value="{{ @teacher }}">
-                        <!-- Modal to view a teacher -->
-                        <div class="modal fade" id="modalViewTeacher{{ @teacher['teacherid'] }}" tabindex="-1"
-                            role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold">{{ @teacher['name'] }}
-                                        </h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-
-                                    <!-- pills -->
-                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        <li class="nav-item mr-auto ml-auto mt-2">
-                                            <a class="nav-link active" id="pills-teacher-tab" data-toggle="pill"
-                                                href="#pills-teacher{{ @teacher['teacherid'] }}" role="tab"
-                                                aria-controls="pills-teacher" aria-selected="true">Teacher</a>
-                                        </li>
-                                        <li class="nav-item mr-auto ml-auto mt-2">
-                                            <a class="nav-link" id="pills-edit-tab" data-toggle="pill"
-                                                href="#pills-edit{{ @teacher['teacherid'] }}" role="tab"
-                                                aria-controls="pills-edit" aria-selected="false">Edit</a>
-                                        </li>
-                                        <li class="nav-item mr-auto ml-auto mt-2">
-                                            <a class="nav-link" id="pills-delete-tab" data-toggle="pill"
-                                                href="#pills-delete{{ @teacher['teacherid'] }}" role="tab"
-                                                aria-controls="pills-delete" aria-selected="false">Delete</a>
-                                        </li>
-                                    </ul>
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
-
-                                    <div class="tab-content pt-2 pl-1" id="pills-tabContent">
-                                        <div class="tab-pane fade show active"
-                                            id="pills-teacher{{ @teacher['teacherid'] }}" role="tabpanel"
-                                            aria-labelledby="pills-teacher-tab">
 
 
 
-<<<<<<< HEAD
+
                                                     <div class="modal-body mx-3 mb-4">
-=======
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
 
-                                            <div class="modal-body mx-3 mb-4">
 
-<<<<<<< HEAD
                                                         <div class="text-center">
                                                             <h3>Username: {{ @teacher['username'] }}</h3>
                                                             <h3>Password: {{ @teacher['password'] }}</h3>
@@ -989,65 +939,8 @@
                                                                     </repeat>
                                                                 </select>
                                                             </div>
-=======
-
-                                                <div class="text-center">
-                                                    <h3>Username: {{ @teacher['username'] }}</h3>
-                                                    <h3>Password: {{ @teacher['password'] }}</h3>
-                                                    <h3>Class: {{ @teacher['className'] }}</h3>
-                                                    <h3>License Expiration on: {{ @teacher['endDate'] }}</h3>
 
 
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- edit pill -->
-                                        <div class="tab-pane fade" id="pills-edit{{ @teacher['teacherid'] }}"
-                                            role="tabpanel" aria-labelledby="pills-edit-tab">
-                                            <form action="" method="POST">
-                                                <div class="modal-body mx-3">
-
-                                                    <input type="hidden" name="teacherid"
-                                                        value="{{ @teacher['teacherid'] }}" />
-
-                                                    <div class="md-form mb-5">
-                                                        <i class="fas fa-user prefix grey-text"></i>
-                                                        <input type="text" id="updateTeacherName"
-                                                            name="updateTeacherName" class="form-control"
-                                                            value="{{ @teacher['name'] }}" required>
-                                                        <label for="updateTeacherName">Name</label>
-                                                    </div>
-
-                                                    <div class="md-form mb-5">
-                                                        <i class="fas fa-envelope prefix grey-text"></i>
-                                                        <input type="text" id="updateTeacherUsername"
-                                                            name="updateTeacherUsername" class="form-control"
-                                                            value="{{ @teacher['username'] }}" required>
-                                                        <label for="updateTeacherUsername">Username</label>
-                                                    </div>
-
-                                                    <div class="md-form mb-5">
-                                                        <i class="fas fa-lock prefix grey-text"></i>
-                                                        <input type="password" id="updatePassword" name="updatePassword"
-                                                            class="form-control" value="{{ @teacher['password'] }}"
-                                                            required>
-                                                        <label for="updatePassword">
-                                                            Password</label>
-                                                    </div>
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
-
-                                                    <div class="md-form mb-5">
-                                                        <i class="fas fa-lock prefix grey-text"></i>
-                                                        <input type="password" id="updateConfirmPassword"
-                                                            name="updateConfirmPassword" class="form-control"
-                                                            value="{{ @teacher['password'] }}" required>
-                                                        <label for="updateConfirmPassword">
-                                                            Confirm Password</label>
-                                                    </div>
-
-<<<<<<< HEAD
                                                         </div>
                                                         <div class="modal-footer d-flex justify-content-center">
                                                             <button class="btn btn-amber" type="submit">Update</button>
@@ -1055,43 +948,9 @@
                                                     </form>
                                                 </div>
                                                 <!--/ edit pill -->
-=======
-                                                    <div class="form-check-label text-center mt-4 mb-5">
-                                                        <label for="endDateUpdate">License Expiration Date</label>
-                                                        <input placeholder="Selected date" name="endDateUpdate"
-                                                            type="date" id="endDateUpdate"
-                                                            value="{{ @teacher['endDate'] }}"
-                                                            class="text-center form-control col-sm-5 ml-auto mr-auto" />
-                                                    </div>
-
-                                                    <div class="md-form mb-4">
-                                                        <select class="browser-default custom-select"
-                                                            name="updateTeacherClass">
-                                                            <option value="{{ @teacher['classid'] }}" selected>
-                                                                {{ @teacher['className'] }}
-                                                            </option>
-                                                            <repeat group="{{ @classes }}" value="{{ @class2 }}">
-                                                                <check
-                                                                    if="{{ @teacher['className'] != @class2['className']  }}">
-                                                                    <option value="{{ @class2['classid'] }}">
-                                                                        {{ @class2['className'] }}
-                                                                    </option>
-                                                                </check>
-                                                            </repeat>
-                                                        </select>
-                                                    </div>
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
 
 
-                                                </div>
-                                                <div class="modal-footer d-flex justify-content-center">
-                                                    <button class="btn btn-amber" type="submit">Update</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!--/ edit pill -->
 
-<<<<<<< HEAD
                                                 <div class="tab-pane fade" id="pills-delete{{ @teacher['teacherid'] }}"
                                                     role="tabpanel" aria-labelledby="pills-delete-tab">
 
@@ -1108,39 +967,14 @@
                                                             </div>
                                                         </form>
                                                     </div>
-=======
 
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
 
-                                        <div class="tab-pane fade" id="pills-delete{{ @teacher['teacherid'] }}"
-                                            role="tabpanel" aria-labelledby="pills-delete-tab">
-
-<<<<<<< HEAD
                                                 </div>
                                             </div>
                                             <!-- pills -->
-=======
-                                            <div class="modal-body mx-3">
-                                                <form action="" method="POST">
-                                                    <div class="text-center">
-                                                        <input type="hidden" name="deleteTeacher"
-                                                            value="{{ @teacher['teacherid'] }}" />
-                                                        <h5>Are you sure you want to delete
-                                                            {{ @teacher['name'] }}
-                                                            ?</h5>
-                                                        <button class="btn btn-red mt-5 col-4"
-                                                            type="submit">Yes!</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-
-
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
                                         </div>
                                     </div>
-                                    <!-- pills -->
                                 </div>
-<<<<<<< HEAD
                                 <!--/ Modal to view a teacher -->
 
 
@@ -1239,121 +1073,20 @@
                                                 <div class="tab-pane fade show active"
                                                     id="pills-helper{{ @helper1['helperid'] }}" role="tabpanel"
                                                     aria-labelledby="pills-helper-tab">
-=======
-                            </div>
-                        </div>
-                        <!--/ Modal to view a teacher -->
 
 
-                        <check if="{{ (@teacher['daysLeft']) != NULL }}">
-                            <true>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn btn-primary col-7 col-sm-9 view-attendance mr-0" name="student"
-                                        data-toggle="modal" data-target="#modalViewTeacher{{ @teacher['teacherid'] }}"
-                                        type="submit">
-                                        {{ @teacher['name'] }}
-                                    </button>
-                                    <check if="{{ (@teacher['daysLeft']) < 0}}">
-                                        <true>
-                                            <button class="btn btn-black col-5 col-sm-3 ml-0" data-toggle="modal"
-                                                data-target="#modalViewTeacher{{ @teacher['teacherid'] }}">License
-                                                Expired
-                                            </button>
-                                        </true>
-                                        <false>
-                                            <button class="btn btn-red col-5 col-sm-3 ml-0" data-toggle="modal"
-                                                data-target="#modalViewTeacher{{ @teacher['teacherid'] }}">{{ @teacher['daysLeft'] }}
-                                                Days
-                                                Left
-                                            </button>
-                                        </false>
-                                    </check>
-                                </div>
-                            </true>
-                            <false>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn btn-primary col-7 col-sm-9 view-attendance mr-0" name="student"
-                                        data-toggle="modal" data-target="#modalViewTeacher{{ @teacher['teacherid'] }}"
-                                        type="submit">
-                                        {{ @teacher['name'] }}
-                                    </button>
-                                    <button class="btn btn-brown col-5 col-sm-3 ml-0" data-toggle="modal"
-                                        data-target="#modalViewTeacher{{ @teacher['teacherid'] }}">No
-                                        License</button>
-                                </div>
-                            </false>
-                        </check>
-                    </repeat>
-                </div>
-                </div>
-
-                <div class="tab-pane fade" id="pills-helpers" role="tabpanel" aria-labelledby="pills-helpers-tab">
-
-                    <div class="justify-content-center">
-
-                        <div class="text-center">
-                            <a href="" class="btn btn-secondary col-12 m-0" data-toggle="modal"
-                                data-target="#modalAddHelper">+
-                                Add</a>
-                        </div>
-
-                    </div>
-                    <repeat group="{{ @helpers }}" value="{{ @helper1 }}">
-
-                        <!-- Modal to view a helper -->
-                        <div class="modal fade" id="modalViewHelper{{ @helper1['helperid'] }}" tabindex="-1"
-                            role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold">{{ @helper1['name'] }}
-                                        </h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
-
-                                    <!-- pills -->
-                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        <li class="nav-item mr-auto ml-auto mt-2">
-                                            <a class="nav-link active" id="pills-helper-tab" data-toggle="pill"
-                                                href="#pills-helper{{ @helper1['helperid'] }}" role="tab"
-                                                aria-controls="pills-helper" aria-selected="true">Helper</a>
-                                        </li>
-                                        <li class="nav-item mr-auto ml-auto mt-2">
-                                            <a class="nav-link" id="pills-edit-helpers1-tab" data-toggle="pill"
-                                                href="#pills-edit-helpers1{{ @helper1['helperid'] }}" role="tab"
-                                                aria-controls="pills-edit-helper1" aria-selected="false">Edit</a>
-                                        </li>
-                                        <li class="nav-item mr-auto ml-auto mt-2">
-                                            <a class="nav-link" id="pills-delete-helper1-tab" data-toggle="pill"
-                                                href="#pills-delete-helpers1{{ @helper1['helperid'] }}" role="tab"
-                                                aria-controls="pills-delete-helpers1" aria-selected="false">Delete</a>
-                                        </li>
-                                    </ul>
-
-                                    <div class="tab-content pt-2 pl-1" id="pills-tabContent">
-                                        <div class="tab-pane fade show active"
-                                            id="pills-helper{{ @helper1['helperid'] }}" role="tabpanel"
-                                            aria-labelledby="pills-helper-tab">
 
 
                                                     <div class="modal-body mx-3 mb-4">
 
-<<<<<<< HEAD
 
                                                         <div class="text-center">
                                                             <h3>Class: {{ @helper1['className'] }}</h3>
                                                         </div>
                                                     </div>
                                                 </div>
-=======
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
 
-                                            <div class="modal-body mx-3 mb-4">
 
-<<<<<<< HEAD
                                                 <!-- edit pill -->
                                                 <div class="tab-pane fade"
                                                     id="pills-edit-helpers1{{ @helper1['helperid'] }}" role="tabpanel"
@@ -1371,26 +1104,9 @@
                                                                     value="{{ @helper1['name'] }}" required>
                                                                 <label for="updateHelperName">Name</label>
                                                             </div>
-=======
 
-                                                <div class="text-center">
-                                                    <h3>Class: {{ @helper1['className'] }}</h3>
-                                                </div>
-                                            </div>
-                                        </div>
 
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
 
-                                        <!-- edit pill -->
-                                        <div class="tab-pane fade" id="pills-edit-helpers1{{ @helper1['helperid'] }}"
-                                            role="tabpanel" aria-labelledby="pills-edit-helpers1-tab">
-                                            <form action="" method="POST">
-                                                <div class="modal-body mx-3">
-
-                                                    <input type="hidden" name="helperid"
-                                                        value="{{ @helper1['helperid'] }}" />
-
-<<<<<<< HEAD
                                                             <div class="md-form mb-4">
                                                                 <select class="browser-default custom-select"
                                                                     name="updateHelperClass">
@@ -1438,79 +1154,15 @@
                                                             </div>
                                                         </form>
                                                     </div>
-=======
-                                                    <div class="md-form mb-5">
-                                                        <i class="fas fa-user prefix grey-text"></i>
-                                                        <input type="text" id="updateHelperName" name="updateHelperName"
-                                                            class="form-control" value="{{ @helper1['name'] }}"
-                                                            required>
-                                                        <label for="updateHelperName">Name</label>
-                                                    </div>
 
 
-
-                                                    <div class="md-form mb-4">
-                                                        <select class="browser-default custom-select"
-                                                            name="updateHelperClass">
-                                                            <option value="{{ @helper1['classid'] }}" selected>
-                                                                {{ @helper1['className'] }}
-                                                            </option>
-                                                            <repeat group="{{ @classes }}" value="{{ @class11 }}">
-                                                                <check
-                                                                    if="{{ @helper1['className'] != @class11['className']  }}">
-                                                                    <option value="{{ @class11['classid'] }}">
-                                                                        {{ @class11['className'] }}
-                                                                    </option>
-                                                                </check>
-                                                            </repeat>
-                                                        </select>
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="modal-footer d-flex justify-content-center">
-                                                    <button class="btn btn-amber" type="submit">Update</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!--/ edit pill -->
-
-
-                                        <!--/ delete pill -->
-                                        <div class="tab-pane fade" id="pills-delete-helpers1{{ @helper1['helperid'] }}"
-                                            role="tabpanel" aria-labelledby="pills-delete-helpers1-tab">
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
-
-                                            <div class="modal-body mx-3">
-                                                <form action="" method="POST">
-                                                    <div class="text-center">
-                                                        <input type="hidden" name="deleteHelper"
-                                                            value="{{ @helper1['helperid'] }}" />
-
-<<<<<<< HEAD
                                                 </div>
                                                 <!--/ delete pill -->
                                             </div>
                                             <!-- pills -->
                                         </div>
-=======
-                                                        <h5>Are you sure you want to delete
-                                                            {{ @helper1['name'] }}
-                                                            ?</h5>
-                                                        <button class="btn btn-red mt-5 col-4"
-                                                            type="submit">Yes!</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-
-
-                                        </div>
-                                        <!--/ delete pill -->
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
                                     </div>
-                                    <!-- pills -->
                                 </div>
-<<<<<<< HEAD
                                 <!--/ Modal to view a helper -->
 
 
@@ -1530,7 +1182,7 @@
 
                                 <div class="text-center modal-footer">
 
-                                    <a href="" class="btn peach-gradient text-white w-50 mb-3 ml-auto mr-auto" data-toggle="modal"
+                                    <a href="" class="btn peach-gradient text-white w-50 m-0 mb-3 ml-auto mr-auto" data-toggle="modal"
                                         data-target="#modalAddClass">+ Add</a>
                                 </div>
                             </div>
@@ -1585,83 +1237,6 @@
 
 
                     <br>
-=======
-                            </div>
-                        </div>
-                        <!--/ Modal to view a helper -->
-
-
-
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-secondary w-100 view-attendance mr-0 ml-0"
-                                value="{{ @helper1['helperid'] }}" data-toggle="modal"
-                                data-target="#modalViewHelper{{ @helper1['helperid'] }}">{{ @helper1['name'] }}
-                            </button>
-                        </div>
-                    </repeat>
-                </div>
-                <div class="tab-pane fade" id="pills-classes" role="tabpanel" aria-labelledby="pills-classes-tab">
-
-                    <div class="justify-content-center">
-
-                        <div class="text-center">
-
-                            <a href="" class="btn btn-amber col-12 m-0" data-toggle="modal"
-                                data-target="#modalAddClass">+ Add</a>
-                        </div>
-                    </div>
-                    <repeat group="{{ @classes }}" value="{{ @class }}">
-                        <!-- Modal to change name of a class -->
-                        <div class="modal fade" id="modalRenameClass{{ @class['classid'] }}" tabindex="-1" role="dialog"
-                            aria-labelledby="myModalLabel" aria-hidden="true">
-                            <form action="" method="POST">
-
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold">Rename
-                                                {{ @class['className'] }}
-                                            </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mx-3">
-                                            <div class="md-form mb-5">
-                                                <input type="hidden" name="updateClassNameID"
-                                                    value="{{ @class[classid ]}}" />
-
-                                                <i class="fas fa-users prefix grey-text"></i>
-                                                <input type="text" id="updateClassName" name="updateClassName"
-                                                    class="form-control" required>
-                                                <label for="updateClassName">New Class Title</label>
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center">
-                                            <button class="btn btn-amber" type="submit">Update</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-                        <!--/ Modal to change name of a class -->
-
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-amber w-100 view-attendance mr-0 ml-0" name="student"
-                                value="{{ @class['classid'] }}" data-toggle="modal"
-                                data-target="#modalRenameClass{{ @class['classid'] }}" type="submit">
-                                {{ @class['className'] }}
-                            </button>
-                        </div>
-                    </repeat>
-                </div>
-
-
->>>>>>> 9a4522ef2c320052677f67520c11fd85471cf0f9
-
-        <br>
 
 
 
@@ -1669,8 +1244,8 @@
 
 
 
-        </article>
-        <!-- /Teacher tab -->
+            </article>
+            <!-- /Teacher tab -->
 
 
         <!-- Modal to add a class -->
@@ -2169,5 +1744,4 @@
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
-
 </html>
