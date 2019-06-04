@@ -303,7 +303,7 @@
                                                             <h5>Are you sure you want to delete
                                                                 {{ @teacher1['name'] }}
                                                                 ?</h5>
-                                                            <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                            <button class="btn btn-red mt-5 col-4" type="submit">Yes!</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -449,7 +449,7 @@
                                                             <h5>Are you sure you want to delete
                                                                 {{ @helper['name'] }}
                                                                 ?</h5>
-                                                            <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                            <button class="btn btn-red mt-5 col-4" type="submit">Yes!</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -604,7 +604,7 @@
                                                                 value="{{ @student['sid'] }}" />
                                                             <h5>Are you sure you want to delete {{ @student['first'] }}
                                                                 {{ @student['last'] }}?</h5>
-                                                            <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                            <button class="btn btn-red mt-5 col-4" type="submit">Yes!</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -800,13 +800,23 @@
                 <div class="tab-content pt-2 pl-1" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-teachers" role="tabpanel"
                         aria-labelledby="pills-teachers-tab">
+<<<<<<< HEAD
                         
                         <div class="justify-content-center">
                                 <div class="text-center">
                                     <a href="" class="btn btn-primary col-12 m-0" data-toggle="modal" data-target="#modalAddTeacher">
                                         + Add</a>
                                 </div>
+=======
+
+                        <div class="d-sm-flex justify-content-center col-12">
+                            <div class="text-center col-12 col-sm-4 p-1">
+                                <a href="" class="btn btn-primary col-12" data-toggle="modal"
+                                    data-target="#modalAddTeacher">
+                                    + Add</a>
+>>>>>>> 1d7c9214d39ee11b990fb83ca8025ff0fc986756
                             </div>
+                        </div>
 
                         <repeat group="{{ @teachers }}" value="{{ @teacher }}">
                             <!-- Modal to view a teacher -->
@@ -954,7 +964,7 @@
                                                             <h5>Are you sure you want to delete
                                                                 {{ @teacher['name'] }}
                                                                 ?</h5>
-                                                            <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                            <button class="btn btn-red mt-5 col-4" type="submit">Yes!</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -1011,6 +1021,7 @@
                     </div>
                     <div class="tab-pane fade" id="pills-helpers" role="tabpanel" aria-labelledby="pills-helpers-tab">
 
+<<<<<<< HEAD
                             <div class="justify-content-center">
                                    
                                     <div class="text-center">
@@ -1019,6 +1030,17 @@
                                     </div>
                                     
                                 </div>
+=======
+                        <div class="d-sm-flex justify-content-center col-12">
+
+                            <div class="text-center col-12 col-sm-4 p-1">
+                                <a href="" class="btn btn-secondary col-12" data-toggle="modal"
+                                    data-target="#modalAddHelper">+
+                                    Add</a>
+                            </div>
+
+                        </div>
+>>>>>>> 1d7c9214d39ee11b990fb83ca8025ff0fc986756
                         <repeat group="{{ @helpers }}" value="{{ @helper1 }}">
 
                             <!-- Modal to view a helper -->
@@ -1133,7 +1155,7 @@
                                                             <h5>Are you sure you want to delete
                                                                 {{ @helper1['name'] }}
                                                                 ?</h5>
-                                                            <button class="btn btn-red mt-5" type="submit">Yes!</button>
+                                                            <button class="btn btn-red mt-5 col-4" type="submit">Yes!</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -1160,6 +1182,7 @@
                     </div>
                     <div class="tab-pane fade" id="pills-classes" role="tabpanel" aria-labelledby="pills-classes-tab">
 
+<<<<<<< HEAD
                             <div class="justify-content-center">
                      
                                     <div class="text-center">
@@ -1167,6 +1190,16 @@
                                         <a href="" class="btn btn-amber col-12 m-0" data-toggle="modal" data-target="#modalAddClass">+ Add</a>
                                     </div>
                                 </div>
+=======
+                        <div class="d-sm-flex justify-content-center col-12">
+
+                            <div class="text-center col-12 col-sm-4 p-1">
+
+                                <a href="" class="btn btn-amber col-12" data-toggle="modal"
+                                    data-target="#modalAddClass">+ Add</a>
+                            </div>
+                        </div>
+>>>>>>> 1d7c9214d39ee11b990fb83ca8025ff0fc986756
                         <repeat group="{{ @classes }}" value="{{ @class }}">
                             <!-- Modal to change name of a class -->
                             <div class="modal fade" id="modalRenameClass{{ @class['classid'] }}" tabindex="-1"
@@ -1217,7 +1250,7 @@
                     </div>
                 </div>
 
-                
+
                 <br>
 
 
@@ -1370,6 +1403,12 @@
                                                     </true>
                                                 </check>
                                             </repeat>
+                                            <div class="modal-footer d-flex justify-content-center mt-4 pb-0">
+                                                <button class="btn btn-outline-red text-center w-50" data-toggle="modal"
+                                                    data-target="#modalDeleteSchedule{{ @oneDate['date'] }}"
+                                                    data-dismiss="modal" aria-label="Close">Reset
+                                                </button>
+                                            </div>
                                         </false>
                                     </check>
                                 </div>
@@ -1399,11 +1438,12 @@
                                                     <true>
                                                         <form method="post">
                                                             <div class="text-center">
-                                                                <input type="hidden" name="deleteSchedule" value="{{ @oneDate['date'] }}" />
-                                                                <h5>You already set a schedule for
-                                                                    {{ @oneDate['niceDate'] }}.
-                                                                    Do you want to delete schedule for this date?</h5>
-                                                                <button class="btn btn-red mt-4"
+                                                                <input type="hidden" name="deleteSchedule"
+                                                                    value="{{ @oneDate['date'] }}" />
+                                                                <h5>
+                                                                    Do you want to delete schedule for
+                                                                    {{ @oneDate['niceDate'] }}?</h5>
+                                                                <button class="btn btn-red mt-4 col-4"
                                                                     type="submit">Yes!</button>
                                                             </div>
                                                         </form>
