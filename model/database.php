@@ -168,6 +168,23 @@ class Database
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
+
+    public function viewSchedule()
+    {
+        global $dbh;
+        $sql = "SELECT teachers.name,
+        schedule.date, schedule.teacherid, schedule.scheduled, classes.classid
+        FROM teachers
+        INNER JOIN schedule
+        ON teachers.teacherid = schedule.teacherid
+        INNER JOIN classes 
+        ON teachers.classid = classes.classid;";
+        $statement = $dbh->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
     public function getAttendanceCount($date, $sid)
     {
         global $dbh;
