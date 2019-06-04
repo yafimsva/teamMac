@@ -139,11 +139,13 @@ $f3->route('GET|POST /admin', function ($f3) {
 	$classes = $db->getClasses();
 	$helpers = $db->getHelpers();
 	$scheduleDates = $db->getScheduleDates();
+	$viewSchedules = $db->viewSchedule();
 	$f3->set('students', $students);
 	$f3->set('teachers', $teachers);
 	$f3->set('classes', $classes);
 	$f3->set('helpers', $helpers);
 	$f3->set('scheduleDates', $scheduleDates);
+	$f3->set('viewSchedules', $viewSchedules);
 	$f3->set('datesForTeachers', $datesForTeachers);
 	$f3->set('this_month_name', $this_month_name);
 	$f3->set('next_month_name', $next_month_name);

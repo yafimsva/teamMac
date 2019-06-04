@@ -1219,8 +1219,8 @@
                 <h3 class="text-center">{{ @this_month_name }}</h3>
                 <repeat group="{{ @datesForTeachers }}" value="{{ @oneDate }}">
 
-                    <!-- Modal to view schedule -->
-                    <div class="modal fade" id="modalViewSchedule{{ @oneDate['date'] }}" tabindex="-1" role="dialog"
+                    <!-- Modal to set schedule -->
+                    <div class="modal fade" id="modalSetSchedule{{ @oneDate['date'] }}" tabindex="-1" role="dialog"
                         aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -1239,14 +1239,14 @@
                                                 <check if="{{ @scheduleDate }} == {{ @oneDate['date'] }}">
                                                     <false>
 
-                                                        
+
                                                     </false>
 
                                                 </check>
 
 
                                             </repeat>
-                                                <form method="POST" action="">
+                                            <form method="POST" action="">
                                                 <repeat group="{{ @teachers }}" value="{{ @teacher }}">
                                                     <div class="d-flex justify-content-center">
                                                         <label
@@ -1272,25 +1272,86 @@
                             </div>
                         </div>
                     </div>
+                    <!--/ Modal to set schedule -->
+
+
+                    <!-- Modal to view schedule -->
+                    <div class="modal fade" id="modalViewSchedule{{ @oneDate['date'] }}" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">11{{ @oneDate['niceDate'] }}
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body mx-1 pb-4">
+                                    <!-- Loop for posts from database -->
+                                    <check if="{{ empty(@teachers) }}">
+                                        <false>
+                                            <repeat group="{{ @viewSchedules }}" value="{{ @viewSchedule }}">
+                                                <check if="{{ @viewSchedule['date'] }} == {{ @oneDate['date'] }}">
+                                                    <true>
+                                                        <check if="{{ @viewSchedule['scheduled'] }} == 1">
+                                                            <true>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <button
+                                                                        class="btn btn-success text-white mt-2 w-100">
+                                                                        {{ @viewSchedule['name'] }}
+                                                                    </button>
+                                                                </div>
+                                                            </true>
+                                                            <false>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <button class="btn btn-red text-white mt-2 w-100">
+                                                                        {{ @viewSchedule['name'] }}
+                                                                    </button>
+                                                                </div>
+                                                            </false>
+                                                        </check>
+                                                    </true>
+                                                </check>
+                                            </repeat>
+                                        </false>
+                                    </check>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--/ Modal to view a schedule -->
+
 
                     <check if="{{ @oneDate['dayName'] }} == 'Sun'">
                         <true>
+                            <!-- this month buttons -->
                             <check if="{{ @this_month_name }} == {{ @oneDate['monthName'] }}">
                                 <true>
                                     <div class="d-flex justify-content-center">
                                         <button class="btn btn-secondary w-100 view-attendance"
-                                            data-toggle="modal" data-target="#modalViewSchedule{{ @oneDate['date'] }}">
+                                            id="viewSchedule{{ @oneDate['date'] }}" data-toggle="modal"
+                                            data-target="#modalSetSchedule{{ @oneDate['date'] }}">
                                             {{ @oneDate['niceDate'] }}
                                         </button>
                                         <repeat group="{{ @scheduleDates }}" value="{{ @scheduleDate }}">
                                             <check if="{{ @scheduleDate['date'] }} == @oneDate['date']">
                                                 <true>
+                                                    <!-- new button that comes with a checkmark -->
+                                                    <button class="btn btn-secondary w-100 view-attendance"
+                                                        data-toggle="modal"
+                                                        data-target="#modalViewSchedule{{ @oneDate['date'] }}">
+                                                        {{ @oneDate['niceDate'] }}
+                                                    </button>
                                                     <button class="btn btn-green col-1 view-attendance ml-0 pl-4"
                                                         data-toggle="modal"
                                                         data-target="#modalViewSchedule{{ @oneDate['date'] }}"><i
                                                             class="fas fa-check "></i>
                                                     </button>
+                                                    <script>
+                                                        document.getElementById("viewSchedule{{ @oneDate['date'] }}").outerHTML = "";
+                                                    </script>
+
                                                 </true>
                                             </check>
                                         </repeat>
@@ -1308,21 +1369,33 @@
 
                     <check if="{{ @oneDate['dayName'] }} == 'Sun'">
                         <true>
+                            <!-- next month buttons -->
                             <check if="{{ @next_month_name }} == {{ @oneDate['monthName'] }}">
                                 <true>
                                     <div class="d-flex justify-content-center">
-                                        <button class="btn btn-secondary w-100 view-attendance" data-toggle="modal"
-                                            data-target="#modalViewSchedule{{ @oneDate['date'] }}">
+                                        <button class="btn btn-secondary w-100 view-attendance"
+                                            id="viewSchedule{{ @oneDate['date'] }}" data-toggle="modal"
+                                            data-target="#modalSetSchedule{{ @oneDate['date'] }}">
                                             {{ @oneDate['niceDate'] }}
                                         </button>
                                         <repeat group="{{ @scheduleDates }}" value="{{ @scheduleDate }}">
                                             <check if="{{ @scheduleDate['date'] }} == @oneDate['date']">
                                                 <true>
+                                                    <!-- new button that comes with a checkmark -->
+                                                    <button class="btn btn-secondary w-100 view-attendance"
+                                                        data-toggle="modal"
+                                                        data-target="#modalViewSchedule{{ @oneDate['date'] }}">
+                                                        {{ @oneDate['niceDate'] }}
+                                                    </button>
+
                                                     <button class="btn btn-green col-1 view-attendance ml-0 pl-4"
                                                         data-toggle="modal"
                                                         data-target="#modalViewSchedule{{ @oneDate['date'] }}"><i
                                                             class="fas fa-check "></i>
                                                     </button>
+                                                    <script>
+                                                        document.getElementById("viewSchedule{{ @oneDate['date'] }}").outerHTML = "";
+                                                    </script>
                                                 </true>
                                             </check>
                                         </repeat>
