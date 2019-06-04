@@ -312,8 +312,13 @@ $f3->route('GET|POST /admin', function ($f3) {
 			} else {
 				$f3->reroute('admin#schedule');
 			}
+	}
 
-
+	//delete schedule for one date
+	if (isset($_POST['deleteSchedule']))
+	{
+		$db->deleteScheduleForOneDate($_POST['deleteSchedule']);
+		$f3->reroute('admin#schedule');
 	}
 
 	$template = new Template();

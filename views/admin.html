@@ -1281,7 +1281,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold">11{{ @oneDate['niceDate'] }}
+                                    <h4 class="modal-title w-100 font-weight-bold">{{ @oneDate['niceDate'] }}
                                     </h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -1322,6 +1322,47 @@
                     </div>
                     <!--/ Modal to view a schedule -->
 
+                    <!-- Modal to delete schedule -->
+                    <div class="modal fade" id="modalDeleteSchedule{{ @oneDate['date'] }}" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">{{ @oneDate['niceDate'] }}
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body mx-1 pb-0">
+                                    <!-- Loop for posts from database -->
+                                    <check if="{{ empty(@teachers) }}">
+                                        <false>
+                                            <repeat group="{{ @scheduleDates }}" value="{{ @scheduleDate }}">
+                                                <check if="{{ @scheduleDate['date'] }} == {{ @oneDate['date'] }}">
+                                                    <true>
+                                                        <form method="post">
+                                                            <div class="text-center">
+                                                                <input type="hidden" name="deleteSchedule" value="{{ @oneDate['date'] }}" />
+                                                                <h5>You already set a schedule for
+                                                                    {{ @oneDate['niceDate'] }}.
+                                                                    Do you want to delete schedule for this date?</h5>
+                                                                <button class="btn btn-red mt-4"
+                                                                    type="submit">Yes!</button>
+                                                            </div>
+                                                        </form>
+
+                                                    </true>
+                                                </check>
+                                            </repeat>
+                                        </false>
+                                    </check>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Modal to delete a schedule -->
+
 
                     <check if="{{ @oneDate['dayName'] }} == 'Sun'">
                         <true>
@@ -1345,7 +1386,7 @@
                                                     </button>
                                                     <button class="btn btn-green col-1 view-attendance ml-0 pl-4"
                                                         data-toggle="modal"
-                                                        data-target="#modalViewSchedule{{ @oneDate['date'] }}"><i
+                                                        data-target="#modalDeleteSchedule{{ @oneDate['date'] }}"><i
                                                             class="fas fa-check "></i>
                                                     </button>
                                                     <script>
@@ -1390,7 +1431,7 @@
 
                                                     <button class="btn btn-green col-1 view-attendance ml-0 pl-4"
                                                         data-toggle="modal"
-                                                        data-target="#modalViewSchedule{{ @oneDate['date'] }}"><i
+                                                        data-target="#modalDeleteSchedule{{ @oneDate['date'] }}"><i
                                                             class="fas fa-check "></i>
                                                     </button>
                                                     <script>
@@ -1405,9 +1446,6 @@
                         </true>
                     </check>
                 </repeat>
-
-
-
             </article>
             <!-- /Schedule tab -->
 

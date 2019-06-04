@@ -524,6 +524,16 @@ class Database
         return $results;
     }
 
+    public function deleteScheduleForOneDate($date)
+    {
+        global $dbh;
+        $sql = "DELETE FROM schedule WHERE date = :date;";
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+
+        $statement->execute();
+    }
+
     public function getScheduleDates()
     {
         global $dbh;
