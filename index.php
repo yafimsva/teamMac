@@ -111,31 +111,37 @@ $f3->route('GET|POST /', function ($f3) {
 
 		$usernameExists = $db->usernameExists($_POST['username']);
 
+		$_SESSION['username'] = $_POST['username'];
+		$_SESSION['password'] = $_POST['password'];
+
 		if($usernameExists)
 		{
 			$results = $db->checkLogin($_POST['username'], $_POST['password']);
+
+			if (isset($results['teacherid'])) {
+				$_SESSION['teacherLogin'] = true;
+				$_SESSION['teacherid'] = $results['teacherid'];
+				$_SESSION['name'] = $results['name'];
+				$_SESSION['username'] = $results['username'];
+				$_SESSION['classid'] = $results['classid'];
+				$_SESSION['class'] = $results['className'];
+				$_SESSION['daysLeft'] = $results['daysLeft'];
+				$f3->reroute('home');
+			} else {
+				$_SESSION['usernameError'] = "valid";
+				$_SESSION['loginError'] = "invalid";
+	
+				$f3->reroute('/');
+			}
 		}
 		else
 		{
-			$_SESSION['usernameError'] = true;
+			$_SESSION['loginError'] = "valid";
+			$_SESSION['usernameError'] = "invalid";
 		}
 
 		
-		if (isset($results['teacherid'])) {
-			$_SESSION['teacherLogin'] = true;
-			$_SESSION['teacherid'] = $results['teacherid'];
-			$_SESSION['name'] = $results['name'];
-			$_SESSION['username'] = $results['username'];
-			$_SESSION['classid'] = $results['classid'];
-			$_SESSION['class'] = $results['className'];
-			$_SESSION['daysLeft'] = $results['daysLeft'];
-			$f3->reroute('home');
-		} else {
-			$_SESSION['loginError'] = true;
-			$_SESSION['username'] = $_POST['username'];
-
-			$f3->reroute('/');
-		}
+		
 		print_r($_SESSION);
 	}
 	$template = new Template();
