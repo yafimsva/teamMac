@@ -224,15 +224,13 @@
 											<repeat group="{{ @mySchedule }}" value="{{ @schedule }}">
 												<check if="{{ @schedule['scheduled'] }} == 1">
 													<true>
-														<button class="btn btn-success w-100"
-															name="date" type="submit">
-															{{ @schedule['date'] }}															{{ @attendance['last'] }}
+														<button class="btn btn-success w-100" name="date" type="submit">
+															{{ @schedule['date'] }} {{ @attendance['last'] }}
 														</button>
 													</true>
 													<false>
-														<button class="btn btn-red w-100"
-															name="date" type="submit">
-															{{ @schedule['date'] }}															{{ @attendance['last'] }}
+														<button class="btn btn-red w-100" name="date" type="submit">
+															{{ @schedule['date'] }} {{ @attendance['last'] }}
 														</button>
 													</false>
 												</check>
@@ -357,36 +355,52 @@
 								</div>
 								<div class="modal-body mx-3">
 									<article id="calendar" class="panel">
-										<repeat group="{{ @attendances }}" value="{{ @attendance }}">
-											<check if="{{ @dates['date'] }} == {{ @attendance['date'] }}">
-												<true>
-													<check if="{{ @attendance['present'] }} == 1">
-														<true>
-															<div class=" d-flex justify-content-center">
-																<button id="{{ @attendance['sid'] }}"
-																	class="btn btn-success w-100 view-attendance"
-																	name="date" value="{{ @attendance['sid'] }}"
-																	type="submit">
-																	{{ @attendance['first'] }}
-																	{{ @attendance['last'] }}
-																</button>
-															</div>
-														</true>
-														<false>
-															<div class=" d-flex justify-content-center">
-																<button id="{{ @attendance['sid'] }}"
-																	class="btn btn-red w-100 view-attendance"
-																	name="date" value="{{ @attendance['sid'] }}"
-																	type="submit">
-																	{{ @attendance['first'] }}
-																	{{ @attendance['last'] }}
-																</button>
-															</div>
-														</false>
-													</check>
-												</true>
-											</check>
-										</repeat>
+										<form method="POST" action="">
+											<input type="date" name="date" value="{{ @dates['date'] }}" hidden>
+											<repeat group="{{ @attendances }}" value="{{ @attendance }}">
+												<check if="{{ @dates['date'] }} == {{ @attendance['date'] }}">
+													<true>
+														<check if="{{ @attendance['present'] }} == 1">
+															<true>
+																<div class="d-flex justify-content-center">
+																	<label
+																		class="btn btn-success text-white mt-2 attendance-student w-100">
+																		<input type="checkbox" name="updateAttendance[]"
+																			value="{{ @attendance['sid'] }}"
+																			checked="checked">
+																		{{ @attendance['last'] }},
+																		{{ @attendance['first'] }}
+
+																	</label>
+																</div>
+															</true>
+															<false>
+																<div class="d-flex justify-content-center">
+																	<label
+																		class="btn btn-danger text-white mt-2 attendance-student w-100">
+																		<input type="checkbox" name="updateAttendance[]"
+																			value="{{ @attendance['sid'] }}">
+																		{{ @attendance['last'] }},
+																		{{ @student['first'] }}
+
+																	</label>
+																</div>
+
+
+															</false>
+														</check>
+													</true>
+												</check>
+											</repeat>
+
+
+											<div
+												class="modal-footer d-flex justify-content-center mt-4">
+												<button class="btn btn-default w-50 updateSubmit" style="display: none;" type="submit">
+													Update
+												</button>
+											</div>
+										</form>
 									</article>
 								</div>
 							</div>
@@ -462,7 +476,6 @@
 
 			<script>
 				$(document).ready(function () {
-
 					$(".attendance-student").click(function (evt) {
 						evt.stopPropagation();
 						evt.preventDefault();
@@ -477,6 +490,11 @@
 							$(this).addClass('btn-success');
 							$(this).children('input[type=checkbox]').prop('checked', true);
 						}
+
+						var text = $(this).parent().nextAll('.modal-footer').find('button');
+
+						$(text).css("display", "block !important");
+						
 					});
 					$('#materialIndeterminate2').prop('indeterminate', true);
 				});

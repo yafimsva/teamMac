@@ -32,22 +32,29 @@ $f3->route('GET|POST /home', function ($f3) {
 	$f3->set('attendances', $attendances);
 	$f3->set('mySchedule', $mySchedule);
 
+	if(isset($_POST['updateAttendance']))
+	{
+		$db->teacherUpdateAttendanceToAbsent($_SESSION['classid'], $_POST['date']);
 
-	// if (isset($_POST['students'])) {
-	// 	$_SESSION['students'] = $_POST['students'];
-	// 	$array = $_POST['students'];
-	// 	foreach ($students as $student) {
-	// 		if ($db->getAttendanceCount($_POST['date'], $student['sid']) == 0) {
-	// 			$db->takeAttendance($_POST['date'], $student['sid'], false);
-	// 		}
-	// 	}
-	// 	foreach ($array as $sid) {
-	// 		// if ($db->getAttendance($_POST['date'], $sid, true) == 0) {
-	// 		$db->updateAttendance($sid, true, $_POST['date']);
-	// 		// }
-	// 	}
-	// 	$f3->reroute('home#');
-	// }
+		$classid = $_SESSION['classid'];
+		$date =$_POST['date'];
+
+		foreach ($_POST['updateAttendance'] as $sid) {
+			$db->teacherUpdateAttendance($_SESSION['classid'], $_POST['date'], $sid);
+			// $taken = $db->checkIfAttedanceTaken($_POST['date'], $sid);
+			// if(sizeof($taken) == 0)
+			// {
+			// 	$db->takeAttendance($_POST['date'], $sid);
+			// }
+			// else
+			// {
+			// 	echo("<script>alert('ERROR: Duplicate attendance entires')</script>");
+			// }
+		}
+
+		$f3->reroute('home#calendar');
+	}
+
 	if (isset($_POST['attendance'])) {
 		$duplicate = false;
 

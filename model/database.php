@@ -93,6 +93,50 @@ class Database
             print_r($arr[2]);
         }
     }
+
+    function teacherUpdateAttendanceToAbsent($classid, $date)
+    {
+        global $dbh;
+
+        $sql = "UPDATE attendance
+        INNER JOIN students 
+        ON students.sid = attendance.sid
+        SET present = 0
+        WHERE students.classid = :classid AND attendance.date = :date;";
+
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->execute();
+        
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
+    function teacherUpdateAttendance($classid, $date, $sid)
+    {
+        global $dbh;
+
+        $sql = "UPDATE attendance
+        INNER JOIN students 
+        ON students.sid = attendance.sid
+        SET present = 1
+        WHERE students.classid = :classid AND attendance.date = :date AND attendance.sid = :sid;";
+
+        $statement = $dbh->prepare($sql);
+        $statement->bindValue(':classid', $classid, PDO::PARAM_STR);
+        $statement->bindValue(':date', $date, PDO::PARAM_STR);
+        $statement->bindValue(':sid', $sid, PDO::PARAM_STR);
+        $statement->execute();
+        
+        $arr = $statement->errorInfo();
+        if (isset($arr[2])) {
+            print_r($arr[2]);
+        }
+    }
+
     function updateAttendance($sid, $present, $date)
     {
         global $dbh;
@@ -427,7 +471,6 @@ class Database
             print_r($arr[2]);
         }
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-        print_r($results);
         return $results;
     }
 
