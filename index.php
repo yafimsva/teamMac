@@ -380,6 +380,7 @@ $f3->route('GET|POST /upload', function($f3) {
         }
     }
 });
+
 $f3->route('GET|POST /add_directory', function ($f3) {
     $target_dir = $_POST['location'] . '/';
     $currentLocation = str_replace(' ', '%20', $target_dir);
@@ -388,6 +389,29 @@ $f3->route('GET|POST /add_directory', function ($f3) {
     $f3->reroute('admin#files');
 //    $f3->reroute('admin#' . $currentLocation);
 });
+
+$f3->route('GET|POST /delete/files/*', function ($f3, $params) {
+    $dir = 'files/' . $params['*'];
+    if(is_file($dir)) {
+        unlink($dir);
+    }
+    else {
+        $it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
+        $files = new RecursiveIteratorIterator($it,
+            RecursiveIteratorIterator::CHILD_FIRST);
+        foreach($files as $file) {
+            if ($file->isDir()){
+                rmdir($file->getRealPath());
+            } else {
+                unlink($file->getRealPath());
+            }
+        }
+        rmdir($dir);
+    }
+
+    $f3->reroute('admin#files');
+});
+
 $f3->route('GET|POST /logout', function ($f3) {
     session_destroy();
     $f3->reroute('/');

@@ -298,8 +298,8 @@ $(function () {
 
 					var itemsLength = f.items.length,
 						name = escapeHTML(f.name),
-						icon = '<span class="icon folder"></span>';
-
+						icon = '<span class="icon folder"></span>',
+						confirmMessage = "\'Are you sure you want to delete this folder and all of its contents?\'";
 					if (itemsLength) {
 						icon = '<span class="icon folder full"></span>';
 					}
@@ -316,7 +316,7 @@ $(function () {
 
 					var folder = $('<li>' +
 						'<a href="' + 'admin#'+ f.path + '" title="' + f.path + '" class="folders">' +
-						'<a id="delete" href="delete" class="btn btn-dark col-1 ml-auto rounded shadow-none" onclick="alert(12345);"><i class="far fa-trash-alt fa-2x"></i></a>' +
+						'<a id="delete" href="delete/' + f.path + '" class="btn btn-dark col-1 ml-auto rounded shadow-none" onclick="return confirm(' + confirmMessage + ')"><i class="far fa-trash-alt fa-2x"></i></a>' +
 						icon + '<span class="name">' + name + '</span> <span class="details">' + itemsLength + '</span></a></li>');
 					folder.appendTo(fileList);
 
@@ -335,13 +335,16 @@ $(function () {
 					var fileSize = bytesToSize(f.size),
 						name = escapeHTML(f.name),
 						fileType = name.split('.'),
-						icon = '<span class="icon file"></span>';
+						icon = '<span class="icon file"></span>',
+						confirmMessage = "\'Are you sure you want to delete this folder and all of its contents?\'";
 
 					fileType = fileType[fileType.length - 1];
 
 					icon = '<span class="icon file f-' + fileType + '">.' + fileType + '</span>';
 
-					var file = $('<li class="files"><a target="_blank" href="' + f.path + '" title="' + f.path + '" class="files">' + icon + '<span class="name">' + name + '</span> <span class="details">' + fileSize + '</span></a></li>');
+					var file = $('<li class="files"><a target="_blank" href="' + f.path + '" title="' + f.path + '" class="files">' +
+						'<a id="delete" href="delete/' + f.path + '" class="btn btn-dark col-1 ml-auto rounded shadow-none" onclick="return confirm(' + confirmMessage + ')"><i class="far fa-trash-alt fa-2x"></i></a>' +
+						icon + '<span class="name">' + name + '</span> <span class="details">' + fileSize + '</span></a></li>');
 					file.appendTo(fileList);
 				});
 
