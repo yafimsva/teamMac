@@ -204,6 +204,26 @@ body {
 	text-overflow: ellipsis;
 	top: 40px;
 }
+#delete {
+	right: 0;
+    height: 30%;
+	padding: 0.3rem 1.7rem 0rem 0.3rem;
+	background-color: #373743 !important;
+	bottom: 0 !important;
+    margin-top: auto;
+}
+
+@media all and (min-width: 590px) and (max-width: 965px) {
+	#delete {
+		right: 0;
+		height: 30%;
+		padding: 0.2rem 0rem 0rem 1rem;;
+		background-color: #373743 !important;
+		bottom: 0 !important;
+		margin-top: auto;
+	}
+  }
+
 
 .filemanager .data li .details {
 	color: #b6c1c9;

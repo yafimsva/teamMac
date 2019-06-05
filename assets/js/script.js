@@ -316,7 +316,7 @@ $(function () {
 
 					var folder = $('<li>' +
 						'<a href="' + 'admin#'+ f.path + '" title="' + f.path + '" class="folders">' +
-						'<a id="delete" href="delete" class="btn btn-dark col-1 float-right" onclick="alert(12345);">X</a>' +
+						'<a id="delete" href="delete" class="btn btn-dark col-1 ml-auto rounded shadow-none" onclick="alert(12345);"><i class="far fa-trash-alt fa-2x"></i></a>' +
 						icon + '<span class="name">' + name + '</span> <span class="details">' + itemsLength + '</span></a></li>');
 					folder.appendTo(fileList);
 
