@@ -203,6 +203,7 @@ body {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	top: 40px;
+	z-index: -1;
 }
 #delete {
 	right: 0;
@@ -235,6 +236,7 @@ body {
 	white-space: nowrap;
 	position: absolute;
 	display: inline-block;
+	z-index: -1;
 }
 
 .filemanager .nothingfound {
@@ -333,6 +335,7 @@ body {
 	margin: 1em;
 	background-color: transparent;
 	overflow: hidden;
+	z-index: -1;
 }
 .icon.folder:before {
 	content: '';
@@ -381,6 +384,7 @@ body {
 	position: relative;
 	overflow: hidden;
 	box-shadow: 1.74em -2.1em 0 0 #A4A7AC inset;
+	z-index: -1;
 }
 .icon.file:first-line {
 	font-size: 13px;
