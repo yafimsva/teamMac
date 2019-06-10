@@ -1,5 +1,21 @@
 $(function () {
 
+	var parser = document.createElement('a');
+	parser.href = window.location.href;
+	var pathForBug = parser.pathname;
+	var n = pathForBug.includes("home");
+
+	if (n)
+	{
+		var bug = 'home#';
+	}
+	else
+	{
+		var bug = 'admin#';
+	}
+
+
+
 	var filemanager = $('.filemanager'),
 		breadcrumbs = $('.breadcrumbs'),
 		breadcrumbs2 = $('.breadcrumbs2'),
@@ -315,7 +331,7 @@ $(function () {
 					}
 
 					var folder = $('<li>' +
-						'<a href="' + 'admin#'+ f.path + '" title="' + f.path + '" class="folders">' +
+						'<a href="' + bug + f.path + '" title="' + f.path + '" class="folders">' +
 						'<a id="delete" href="delete/' + f.path + '" class="btn btn-dark col-1 ml-auto rounded shadow-none" onclick="return confirm(' + confirmMessage + ')"><i class="far fa-trash-alt fa-2x"></i></a>' +
 						icon + '<span class="name">' + name + '</span> <span class="details">' + itemsLength + '</span></a></li>');
 					folder.appendTo(fileList);
