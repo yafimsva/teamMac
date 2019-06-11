@@ -81,23 +81,23 @@
                         <div class="modal-body mx-3">
                             <div class="md-form mb-5">
                                 <i class="fas fa-user prefix grey-text"></i>
-                                <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                <input type="text" name="firstName" class="form-control" required>
                                 <label for="firstName">First name</label>
                             </div>
                             <div class="md-form mb-5">
                                 <i class="fas fa-user prefix grey-text"></i>
-                                <input type="text" id="lastName" name="lastName" class="form-control" required>
+                                <input type="text" name="lastName" class="form-control" required>
                                 <label for="lastName">Last name</label>
                             </div>
                             <div class="md-form mb-5">
                                 <i class="fas fa-envelope prefix grey-text"></i>
-                                <input type="text" id="email" name="email" class="form-control" required>
+                                <input type="text" name="email" class="form-control" required>
                                 <label for="email">Parents email</label>
                             </div>
 
                             <div class="md-form mb-5">
                                 <i class="fas fa-lock prefix grey-text"></i>
-                                <input type="date" id="dob" name="dob" class="form-control" required>
+                                <input type="date" name="dob" class="form-control" required>
                                 <label for="dob">
                                     Date of Birth</label>
                             </div>
@@ -234,7 +234,7 @@
 
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-user prefix grey-text"></i>
-                                                        <input type="text" id="updateTeacherName"
+                                                        <input type="text"
                                                                name="updateTeacherName" class="form-control"
                                                                value="{{ @teacher1['name'] }}" required>
                                                         <label for="updateTeacherName">Name</label>
@@ -242,7 +242,7 @@
 
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-envelope prefix grey-text"></i>
-                                                        <input type="text" id="updateTeacherUsername"
+                                                        <input type="text"
                                                                name="updateTeacherUsername" class="form-control"
                                                                value="{{ @teacher1['username'] }}" required>
                                                         <label for="updateTeacherUsername">Username</label>
@@ -250,7 +250,7 @@
 
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-lock prefix grey-text"></i>
-                                                        <input type="password" id="updatePassword"
+                                                        <input type="password"
                                                                name="updatePassword" class="form-control"
                                                                value="{{ @teacher1['password'] }}" required>
                                                         <label for="updatePassword">
@@ -259,7 +259,7 @@
 
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-lock prefix grey-text"></i>
-                                                        <input type="password" id="updateConfirmPassword"
+                                                        <input type="password"
                                                                name="updateConfirmPassword" class="form-control"
                                                                value="{{ @teacher1['password'] }}" required>
                                                         <label for="updateConfirmPassword">
@@ -269,7 +269,7 @@
                                                     <div class="form-check-label text-center mt-4 mb-5">
                                                         <label for="endDateUpdate">License Expiration Date</label>
                                                         <input placeholder="Selected date" name="endDateUpdate"
-                                                               type="date" id="endDateUpdate"
+                                                               type="date"
                                                                value="{{ @teacher1['endDate'] }}"
                                                                class="text-center form-control col-sm-5 ml-auto mr-auto" />
                                                     </div>
@@ -415,7 +415,7 @@
 
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-user prefix grey-text"></i>
-                                                        <input type="text" id="updateHelperName"
+                                                        <input type="text"
                                                                name="updateHelperName" class="form-control"
                                                                value="{{ @helper['name'] }}" required>
                                                         <label for="updateHelperName">Name</label>
@@ -554,21 +554,21 @@
 
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-user prefix grey-text"></i>
-                                                        <input type="text" id="updateFirstName"
+                                                        <input type="text"
                                                                name="updateFirstName" class="form-control"
                                                                value="{{ @student['first'] }}" required>
                                                         <label for="updateFirstName">First name</label>
                                                     </div>
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-user prefix grey-text"></i>
-                                                        <input type="text" id="updateLastName" name="updateLastName"
+                                                        <input type="text" name="updateLastName"
                                                                class="form-control" value="{{ @student['last'] }}"
                                                                required>
                                                         <label for="updateLastName">Last name</label>
                                                     </div>
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-envelope prefix grey-text"></i>
-                                                        <input type="text" id="updateEmail" name="updateEmail"
+                                                        <input type="text" name="updateEmail"
                                                                class="form-control"
                                                                value="{{ @student['parents_email'] }}" required>
                                                         <label for="updateEmail">Parents email</label>
@@ -576,7 +576,7 @@
 
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-lock prefix grey-text"></i>
-                                                        <input type="date" id="updateDob" name="updateDob"
+                                                        <input type="date" name="updateDob"
                                                                class="form-control" value="{{ @student['dob'] }}"
                                                                required>
                                                         <label for="updateDob">
@@ -671,24 +671,24 @@
                         <div class="modal-body mx-3">
                             <div class="md-form mb-5">
                                 <i class="fas fa-user prefix grey-text"></i>
-                                <input type="text" id="teacherName" name="teacherName" class="form-control"
+                                <input type="text" name="teacherName" class="form-control"
                                        required>
                                 <label for="teacherName">Name</label>
                             </div>
                             <div class="md-form mb-5">
                                 <i class="fas fa-user prefix grey-text"></i>
-                                <input type="text" id="teacherUsername" name="teacherUsername" class="form-control"
+                                <input type="text" name="teacherUsername" class="form-control"
                                        required>
                                 <label for="teacherUsername">Username</label>
                             </div>
                             <div class="md-form mb-5">
                                 <i class="fas fa-lock prefix grey-text"></i>
-                                <input type="password" id="password" name="password" class="form-control" required>
+                                <input type="password" name="password" class="form-control" required>
                                 <label for="password">Password</label>
                             </div>
                             <div class="md-form mb-5">
                                 <i class="fas fa-lock prefix grey-text"></i>
-                                <input type="password" id="confirmPassword" name="confirmPassword"
+                                <input type="password" name="confirmPassword"
                                        class="form-control" required>
                                 <label for="confirmPassword">Confirm Password</label>
                             </div>
@@ -696,7 +696,7 @@
 
                             <div class="form-check-label text-center mt-4 mb-5">
                                 <label for="endDate">License Expiration Date</label>
-                                <input placeholder="Selected date" name="endDate" type="date" id="endDate"
+                                <input placeholder="Selected date" name="endDate" type="date"
                                        class="text-center form-control col-sm-5 ml-auto mr-auto" />
                             </div>
 
@@ -739,7 +739,7 @@
                         <div class="modal-body mx-3">
                             <div class="md-form mb-5">
                                 <i class="fas fa-user prefix grey-text"></i>
-                                <input type="text" id="helperName" name="helperName" class="form-control" required>
+                                <input type="text" name="helperName" class="form-control" required>
                                 <label for="helperName">Name</label>
                             </div>
 
@@ -894,7 +894,7 @@
 
                                                         <div class="md-form mb-5">
                                                             <i class="fas fa-user prefix grey-text"></i>
-                                                            <input type="text" id="updateTeacherName"
+                                                            <input type="text"
                                                                    name="updateTeacherName" class="form-control"
                                                                    value="{{ @teacher['name'] }}" required>
                                                             <label for="updateTeacherName">Name</label>
@@ -902,7 +902,7 @@
 
                                                         <div class="md-form mb-5">
                                                             <i class="fas fa-envelope prefix grey-text"></i>
-                                                            <input type="text" id="updateTeacherUsername"
+                                                            <input type="text"
                                                                    name="updateTeacherUsername" class="form-control"
                                                                    value="{{ @teacher['username'] }}" required>
                                                             <label for="updateTeacherUsername">Username</label>
@@ -910,7 +910,7 @@
 
                                                         <div class="md-form mb-5">
                                                             <i class="fas fa-lock prefix grey-text"></i>
-                                                            <input type="password" id="updatePassword"
+                                                            <input type="password"
                                                                    name="updatePassword" class="form-control"
                                                                    value="{{ @teacher['password'] }}" required>
                                                             <label for="updatePassword">
@@ -919,7 +919,7 @@
 
                                                         <div class="md-form mb-5">
                                                             <i class="fas fa-lock prefix grey-text"></i>
-                                                            <input type="password" id="updateConfirmPassword"
+                                                            <input type="password"
                                                                    name="updateConfirmPassword" class="form-control"
                                                                    value="{{ @teacher['password'] }}" required>
                                                             <label for="updateConfirmPassword">
@@ -930,7 +930,7 @@
                                                             <label for="endDateUpdate">License Expiration
                                                                 Date</label>
                                                             <input placeholder="Selected date" name="endDateUpdate"
-                                                                   type="date" id="endDateUpdate"
+                                                                   type="date"
                                                                    value="{{ @teacher['endDate'] }}"
                                                                    class="text-center form-control col-sm-5 ml-auto mr-auto" />
                                                         </div>
@@ -1112,7 +1112,7 @@
 
                                                     <div class="md-form mb-5">
                                                         <i class="fas fa-user prefix grey-text"></i>
-                                                        <input type="text" id="updateHelperName"
+                                                        <input type="text"
                                                                name="updateHelperName" class="form-control"
                                                                value="{{ @helper1['name'] }}" required>
                                                         <label for="updateHelperName">Name</label>
@@ -1222,7 +1222,7 @@
                                                        value="{{ @class[classid ]}}" />
 
                                                 <i class="fas fa-users prefix grey-text"></i>
-                                                <input type="text" id="updateClassName" name="updateClassName"
+                                                <input type="text" name="updateClassName"
                                                        class="form-control" required>
                                                 <label for="updateClassName">New Class Title</label>
                                             </div>
@@ -1276,7 +1276,7 @@
                         <div class="modal-body mx-3">
                             <div class="md-form mb-5">
                                 <i class="fas fa-users prefix grey-text"></i>
-                                <input type="text" id="className" name="className" class="form-control" required>
+                                <input type="text" name="className" class="form-control" required>
                                 <label for="className">Class Title</label>
                             </div>
 
@@ -1735,8 +1735,6 @@
 
 <script>
     $(document).ready(function () {
-
-
 
             $(".schedule-teacher").click(function (evt) {
             evt.stopPropagation();
