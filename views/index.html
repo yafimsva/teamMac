@@ -194,15 +194,6 @@
 						</div>
 					</form>
 
-
-
-
-
-
-
-
-
-
 					<!-- Modal to view schedule -->
 					<div class="modal fade" id="modalMySchedule" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
@@ -219,24 +210,20 @@
 								<div class="modal-body mx-1">
 									<div class="md-form">
 										<div class="md-form">
-
-
 											<repeat group="{{ @mySchedule }}" value="{{ @schedule }}">
 												<check if="{{ @schedule['scheduled'] }} == 1">
 													<true>
 														<button class="btn btn-success w-100" name="date" type="submit">
-															{{ @schedule['date'] }} {{ @attendance['last'] }}
+															{{ @schedule['niceDate'] }}
 														</button>
 													</true>
 													<false>
 														<button class="btn btn-red w-100" name="date" type="submit">
-															{{ @schedule['date'] }} {{ @attendance['last'] }}
+															{{ @schedule['niceDate'] }}
 														</button>
 													</false>
 												</check>
 											</repeat>
-
-
 										</div>
 									</div>
 								</div>
@@ -245,28 +232,12 @@
 					</div>
 					<!-- /Modal to view schedule -->
 
-
-
-
-
-
-
-
-
-
-
-
 					<div class="text-center">
 						<a href="" class="btn btn-default mt-4 col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7"
 							data-toggle="modal" data-target="#modalTakeAttendance">Take Attendance</a>
 					</div>
 				</header>
-
-
 			</article>
-
-
-
 
 			<!-- All students -->
 			<article id="students" class="panel">
@@ -275,8 +246,6 @@
 				</header>
 
 				<br>
-
-
 
 				<check if="{{ empty(@helpers) }}">
 					<false>

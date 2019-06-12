@@ -552,9 +552,8 @@ class Database
 
     public function getMySchedule($teacherid)
     {
-
         global $dbh;
-        $sql = "SELECT * FROM schedule where teacherid = :teacherid ORDER BY date DESC LIMIT 15";
+        $sql = "SELECT *, DATE_FORMAT(date,'%b %d, %Y') as niceDate FROM schedule where teacherid = :teacherid ORDER BY date DESC LIMIT 15";
         $statement = $dbh->prepare($sql);
         $statement->bindValue(':teacherid', $teacherid, PDO::PARAM_STR);
 
